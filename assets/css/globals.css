@@ -1,0 +1,35 @@
+@import "variables.css";
+
+@media (max-width: 63.9375em) {
+    .hide-for-mobile {
+        display: none;
+        opacity: 0;
+        cursor: unset;
+    }
+}
+
+@media (min-width: 64em) {
+    .hide-for-desktop {
+        display: none;
+        opacity: 0;
+        cursor: unset;
+    }
+}
+
+body, html {
+    margin:0;
+    padding:0;
+    width: 100%;
+    height: min-content;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+    letter-spacing: 0.075rem;
+    color: black;
+}
+
+section {
+    padding-top: 5rem;
+}

@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap');
+
+:root {
+    /* Colors */
+    --darkgray: #404040;
+    --gray: #4D4D4D;
+    --lightgray: #999999;
+    --greengray: #6F826C;
+    --bluegray: #6F7E8C;
+
+    --limered: #b94673;
+
+    --darkblue: #385B7D;
+    --blue: #5B92C9;
+    --limeblue: #72B7FC;
+    --lightblue: #BEDDFD;
+
+    --darkgreen: #417D38;
+    --green: #69C95B;
+    --limegreen: #84FC72;
+    --lightgreen: #C6FDBE;
+
+
+
+
+
+    /* Width sizes */
+    --width-small: 40em;
+    --width-medium: 64em;
+    --width-large: 87.5em;
+}

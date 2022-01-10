@@ -1,0 +1,68 @@
+@import url('variables.css');
+
+
+
+
+
+#contact {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 80px;
+    width: 100%;
+    height: min-content;
+    z-index: 1;
+}
+
+
+
+
+
+#contact .contact-title {
+    top: 0;
+    color: #000000;
+    text-shadow: 0 0 1px #000000;
+}
+.dim-mode #contact .contact-title {
+    color: #dddddd;
+    text-shadow: 0 0 1px #dddddd, 0 0 2px #dddddd, 0 0 4px #dddddd;
+}
+
+
+
+
+
+@media (min-width:40em){
+    #contact .contact-title {
+        font-size: 2.5rem;
+    }
+}
+@media (min-width:64em){
+    #contact .contact-title {
+        font-size: 2.75rem;
+    }
+}
+@media (min-width:87.5em){
+    #contact .contact-title {
+        font-size: 3.5rem;
+    }
+}
+@media (min-width:123.75em){
+}
+@media (min-width:160em){
+    #contact .contact-title {
+        font-size: 5rem;
+    }
+}
+
+@media (max-width: 39.9375em) {
+}
+@media (max-width: 63.9375em) {
+}
+
+
+
+
+
