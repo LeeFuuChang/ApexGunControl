@@ -1,0 +1,431 @@
+#about {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 80px;
+    width: 100%;
+    height: min-content;
+    z-index: 1;
+}
+
+
+
+
+
+#about .about-title {
+    top: 0;
+    color: #000000;
+    text-shadow: 0 0 1px #000000;
+}
+.dim-mode #about .about-title {
+    color: #dddddd;
+    text-shadow: 0 0 1px #dddddd, 0 0 2px #dddddd, 0 0 4px #dddddd;
+}
+
+
+
+
+
+#about .about-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#about .about-content > div {
+    margin: 0 20px 20px 20px;
+    width: 300px;
+    height: 300px;
+}
+
+
+
+
+
+#about .about-content .about-content-description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: min-content;
+    color: black;
+}
+.dim-mode #about .about-content .about-content-description {
+    color: #bbbbbb;
+}
+#about .about-content .about-content-description .about-content-description-title {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+#about .about-content .about-content-description .about-content-description-inner {
+    position: relative;
+    top: -20px;
+}
+
+
+
+
+
+#about .about-content .about-content-bubble {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 4px solid #00000008;
+    border-radius: 50%;
+    box-shadow: 
+        inset -10px -10px 15px #ffffffe6,
+        inset 10px 10px 15px #0000000d,
+        15px 20px 20px #0000000d,
+        15px 20px 20px #0000000d;
+    background: #eeeeee;
+}
+.dim-mode #about .about-content .about-content-bubble {
+    box-shadow: 
+        inset -10px -10px 15px #ffffff0d,
+        inset 10px 10px 15px #000000e6,
+        15px 20px 20px #000000e6,
+        15px 20px 20px #000000e6;
+    background: #111111;
+}
+#about .about-content .about-content-bubble::before {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    top: 28%;
+    left: 12%;
+    width: 12%;
+    height: 12%;
+    background: #ffffffcc;
+}
+.dim-mode #about .about-content .about-content-bubble::before {
+    background: #00000090;
+}
+#about .about-content .about-content-bubble::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    top: 18%;
+    left: 22%;
+    width: 8%;
+    height: 8%;
+    background: #ffffffcc;
+}
+.dim-mode #about .about-content .about-content-bubble::after {
+    background: #00000090;
+}
+#about .about-content .about-content-bubble .about-content-bubble-icon {
+    position: absolute;
+    width: 75%;
+    opacity: 0.8;
+}
+
+
+
+
+
+#about .about-service {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    top: 2.5rem;
+    width: 100%;
+    height: min-content;
+}
+
+
+
+
+
+#about .about-service .about-service-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: min-content;
+}
+#about .about-service .about-service-content .about-service-content-pair {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: min-content;
+    height: min-content;
+}
+#about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item {
+    position: relative;
+    margin: 10px 20px;
+    border-radius: 30px;
+    width: 300px;
+    height: 180px;
+    box-shadow: 
+        inset -10px -10px 15px #ffffffe6,
+        inset 10px 10px 15px #0000000d,
+        15px 20px 20px #0000000d,
+        15px 20px 20px #0000000d;
+    background: #dddddd;
+}
+.dim-mode #about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item {
+    box-shadow: 
+        inset -10px -10px 15px #ffffff0d,
+        inset 10px 10px 15px #666666e6,
+        15px 20px 20px #444444e4,
+        15px 20px 20px #222222e2;
+    background: #bbbbbb;
+}
+#about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item .about-service-content-pair-item-icon {
+    display: flex;
+    justify-content:space-between;
+    margin: 15px;
+}
+#about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item .about-service-content-pair-item-icon i {
+    font-size: 2.5rem;
+    color: #ff5e5e;
+}
+.dim-mode #about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item .about-service-content-pair-item-icon i {
+    color: #cc2b2b;
+}
+#about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item .about-service-content-pair-item-inner {
+    position: relative;
+    transition-duration: 0.2s;
+    top: 3%;
+    left: 5%;
+    width: 90%;
+    height: min-content;
+    color: #776655;
+}
+.dim-mode #about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item .about-service-content-pair-item-inner {
+    color: #556677;
+}
+#about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item:hover .about-service-content-pair-item-inner{
+    top: -7%;
+    color: #303030;
+    text-shadow: 0 0 1px #303030f0;
+}
+.dim-mode #about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item:hover .about-service-content-pair-item-inner{
+    color: #000000;
+    text-shadow: 0 0 1px #00000080;
+}
+#about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item .about-service-content-pair-item-inner .about-service-content-pair-item-inner-title {
+    position: relative;
+    font-size: 1.5rem;
+}
+#about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item .about-service-content-pair-item-inner .about-service-content-pair-item-inner-description {
+    position: relative;
+    font-size: 1rem;
+    top: -10px;
+}
+#about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item .about-service-content-pair-item-inner .about-service-content-pair-item-inner-description::after {
+    content: "";
+    position: absolute;
+    border-left: 3px solid #3c3020;
+    transition-duration: 0.3s;
+    top: -30%;
+    right: 20%;
+    width: 80%;
+    height: 130%;
+    background: #dddddd;
+}
+.dim-mode #about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item .about-service-content-pair-item-inner .about-service-content-pair-item-inner-description::after {
+    border-left: 3px solid #4d4d4d;
+    background: #bbbbbb;
+}
+#about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item:hover .about-service-content-pair-item-inner .about-service-content-pair-item-inner-description::after {
+    right: 0;
+    width: 0;
+}
+
+
+
+
+
+@media (min-width:40em){
+    #about .about-title {
+        font-size: 2.5rem;
+    }
+    #about .about-service {
+        top: -3.5rem;
+    }
+    #about .about-service .about-service-content {
+        flex-direction: row;
+    }
+    #about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item {
+        margin: 10px 15px;
+    }
+    #about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item .about-service-content-pair-item-icon {
+        margin: 15px;
+    }
+    #about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item .about-service-content-pair-item-icon i {
+        font-size: 2.5rem;
+    }
+    #about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item .about-service-content-pair-item-inner .about-service-content-pair-item-inner-title {
+        font-size: 1.5rem;
+    }
+    #about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item .about-service-content-pair-item-inner .about-service-content-pair-item-inner-description {
+        font-size: 1rem;
+    }
+}
+@media (min-width:64em){
+    #about .about-title {
+        font-size: 2.75rem;
+    }
+    #about .about-content > div {
+        margin: 0 40px 40px 40px;
+        width: 400px;
+        height: 400px;
+    }
+    #about .about-service {
+        top: -0.5rem;
+    }
+    #about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item {
+        margin: 20px 45px;
+    }
+}
+@media (min-width:87.5em){
+    #about .about-title {
+        font-size: 3.5rem;
+    }
+    #about .about-content > div {
+        margin: 0 55px 55px 55px;
+        width: 500px;
+        height: 500px;
+    }
+    #about .about-content .about-content-description .about-content-description-title {
+        font-size: 2rem;
+    }
+    #about .about-content .about-content-description .about-content-description-inner {
+        font-size: 1rem;
+        top: -2rem;
+    }
+    #about .about-service {
+        top: 0.5rem;
+    }
+    #about .about-service .about-service-content .about-service-content-pair {
+        flex-direction: row;
+    }
+    #about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item {
+        margin: 10px 20px;
+        border-radius: 30px;
+        width: 300px;
+        height: 180px;
+    }
+}
+@media (min-width:123.75em){
+    #about .about-content > div {
+        width: 600px;
+        height: 600px;
+    }
+    #about .about-content .about-content-description .about-content-description-title {
+        font-size: 2.6rem;
+    }
+    #about .about-content .about-content-description .about-content-description-inner {
+        font-size: 1.3rem;
+        top: -2.6rem;
+    }
+    #about .about-service {
+        top: 1.5rem;
+    }
+    #about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item {
+        margin: 20px 60px;
+        border-radius: 40px;
+        width: 400px;
+        height: 240px;
+    }
+    #about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item .about-service-content-pair-item-icon {
+        margin: 20px;
+    }
+    #about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item .about-service-content-pair-item-icon i {
+        font-size: 3rem;
+    }
+    #about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item .about-service-content-pair-item-inner .about-service-content-pair-item-inner-title {
+        font-size: 2rem;
+    }
+    #about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item .about-service-content-pair-item-inner .about-service-content-pair-item-inner-description {
+        font-size: 1.2625rem;
+    }
+}
+@media (min-width:160em){
+    #about .about-title {
+        font-size: 5rem;
+    }
+    #about .about-content > div {
+        margin: 0 70px 70px 70px;
+        width: 700px;
+        height: 700px;
+    }
+    #about .about-content .about-content-description .about-content-description-title {
+        font-size: 3rem;
+    }
+    #about .about-content .about-content-description .about-content-description-inner {
+        font-size: 1.5rem;
+        top: -3rem;
+    }
+    #about .about-service {
+        top: 2.5rem;
+    }
+    #about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item {
+        border-radius: 50px;
+        width: 500px;
+        height: 300px;
+    }
+    #about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item .about-service-content-pair-item-icon {
+        margin: 25px;
+    }
+    #about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item .about-service-content-pair-item-icon i {
+        font-size: 3.5rem;
+    }
+    #about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item .about-service-content-pair-item-inner .about-service-content-pair-item-inner-title {
+        font-size: 2.5rem;
+    }
+    #about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item .about-service-content-pair-item-inner .about-service-content-pair-item-inner-description {
+        font-size: 1.6625rem;
+    }
+}
+
+@media (max-width: 39.9375em) {
+    #about .about-content > div {
+        width: 300px;
+        height: 300px;
+    }
+    #about .about-service {
+        top: -2.5rem;
+    }
+    #about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item {
+        margin: 15px 0;
+    }
+    #about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item .about-service-content-pair-item-icon {
+        margin: 15px;
+    }
+    #about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item .about-service-content-pair-item-icon i {
+        font-size: 2.5rem;
+    }
+    #about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item .about-service-content-pair-item-inner .about-service-content-pair-item-inner-title {
+        font-size: 1.5rem;
+    }
+    #about .about-service .about-service-content .about-service-content-pair .about-service-content-pair-item .about-service-content-pair-item-inner .about-service-content-pair-item-inner-description {
+        font-size: 1rem;
+    }
+}
+@media (max-width: 51.9375em) {
+    #about .about-content {
+        flex-direction: column-reverse;
+    }
+    #about .about-service .about-service-content {
+        flex-direction: column;
+    }
+    #about .about-content > div {
+        margin: 20px 0;
+    }
+}
+
+
+
+
+
