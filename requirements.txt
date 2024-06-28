@@ -1,0 +1,10 @@
+LoadingWindow
+
+requests
+
+pyqt5
+PyQtWebEngine
+
+asyncio
+websockets
+protobuf
