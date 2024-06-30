@@ -46,11 +46,11 @@ def run():
 
     server = Client.Server.Server()
 
-    # threading.Thread(target=waitress.serve, daemon=True, kwargs={
-    #     "app": server,
-    #     "host": server.host, 
-    #     "port": server.port, 
-    # }).start()
+    threading.Thread(target=waitress.serve, daemon=True, kwargs={
+        "app": server,
+        "host": server.host, 
+        "port": server.port, 
+    }).start()
 
     browserWindow = Client.Renderer.BrowserWindow()
     browserWindow.connect(server, server.host, server.port)

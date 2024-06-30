@@ -32,7 +32,7 @@ class LocalStorage:
         if hasattr(cls, "_instance"): return cls._instance
         cls._instance = object.__new__(cls)
         cls._instance.STORAGE_URL = storageURL
-        # cls._instance.structure = ET.fromstring(rq.get(os.path.join(storageURL, "struct.xml").replace("\\", "/"), verify=False).text)
+        cls._instance.structure = ET.fromstring(rq.get(os.path.join(storageURL, "struct.xml").replace("\\", "/"), verify=False).text)
         return cls._instance
 
 
@@ -60,8 +60,6 @@ class LocalStorage:
             str:
             >> root's 'name' attribute
         """
-        self.structure = ET.fromstring(rq.get(os.path.join(self.STORAGE_URL, "struct.xml").replace("\\", "/"), verify=False).text)
-
         if(not os.path.exists(os.path.join(os.environ["EXECUTABLE_ROOT"], self.structure.attrib["name"]))):
             os.mkdir(os.path.join(os.environ["EXECUTABLE_ROOT"], self.structure.attrib["name"]))
 

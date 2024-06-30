@@ -5,6 +5,9 @@ requests
 pyqt5
 PyQtWebEngine
 
+flask
+waitress
+
 asyncio
 websockets
 protobuf

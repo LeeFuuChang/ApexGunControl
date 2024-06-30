@@ -1,0 +1,26 @@
+{
+    "multiplier": 5,
+    "weapons": {
+        "light": {
+
+        },
+        "heavy": {
+
+        },
+        "energy": {
+
+        },
+        "shotgun": {
+
+        },
+        "sniper": {
+
+        },
+        "bow": {
+
+        },
+        "supply": {
+            
+        }
+    }
+}

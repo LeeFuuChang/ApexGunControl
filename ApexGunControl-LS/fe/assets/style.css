@@ -1,0 +1,253 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
+
+
+/*
+Global
+*/
+:root {
+    --scale: 1;
+
+    --theme-color-1: #29263D;
+    --theme-color-2: #2D2A41;
+    --theme-color-3: #3D3A56;
+
+    --theme-color-gray: #999999;
+    --theme-color-gray-filter: invert(63%) sepia(0%) saturate(1179%) hue-rotate(195deg) brightness(96%) contrast(95%);
+
+    --theme-color-red: #E86F86;
+    --theme-color-red-filter: invert(63%) sepia(22%) saturate(3616%) hue-rotate(307deg) brightness(97%) contrast(87%);
+
+    --theme-color-gold: #E7C975;
+    --theme-color-gold-filter: invert(87%) sepia(84%) saturate(432%) hue-rotate(321deg) brightness(98%) contrast(85%);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    letter-spacing: .1rem;
+    font-family: "Roboto", sans-serif;
+}
+
+
+/*
+Common
+*/
+body, section, img, iframe {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+body, section, img, iframe, a {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+}
+
+button {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+html, body, #app {
+    position: relative;
+    width: 75rem;
+    height: 56rem;
+    pointer-events: auto;
+    background-color: transparent;
+    transform: scale(var(--scale));
+    transform-origin: top left;
+}
+
+#app {
+    overflow: hidden;
+    border-radius: 1.5rem;
+    background-color: var(--theme-color-1);
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 18rem 1fr;
+}
+
+
+/*
+Notify
+*/
+#notify-container {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.notify {
+    position: relative;
+    padding: 1rem 2rem;
+    border-radius: .5rem;
+    font-size: 1.25rem;
+}
+.notify.notify-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+.notify.notify-error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+.notify strong {
+    margin-right: 1rem;
+    text-transform: uppercase;
+}
+
+
+/*
+Side Navigation
+*/
+aside {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 4rem 1fr 3rem;
+    gap: 1.5rem;
+    width: 100%;
+    height: 100%;
+    padding: 3rem 1rem;
+    background-color: var(--theme-color-2);
+}
+
+aside #logo {
+    height: 100%;
+}
+
+aside>nav {
+    width: 100%;
+}
+
+aside>nav .seperator {
+    margin: 2rem 1rem;
+    border: 1px solid var(--theme-color-3);
+}
+
+aside>nav section .title {
+    width: 100%;
+    line-height: 1rem;
+    padding: .75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--theme-color-gray);
+}
+aside>nav section .options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+aside .side-button {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: .5rem 1rem;
+    cursor: pointer;
+}
+aside .side-button::after {
+    position: absolute;
+    right: 1rem;
+    content: "";
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background-color: var(--theme-color-gray);
+}
+aside .side-button .icon {
+    width: 2rem;
+    height: 2rem;
+    padding: .5rem;
+    border-radius: .5rem;
+    background-color: var(--theme-color-3);
+}
+aside .side-button .icon img {
+    width: 100%;
+    height: 100%;
+    filter: var(--theme-color-gray-filter);
+}
+aside .side-button .text {
+    width: auto;
+    text-align: left;
+    font-size: .875rem;
+    font-weight: 600;
+    color: var(--theme-color-gray);
+}
+
+aside .side-button.active::after {
+    background-color: var(--theme-color-gold);
+}
+aside .side-button.active .icon img {
+    filter: var(--theme-color-gold-filter);
+}
+aside .side-button.active .text {
+    color: var(--theme-color-gold);
+}
+
+aside .side-button.side-button-no-dot::after {
+    content: none;
+}
+aside .side-button.danger .icon img {
+    filter: var(--theme-color-red-filter);
+}
+aside .side-button.danger .text {
+    color: var(--theme-color-red);
+}
+
+
+/*
+Main Navigation
+*/
+main>nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+main>nav section {
+    margin: 0 1rem;
+}
+main .main-nav-button {
+    position: relative;
+    margin: 0 .25rem;
+    width: 8.25rem;
+    height: 3.75rem;
+    opacity: .5;
+    background-color: var(--theme-color-gray);
+    transform: skewX(22.5deg);
+    transition: .25s;
+}
+main .main-nav-button::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 20%;
+    background-color: #FFFFFF80;
+}
+main .main-nav-button .text {
+    width: auto;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #FFFFFF;
+    transform: skewX(-22.5deg);
+}
+main .main-nav-button.active {
+    opacity: 1;
+    background-color: var(--theme-color-gold);
+}

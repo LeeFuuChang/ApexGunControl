@@ -1,0 +1,21 @@
+#controls {
+    position: absolute;
+    display: flex;
+    gap: 1rem;
+    top: 1rem;
+    right: 1rem;
+}
+#controls button {
+    width: 1rem;
+    height: 1rem;
+}
+#controls button img {
+    width: 100%;
+    height: 100%;
+}
+#controls .app-control-button[name="app-control-close"] {
+    filter: var(--theme-color-red-filter);
+}
+#controls .app-control-button[name="app-control-minimize"] {
+    filter: var(--theme-color-gold-filter);
+}

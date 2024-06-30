@@ -8,6 +8,5 @@ LocalStorage = getattr(getPackage("StorageManager", os.environ["STORAGE_URL"]), 
 
 from modules import Client
 
-
 server = Client.Server.Server()
-server.run(threaded=True)
+server.run(host=server.host, port=server.port, threaded=True)

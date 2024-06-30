@@ -1,0 +1,29 @@
+main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 3rem;
+    gap: 1.5rem;
+}
+main #page {
+    width: 100%;
+    flex: 1;
+    max-height: 44.75rem;
+    overflow: hidden;
+    padding-right: .75rem;
+}
+main #page img {
+    width: 100%;
+}
+main #page::-webkit-scrollbar {
+    width: .75rem;
+}
+main #page::-webkit-scrollbar-track {
+    border-radius: .75rem;
+    background-color: var(--theme-color-2);
+}
+main #page::-webkit-scrollbar-thumb {
+    border-radius: .75rem;
+    background-color: var(--theme-color-3);
+}

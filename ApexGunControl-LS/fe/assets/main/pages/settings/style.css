@@ -1,0 +1,134 @@
+#page[name="settings"] {
+    overflow-y: scroll;
+}
+
+#page[name="settings"] .container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+}
+
+#page[name="settings"] .container>.category>.title {
+    width: auto;
+    text-align: left;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 2rem;
+    color: #FFFFFF;
+}
+#page[name="settings"] .container>.category>.option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1.5rem 0;
+    padding-left: 1.5rem;
+}
+#page[name="settings"] .container .option .image {
+    position: relative;
+    width: 12rem;
+    height: 6rem;
+}
+#page[name="settings"] .container .option .image .weapon {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+#page[name="settings"] .container .option .image .bullet {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 1.75rem;
+    height: 1.75rem;
+}
+#page[name="settings"] .container .option .image .name {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+    color: #FFFFFF;
+}
+#page[name="settings"] .container .option .group {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30rem;
+    height: 6rem;
+}
+#page[name="settings"] .container .adjustment {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 2.5rem;
+    border-radius: .5rem;
+    padding: .25rem .5rem;
+    background-color: var(--theme-color-3);
+}
+#page[name="settings"] .container .category>.adjustment {
+    margin-bottom: 1.5rem;
+    height: 3rem;
+}
+#page[name="settings"] .container .adjustment .name {
+    flex: 1;
+    font-size: .9rem;
+    font-weight: 400;
+    line-height: 1.25rem;
+    color: #FFFFFF;
+}
+#page[name="settings"] .container .category>.adjustment .name {
+    font-size: 1rem;
+}
+#page[name="settings"] .container .adjustment .input {
+    display: flex;
+    gap: .5rem;
+    width: 12rem;
+    height: 2rem;
+}
+#page[name="settings"] .container .category>.adjustment .input {
+    width: 16rem;
+}
+#page[name="settings"] .container .adjustment .input .part {
+    display: flex;
+    gap: .5rem;
+    padding: .5rem;
+    border-radius: .5rem;
+    background-color: var(--theme-color-2);
+}
+
+#page[name="settings"] .container .adjustment .input[type="switch"] .part {
+    width: 100%;
+}
+#page[name="settings"] .container .adjustment .input[type="switch"] .part button {
+    flex: 1;
+    font-size: .75rem;
+    font-weight: 400;
+    width: 100%;
+    height: 100%;
+    border-radius: .25rem;
+    background-color: var(--theme-color-gray);
+}
+#page[name="settings"] .container .adjustment .input[type="switch"] .part button.active {
+    background-color: var(--theme-color-gold);
+}
+
+#page[name="settings"] .container .adjustment .input[type="range"] .part:nth-child(1) {
+    flex: 1;
+}
+#page[name="settings"] .container .adjustment .input[type="range"] .part:nth-child(1) input {
+    width: 100%;
+}
+#page[name="settings"] .container .adjustment .input[type="range"] .part:nth-child(2) {
+    padding: 0;
+    width: 3rem;
+}
+#page[name="settings"] .container .adjustment .input[type="range"] .part:nth-child(2) input {
+    width: 100%;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    color: #FFFFFF;
+    text-align: center;
+}

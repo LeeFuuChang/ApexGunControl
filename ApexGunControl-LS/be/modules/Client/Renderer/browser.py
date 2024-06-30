@@ -98,10 +98,7 @@ class BrowserWindow(QWebEngineView):
 
     def connect(self, server, host, port):
         self.server = server
-        # self.server.registerAppControl("app-control-close", self.closeSignal.emit)
-        # self.server.registerAppControl("app-control-hide", self.minimizeSignal.emit)
-        # self.server.registerAppControl("app-control-resize", self.resizeSignal.emit)
-        # self.server.registerAppControl("app-control-show", self.showSignal.emit)
-        # self.load(QtCore.QUrl(f"http://{host}:{port}/ui"))
-        self.load(QtCore.QUrl("http://www.google.com"))
+        self.server.registerAppControl("app-control-close", self.closeSignal.emit)
+        self.server.registerAppControl("app-control-minimize", self.minimizeSignal.emit)
+        self.load(QtCore.QUrl(f"http://{host}:{port}/ui"))
         self.centralize()
