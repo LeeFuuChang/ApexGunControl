@@ -1,3 +1,4 @@
+import logging
 import sys
 import os
 
@@ -15,3 +16,8 @@ def Ui_Assets(**kwargs):
     filepath = kwargs["filepath"]
     fullpath = sys.modules["StorageManager"].LocalStorage().path(os.path.join("fe", "assets", filepath))
     return send_from_directory(*os.path.split(fullpath))
+
+@Ui.route("error")
+def Ui_Error():
+    logging.getLogger().error("Making /0 Error")
+    return f"{3/0}"

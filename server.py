@@ -14,12 +14,3 @@ from modules import Client
 
 server = Client.Server.Server()
 server.run(host=server.host, port=server.port, threaded=True)
-
-[
-    '/Users/leefuuchang/Desktop/ApexGunControl-2.0', 
-    '/Library/Frameworks/Python.framework/Versions/3.8/lib/python38.zip', 
-    '/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8', 
-    '/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/lib-dynload', 
-    '/Users/leefuuchang/Desktop/ApexGunControl-2.0/env/lib/python3.8/site-packages', 
-    'ApexGunControl-LS/be'
-]

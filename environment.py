@@ -28,12 +28,12 @@ Logging Configuration
 """
 logger = logging.getLogger()
 
-# logger.setLevel(logging.INFO)
+logger.setLevel(logging.INFO)
 
 formatter = logging.Formatter("%(asctime)s | %(levelname)8s | %(message)s", "%Y-%m-%dT%H:%M:%S")
 
 cout_handler = logging.StreamHandler(sys.stdout)
-# cout_handler.setLevel(logging.DEBUG)
+cout_handler.setLevel(logging.DEBUG)
 cout_handler.setFormatter(formatter)
 logger.addHandler(cout_handler)
 

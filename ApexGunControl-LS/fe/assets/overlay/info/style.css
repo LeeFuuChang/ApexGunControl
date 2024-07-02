@@ -1,0 +1,78 @@
+#overlay-container[name="info"] {
+    display: grid;
+    grid-auto-flow: row;
+    gap: 2rem;
+    width: 30rem;
+}
+#overlay-container[name="info"] .block {
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+    height: auto;
+}
+#overlay-container[name="info"] .block>.title {
+    display: grid;
+    width: 6rem;
+    height: 2rem;
+    place-content: center;
+    text-align: right;
+    font-size: 1rem;
+    letter-spacing: .25rem;
+    font-weight: 500;
+    color: var(--theme-color-white);
+}
+#overlay-container[name="info"] .block .options {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    flex: 1;
+}
+#overlay-container[name="info"] .block .options .item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+}
+#overlay-container[name="info"] .block .options .item>.title {
+    display: grid;
+    flex: 1;
+    height: 2rem;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--theme-color-white);
+    place-content: center;
+}
+#overlay-container[name="info"] .block .options .item span {
+    display: grid;
+    flex: 1;
+    height: 2rem;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--theme-color-white);
+    place-content: center;
+    text-align: right;
+}
+#overlay-container[name="info"] .block .options .item input.switch[type="checkbox"] {
+    --switch-size: 1.5rem;
+}
+#overlay-container[name="info"] .block .options .item .option-button {
+    display: grid;
+    place-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background-color: var(--theme-color-gray);
+}
+#overlay-container[name="info"] .block .options .item .option-button img {
+    height: 75%;
+    filter: var(--theme-color-white-filter);
+}
+#overlay-container[name="info"] .block .options .item .reset-button {
+    width: 4.5rem;
+    height: 2rem;
+    border-radius: 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--theme-color-white);
+    background-color: var(--theme-color-red);
+}

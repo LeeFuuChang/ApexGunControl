@@ -15,7 +15,7 @@
     font-size: 1.5rem;
     font-weight: 600;
     line-height: 2rem;
-    color: #FFFFFF;
+    color: var(--theme-color-white);
 }
 #page[name="settings"] .container>.category>.option {
     display: flex;
@@ -49,7 +49,7 @@
     font-size: 1rem;
     font-weight: 500;
     line-height: 1.25rem;
-    color: #FFFFFF;
+    color: var(--theme-color-white);
 }
 #page[name="settings"] .container .option .group {
     display: flex;
@@ -76,7 +76,7 @@
     font-size: .9rem;
     font-weight: 400;
     line-height: 1.25rem;
-    color: #FFFFFF;
+    color: var(--theme-color-white);
 }
 #page[name="settings"] .container .category>.adjustment .name {
     font-size: 1rem;
@@ -129,6 +129,6 @@
     outline: none;
     border: none;
     background-color: transparent;
-    color: #FFFFFF;
+    color: var(--theme-color-white);
     text-align: center;
 }

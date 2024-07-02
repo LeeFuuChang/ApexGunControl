@@ -1,4 +1,5 @@
 from flask import Flask, redirect
+import logging
 import socket
 
 # for app
@@ -30,6 +31,8 @@ class Server(Flask):
             name = bp.name.lower() 
             self.blueprints[name] = bp
             self.register_blueprint(bp, url_prefix=f"/{name}")
+
+        logging.getLogger().info(f"Server Initlized on ({self.host}, {self.port})")
 
 
     def registerAppControl(self, name, func):

@@ -11,6 +11,18 @@ window.Notify = function(type, message) {
 };
 
 
+window.Resize = function(scale) {
+    $(":root").css("--scale", scale);
+    $.post(
+        "/app/controls/app-control-resize", 
+        JSON.stringify([
+            $("html")[0].getBoundingClientRect().width,
+            $("html")[0].getBoundingClientRect().height,
+        ])
+    );
+};
+
+
 window.LoadPage = function(name) {
     if(firebase.auth().currentUser || name === "dashboard") {
         $("#page").attr("name", name).empty();

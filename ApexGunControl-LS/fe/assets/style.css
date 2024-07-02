@@ -12,6 +12,9 @@ Global
     --theme-color-2: #2D2A41;
     --theme-color-3: #3D3A56;
 
+    --theme-color-white: #FFFFFF;
+    --theme-color-white-filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(333deg) brightness(104%) contrast(103%);
+
     --theme-color-gray: #999999;
     --theme-color-gray-filter: invert(63%) sepia(0%) saturate(1179%) hue-rotate(195deg) brightness(96%) contrast(95%);
 
@@ -63,6 +66,9 @@ html, body, #app {
     height: 56rem;
     pointer-events: auto;
     background-color: transparent;
+}
+
+html {
     transform: scale(var(--scale));
     transform-origin: top left;
 }
@@ -132,7 +138,7 @@ aside>nav {
 
 aside>nav .seperator {
     margin: 2rem 1rem;
-    border: 1px solid var(--theme-color-3);
+    border: .1rem solid var(--theme-color-3);
 }
 
 aside>nav section .title {

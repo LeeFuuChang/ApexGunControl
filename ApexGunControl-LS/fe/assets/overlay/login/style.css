@@ -28,13 +28,13 @@
     font-family: "Fredoka", sans-serif;
     font-size: 1.75rem;
     font-weight: 600;
-    color: #FFFFFF;
+    color: var(--theme-color-white);
 }
 #overlay-container[name="login"] p {
     text-align: center;
     font-size: 1rem;
     font-weight: 400;
-    color: #FFFFFF;
+    color: var(--theme-color-white);
 }
 #overlay-container[name="login"] input {
     width: 100%;
@@ -42,7 +42,7 @@
     padding: .5rem 1rem;
     font-size: 1rem;
     font-weight: 400;
-    color: #FFFFFF;
+    color: var(--theme-color-white);
     border: none;
     outline: none;
     border-radius: .5rem;
@@ -57,7 +57,7 @@
     height: 4rem;
     font-size: 1rem;
     font-weight: 600;
-    color: #FFFFFF;
+    color: var(--theme-color-white);
     border-radius: .5rem;
     font-family: "Fredoka", sans-serif;
     background-color: var(--theme-color-2);

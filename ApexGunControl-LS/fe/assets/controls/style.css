@@ -13,6 +13,9 @@
     width: 100%;
     height: 100%;
 }
+#controls .app-control-button {
+    filter: var(--theme-color-gray-filter);
+}
 #controls .app-control-button[name="app-control-close"] {
     filter: var(--theme-color-red-filter);
 }
