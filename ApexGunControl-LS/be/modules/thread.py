@@ -2,9 +2,6 @@ import traceback
 import threading
 import logging
 import time
-logger = logging.getLogger()
-
-
 
 
 
@@ -35,7 +32,7 @@ class TaskThread(threading.Thread):
             try:
                 passed = self.target(*self.fargs)
             except Exception as e:
-                logger.error(traceback.format_exc())
+                logging.getLogger().error(traceback.format_exc())
             finally:
                 self.tries -= 1
                 time.sleep(self.interval)
@@ -78,7 +75,7 @@ class SteppedTaskThread(threading.Thread):
             try:
                 passed = self.targets[self.targetIndex](*self.fargs)
             except Exception as e:
-                logger.error(traceback.format_exc())
+                logging.getLogger().error(traceback.format_exc())
             finally:
                 self.targetIndex += passed
                 self.tries -= 1
@@ -122,7 +119,7 @@ class TimedTaskThread(threading.Thread):
             if(not self.event.is_set()):
                 passed = self.target(*self.fargs)
         except Exception as e:
-            logger.error(traceback.format_exc())
+            logging.getLogger().error(traceback.format_exc())
         finally: 
             self.repeat -= passed
             del self.threads[tid]
@@ -164,7 +161,7 @@ class OnceThread(threading.Thread):
         try:
             self.target(*self.fargs)
         except Exception as e:
-            logger.error(traceback.format_exc())
+            logging.getLogger().error(traceback.format_exc())
         finally:
             if(self.threadName in self.running): 
                 del self.running[self.threadName]

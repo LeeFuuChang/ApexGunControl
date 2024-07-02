@@ -1,14 +1,9 @@
+import sys
+import os
+
 from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEngineSettings
 from PyQt5.QtWidgets import QApplication, QDesktopWidget
 from PyQt5 import QtCore, QtGui
-
-import logging
-logger = logging.getLogger()
-import os
-
-from PackageManager import getPackage
-StorageManager = getPackage("StorageManager", os.environ["STORAGE_URL"])
-LocalStorage = getattr(StorageManager, "LocalStorage").getInstance()
 
 
 
@@ -34,7 +29,7 @@ class BrowserWindow(QWebEngineView):
 
         super(self.__class__, self).__init__(*args, **kwargs)
 
-        self.icon = QtGui.QIcon(LocalStorage.path(os.path.join("logo", "Filled.png")))
+        self.icon = QtGui.QIcon(sys.modules["StorageManager"].LocalStorage().path(os.path.join("logo", "Filled.png")))
 
         self.setWindowTitle(os.environ["PROJECT_NAME"])
         self.setWindowIcon(self.icon)

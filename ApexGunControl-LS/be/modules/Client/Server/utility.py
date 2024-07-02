@@ -1,11 +1,8 @@
-from flask import Flask
+from flask import Flask, redirect
 import socket
 
 # for app
-from .AD import Ad
 from .APP import App
-from .CONFIG import Config
-from .STORAGE import Storage
 from .UI import Ui
 
 
@@ -28,13 +25,11 @@ class Server(Flask):
 
         self.appControls = {}
 
-        self.appBlueprints = {bp.name.lower():bp for bp in [
-            # for app
-            Ad, App, Config, Storage, Ui, 
-        ]}
-        for name in self.appBlueprints:
-            self.blueprints[name] = self.appBlueprints[name]
-            self.register_blueprint(self.appBlueprints[name], url_prefix=f"/{name}")
+        self.add_url_rule("/", endpoint="ui", view_func=lambda:redirect("/ui"))
+        for bp in [App, Ui, ]:
+            name = bp.name.lower() 
+            self.blueprints[name] = bp
+            self.register_blueprint(bp, url_prefix=f"/{name}")
 
 
     def registerAppControl(self, name, func):

@@ -1,45 +1,34 @@
+import shutil
+import sys
+import os
+
 import urllib3
 urllib3.disable_warnings()
 
+import logging
+logger = logging.getLogger()
+
 import xml.etree.ElementTree as ET
 import requests as rq
-import logging, shutil, sys, os
-logger = logging.getLogger()
 
 
 
 class LocalStorage:
-    STORAGE_URL = ""
-
+    remoteURL: str = ""
+    directory: str = ""
     structure: ET.Element = None
 
 
-    @classmethod
-    def getInstance(cls):
-        if hasattr(cls, "_instance"): 
-            return cls._instance
-        raise NotImplementedError("No Instance created yet!")
-
-
-    def __new__(cls, storageURL):
-        """
-        description
-            get an instance of the class, if haven't created, create one then return it
-        return
-            LocalStorage:
-            >> an instance of LocalStorage
-        """
+    def __new__(cls):
         if hasattr(cls, "_instance"): return cls._instance
-        cls._instance = object.__new__(cls)
-        cls._instance.STORAGE_URL = storageURL
-        cls._instance.structure = ET.fromstring(rq.get(os.path.join(storageURL, "struct.xml").replace("\\", "/"), verify=False).text)
-        return cls._instance
+        raise NotImplementedError(f"{cls.__name__} has not been setup, no instance can be returned")
 
 
-    def updateFile(self, _root, _path, _name, _type):
+    @staticmethod
+    def updateFile(remoteURL, directory, _root, _path, _name, _type):
         fileName = f"{_name}.{_type}"
-        targetPath = os.path.join(os.environ["EXECUTABLE_ROOT"], _root.attrib["name"], _path, fileName)
-        sourcePath = os.path.join(self.STORAGE_URL, _path, f"{_name}.{_type}")
+        targetPath = os.path.join(directory, _root.attrib["name"], _path, fileName)
+        sourcePath = os.path.join(remoteURL, _path, f"{_name}.{_type}")
         fileFailed = True
         try:
             response = rq.get(sourcePath.replace("\\", "/"), verify=False)
@@ -52,26 +41,27 @@ class LocalStorage:
         if(fileFailed and os.path.exists(targetPath)): os.remove(targetPath)
 
 
-    def setup(self, progressCallback=lambda current=0,total=0:0) -> str:
-        """
-        description
-            construct local storage file structure base on `./struct.xml`
-        return
-            str:
-            >> root's 'name' attribute
-        """
-        if(not os.path.exists(os.path.join(os.environ["EXECUTABLE_ROOT"], self.structure.attrib["name"]))):
-            os.mkdir(os.path.join(os.environ["EXECUTABLE_ROOT"], self.structure.attrib["name"]))
+    @classmethod
+    def setup(cls, remoteURL, directory, progressCallback=lambda current=0,total=0:0) -> str:
+        structure = ET.fromstring(rq.get(os.path.join(remoteURL, "struct.xml").replace("\\", "/"), verify=False).text)
 
-        versionFile = os.path.join(os.environ["EXECUTABLE_ROOT"], self.structure.attrib["name"], "storage.version")
+        cls._instance = object.__new__(cls)
+        cls._instance.remoteURL = remoteURL
+        cls._instance.directory = directory
+        cls._instance.structure = structure
+
+        if(not os.path.exists(os.path.join(directory, structure.attrib["name"]))):
+            os.mkdir(os.path.join(directory, structure.attrib["name"]))
+
+        versionFile = os.path.join(directory, structure.attrib["name"], "storage.version")
         if(not os.path.exists(versionFile)): open(versionFile, "w").close()
         with open(versionFile, "r") as f: currentHexVersion = f.read()
 
         CHVN = int(f"0{currentHexVersion}", 16)
-        LHVN = int(f"0{self.structure.attrib['version']}", 16)
+        LHVN = int(f"0{structure.attrib['version']}", 16)
         if(LHVN > CHVN): logger.info(f"Updating storage from {CHVN} to {LHVN}")
 
-        totalCount = len(self.structure.findall(".//file")) + len(self.structure.findall(".//folder")) + 1
+        totalCount = len(structure.findall(".//file")) + len(structure.findall(".//folder")) + 1
         checkCount = 0
 
         def walk(root, parent, path):
@@ -109,16 +99,18 @@ class LocalStorage:
                 elif(updateCuzStorage): logger.info(f"{root.attrib['name']}-Update: [Cuz: Storage] {fileInfoString}")
                 elif(updateCuzMissing): logger.info(f"{root.attrib['name']}-Update: [Cuz: Missing] {fileInfoString}")
                 elif(updateCuzContent): logger.info(f"{root.attrib['name']}-Update: [Cuz: Content] {fileInfoString}")
-                self.updateFile(_root=root,
+                cls.updateFile( remoteURL=remoteURL,
+                                directory=directory,
+                                _root=root,
                                 _path=parent.attrib["path"],
                                 _name=parent.attrib["name"],
                                 _type=parent.attrib["type"])
                 progressCallback("Updating . . .", round(checkCount/totalCount*100))
             return parent.attrib["name"]
 
-        rootName = walk(self.structure, self.structure, os.environ["EXECUTABLE_ROOT"])
+        rootName = walk(structure, structure, directory)
 
-        with open(os.path.join(os.environ["EXECUTABLE_ROOT"], self.structure.attrib["name"], "storage.version"), "w") as f: f.write(self.structure.attrib["version"])
+        with open(os.path.join(directory, structure.attrib["name"], "storage.version"), "w") as f: f.write(structure.attrib["version"])
 
         progressCallback("Storage OK . . .", round(checkCount/totalCount*100))
 
@@ -126,19 +118,16 @@ class LocalStorage:
 
 
     def path(self, path:str) -> str:
-        """
-        params
-            path: str
-            >> string representation of relative path to the requested file
-        return
-            str:
-            >> absolute path to the requested file
-        """
-        filePath = os.path.normpath(os.path.join(os.environ["EXECUTABLE_ROOT"], self.structure.attrib["name"], path))
+        filePath = os.path.normpath(os.path.join(self.directory, self.structure.attrib["name"], path))
         if(not os.path.exists(filePath)): 
             _path, _file = os.path.split(path)
             _name, _type = os.path.splitext(_file)
-            self.updateFile(self.structure, _path, _name, _type[1:])
+            self.updateFile(remoteURL=self.remoteURL,
+                            directory=self.directory,
+                            _root=self.structure,
+                            _path=_path,
+                            _name=_name,
+                            _type=_type[1:])
         return (filePath if(os.path.exists(filePath))else "")
 
 

@@ -1,28 +1,29 @@
 import environment
-
-from LoadingWindow import AbstractLoadingWindow
-
-import importlib, sys, os
+import importlib
+import sys
+import os
 
 import urllib3
 urllib3.disable_warnings()
 
+from LoadingWindow import LoadingWindow
+
 from PackageManager import getPackage
-LocalStorage = getattr(getPackage("StorageManager", os.environ["STORAGE_URL"]), "LocalStorage")(os.environ["STORAGE_URL"])
+LocalStorage = getattr(getPackage("StorageManager", os.environ["STORAGE_URL"]), "LocalStorage")
 
 def init():
-    loader = AbstractLoadingWindow()
+    loader = LoadingWindow()
     loader.setIconPath("./default-loading-icon.png")
     loader.setSplashArtPath("./default-loading-splash.png")
     def statusCallback(text, progress):
         nonlocal loader
         loader.text = text
         loader.progress = progress
-    loader.setTasks([ lambda : LocalStorage.setup(statusCallback) ])
+    loader.setTasks([ lambda : LocalStorage.setup(os.environ["STORAGE_URL"], os.environ["EXECUTABLE_ROOT"], statusCallback) ])
     loader.exec_()
 
 def main():
-    sys.path.append(LocalStorage.path("be"))
+    sys.path.append(LocalStorage().path("be"))
     sys.modules["app"] = importlib.import_module("app")
     sys.exit(sys.modules["app"].run())
 

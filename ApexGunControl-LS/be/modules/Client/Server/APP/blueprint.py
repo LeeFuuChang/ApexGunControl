@@ -1,18 +1,17 @@
-from ...constants import VERSION
-from flask import Blueprint, send_from_directory, request, Response
-from PackageManager import getPackage
+import requests as rq
 import webbrowser
-import requests
 import logging
-logger = logging.getLogger()
 import json
+import sys
 import os
+
+from flask import Blueprint, send_from_directory, request, Response
 
 App = Blueprint("App", __name__)
 
 @App.route("/version", methods=["GET"])
 def App_Version():
-    return requests.get(f"{os.environ['SERVER_URL']}/Version", params={"current":VERSION}).json()
+    return rq.get(f"{os.environ['SERVER_URL']}/Version", params={"current":os.environ["VERSION"]}).json()
 
 @App.route("/external", methods=["POST"])
 def App_External():
@@ -36,22 +35,18 @@ def App_Validation(**kwargs):
             if(not hasattr(os.path, method)): continue
             filtering.append(getattr(os.path, method)(target))
         result = all(filtering)
-    logger.info(f"validating: {category} | result: {result}")
+    logging.getLogger().info(f"validating: {category} | result: {result}")
     return json.dumps(result)
 
 @App.route("/config/<string:name>", methods=["GET", "POST"])
 def App_Config(**kwargs):
-    name = kwargs["name"]
-    StorageManager = getPackage("StorageManager", os.environ["STORAGE_URL"])
-    LocalStorage = getattr(StorageManager, "LocalStorage").getInstance()
+    configPath = sys.modules["StorageManager"].LocalStorage().path(os.path.join("cfg", "app", f"{kwargs['name']}.json"))
     if(request.method == "GET"):
-        configPath = LocalStorage.path(os.path.join("cfg", "app", name+".json"))
         if(not configPath): return Response(status=404)
         return send_from_directory(*os.path.split(configPath))
     elif(request.method == "POST"):
         try: data = request.get_json(force=True)
         except: data = {}
-        configPath = LocalStorage.path(os.path.join("cfg", "app", name+".json"))
         if(not configPath): return Response(status=404)
         with open(configPath, "a+") as f:
             f.seek(0)
