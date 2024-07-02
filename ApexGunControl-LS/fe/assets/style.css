@@ -7,6 +7,7 @@ Global
 */
 :root {
     --scale: 1;
+    --size: calc(.75rem*var(--scale));
 
     --theme-color-1: #29263D;
     --theme-color-2: #2D2A41;
@@ -29,7 +30,7 @@ Global
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    letter-spacing: .1rem;
+    letter-spacing: calc(.1*var(--size));
     font-family: "Roboto", sans-serif;
 }
 
@@ -62,8 +63,8 @@ button {
 
 html, body, #app {
     position: relative;
-    width: 75rem;
-    height: 56rem;
+    width: calc(75*var(--size));
+    height: calc(56*var(--size));
     pointer-events: auto;
     background-color: transparent;
 }
@@ -75,11 +76,11 @@ html {
 
 #app {
     overflow: hidden;
-    border-radius: 1.5rem;
+    border-radius: calc(1.5*var(--size));
     background-color: var(--theme-color-1);
     display: grid;
     grid-auto-flow: column;
-    grid-template-columns: 18rem 1fr;
+    grid-template-columns: calc(18*var(--size)) 1fr;
 }
 
 
@@ -88,15 +89,15 @@ Notify
 */
 #notify-container {
     position: fixed;
-    top: 1rem;
+    top: calc(1*var(--size));
     left: 50%;
     transform: translateX(-50%);
 }
 .notify {
     position: relative;
-    padding: 1rem 2rem;
-    border-radius: .5rem;
-    font-size: 1.25rem;
+    padding: calc(1*var(--size)) calc(2*var(--size));
+    border-radius: calc(.5*var(--size));
+    font-size: calc(1.25*var(--size));
 }
 .notify.notify-success {
     color: #155724;
@@ -109,7 +110,7 @@ Notify
     border-color: #f5c6cb;
 }
 .notify strong {
-    margin-right: 1rem;
+    margin-right: calc(1*var(--size));
     text-transform: uppercase;
 }
 
@@ -120,11 +121,11 @@ Side Navigation
 aside {
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 4rem 1fr 3rem;
-    gap: 1.5rem;
+    grid-template-rows: calc(4*var(--size)) 1fr calc(3*var(--size));
+    gap: calc(1.5*var(--size));
     width: 100%;
     height: 100%;
-    padding: 3rem 1rem;
+    padding: calc(3*var(--size)) calc(1*var(--size));
     background-color: var(--theme-color-2);
 }
 
@@ -137,15 +138,15 @@ aside>nav {
 }
 
 aside>nav .seperator {
-    margin: 2rem 1rem;
-    border: .1rem solid var(--theme-color-3);
+    margin: calc(2*var(--size)) calc(1*var(--size));
+    border: calc(.1*var(--size)) solid var(--theme-color-3);
 }
 
 aside>nav section .title {
     width: 100%;
-    line-height: 1rem;
-    padding: .75rem;
-    font-size: 1rem;
+    line-height: calc(1*var(--size));
+    padding: calc(.75*var(--size));
+    font-size: calc(1*var(--size));
     font-weight: 600;
     text-transform: uppercase;
     color: var(--theme-color-gray);
@@ -153,7 +154,7 @@ aside>nav section .title {
 aside>nav section .options {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: calc(1*var(--size));
 }
 
 aside .side-button {
@@ -161,35 +162,37 @@ aside .side-button {
     width: 100%;
     display: flex;
     align-items: center;
-    gap: 1rem;
-    padding: .5rem 1rem;
+    gap: calc(1*var(--size));
+    padding: calc(.5*var(--size)) calc(1*var(--size));
     cursor: pointer;
 }
 aside .side-button::after {
     position: absolute;
-    right: 1rem;
+    right: calc(1*var(--size));
     content: "";
-    width: 1rem;
-    height: 1rem;
+    width: calc(1*var(--size));
+    height: calc(1*var(--size));
     border-radius: 50%;
     background-color: var(--theme-color-gray);
 }
 aside .side-button .icon {
-    width: 2rem;
-    height: 2rem;
-    padding: .5rem;
-    border-radius: .5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(2*var(--size));
+    height: calc(2*var(--size));
+    border-radius: calc(.5*var(--size));
     background-color: var(--theme-color-3);
 }
 aside .side-button .icon img {
-    width: 100%;
-    height: 100%;
+    width: calc(1*var(--size));
+    height: calc(1*var(--size));
     filter: var(--theme-color-gray-filter);
 }
 aside .side-button .text {
     width: auto;
     text-align: left;
-    font-size: .875rem;
+    font-size: calc(.875*var(--size));
     font-weight: 600;
     color: var(--theme-color-gray);
 }
@@ -224,13 +227,13 @@ main>nav {
     justify-content: center;
 }
 main>nav section {
-    margin: 0 1rem;
+    margin: 0 calc(1*var(--size));
 }
 main .main-nav-button {
     position: relative;
-    margin: 0 .25rem;
-    width: 8.25rem;
-    height: 3.75rem;
+    margin: 0 calc(.25*var(--size));
+    width: calc(8.25*var(--size));
+    height: calc(3.75*var(--size));
     opacity: .5;
     background-color: var(--theme-color-gray);
     transform: skewX(22.5deg);
@@ -248,7 +251,7 @@ main .main-nav-button::after {
 main .main-nav-button .text {
     width: auto;
     text-align: center;
-    font-size: 1rem;
+    font-size: calc(1*var(--size));
     font-weight: 600;
     color: #FFFFFF;
     transform: skewX(-22.5deg);

@@ -14,4 +14,7 @@
                 window.Notify("error", error.code);
             });
     });
+    $("#login-input").keyup(function(e){
+        if(e.keyCode == 13) $("#login-submit").trigger("click");
+    });
 })();

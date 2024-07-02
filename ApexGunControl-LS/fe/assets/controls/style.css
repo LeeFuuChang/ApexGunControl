@@ -1,13 +1,16 @@
 #controls {
     position: absolute;
     display: flex;
-    gap: 1rem;
-    top: 1rem;
-    right: 1rem;
+    gap: calc(1*var(--size));
+    top: calc(1*var(--size));
+    right: calc(1*var(--size));
 }
 #controls button {
-    width: 1rem;
-    height: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(1*var(--size));
+    height: calc(1*var(--size));
 }
 #controls button img {
     width: 100%;
