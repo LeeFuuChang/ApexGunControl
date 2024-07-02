@@ -33,9 +33,18 @@ window.LoadPage = function(name) {
     else {
         window.LoadOverlay("login");
     }
+    window.LoadLang();
 };
 window.LoadHomePage = function() {
     window.LoadPage("dashboard");
+};
+
+
+window.LoadLang = function() {
+    let lang = $("#app").attr("lang") || "en";
+    $(".lang").each(function(){
+        $(this).text(window.translation[$(this).attr("lang")][lang]);
+    });
 };
 
 

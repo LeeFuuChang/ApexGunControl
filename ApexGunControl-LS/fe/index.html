@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-    <div id="app" theme="dark">
+    <div id="app" theme="dark" lang="tw">
         <div id="notify-container" style="z-index: 4000;"></div>
         <div id="controls" style="z-index: 3000;">
             <link rel="stylesheet" href="assets/controls/style.css">
@@ -37,43 +37,43 @@
             <img id="logo" src="assets/media/Header.png" alt="">
             <nav>
                 <section>
-                    <h2 class="title">MENU</h2>
+                    <h2 class="title lang" lang="nav-title-menu">MENU</h2>
                     <div class="options">
                         <button class="side-button active" name="dashboard">
                             <div class="icon">
                                 <img src="assets/media/navigations/Dashboard.svg" alt="">
                             </div>
-                            <p class="text">Dashboard</p>
+                            <p class="lang" lang="navigation-dashboard">Dashboard</p>
                         </button>
                         <button class="side-button" name="performance">
                             <div class="icon">
                                 <img src="assets/media/navigations/Performance.svg" alt="">
                             </div>
-                            <p class="text">Performance</p>
+                            <p class="lang" lang="navigation-performance">Performance</p>
                         </button>
                         <button class="side-button" name="settings">
                             <div class="icon">
                                 <img src="assets/media/navigations/Settings.svg" alt="">
                             </div>
-                            <p class="text">Settings</p>
+                            <p class="lang" lang="navigation-settings">Settings</p>
                         </button>
                     </div>
                 </section>
                 <div class="seperator"></div>
                 <section>
-                    <h2 class="title">installation</h2>
+                    <h2 class="title lang" lang="nav-title-installation">installation</h2>
                     <div class="options">
                         <button class="side-button" name="guide">
                             <div class="icon">
                                 <img src="assets/media/navigations/Guide.svg" alt="">
                             </div>
-                            <p class="text">Guide</p>
+                            <p class="lang" lang="navigation-guide">Guide</p>
                         </button>
                         <button class="side-button" name="Config">
                             <div class="icon">
                                 <img src="assets/media/navigations/Config.svg" alt="">
                             </div>
-                            <p class="text">Config</p>
+                            <p class="lang" lang="navigation-config">Config</p>
                         </button>
                     </div>
                 </section>
@@ -82,13 +82,13 @@
                 <div class="icon">
                     <img src="assets/media/navigations/Login.svg" alt="">
                 </div>
-                <p class="text">Login</p>
+                <p class="lang" lang="navigation-login">Login</p>
             </button>
             <button id="side-logout-button" class="side-button danger side-button-no-dot" style="display: none;">
                 <div class="icon">
                     <img src="assets/media/navigations/Logout.svg" alt="">
                 </div>
-                <p class="text">Logout</p>
+                <p class="lang" lang="navigation-logout">Logout</p>
             </button>
         </aside>
         <main>
@@ -96,21 +96,21 @@
             <nav>
                 <section>
                     <button class="main-nav-button active" name="dashboard">
-                        <p class="text">Dashboard</p>
+                        <p class="lang" lang="navigation-dashboard">Dashboard</p>
                     </button>
                     <button class="main-nav-button" name="performance">
-                        <p class="text">Performance</p>
+                        <p class="lang" lang="navigation-performance">Performance</p>
                     </button>
                     <button class="main-nav-button" name="settings">
-                        <p class="text">Settings</p>
+                        <p class="lang" lang="navigation-settings">Settings</p>
                     </button>
                 </section>
                 <section>
                     <button class="main-nav-button" name="guide">
-                        <p class="text">Guide</p>
+                        <p class="lang" lang="navigation-guide">Guide</p>
                     </button>
                     <button class="main-nav-button" name="config">
-                        <p class="text">Config</p>
+                        <p class="lang" lang="navigation-config">Config</p>
                     </button>
                 </section>
             </nav>
@@ -121,6 +121,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
+    <script src="assets/language.js"></script>
     <script src="assets/auth.js"></script>
     <script src="assets/index.js"></script>
 </body>

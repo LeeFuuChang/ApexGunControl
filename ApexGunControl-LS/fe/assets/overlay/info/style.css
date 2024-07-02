@@ -2,30 +2,30 @@
     display: grid;
     grid-auto-flow: row;
     gap: calc(2*var(--size));
-    width: calc(30*var(--size));
 }
 #overlay-container[name="info"] .block {
-    display: flex;
-    gap: calc(2*var(--size));
-    width: 100%;
-    height: auto;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr calc(20*var(--size));
+    gap: calc(4*var(--size));
 }
 #overlay-container[name="info"] .block>.title {
     display: grid;
-    width: calc(6*var(--size));
+    align-items: center;
+    padding-left: calc(2*var(--size));
     height: calc(2*var(--size));
-    place-content: center;
-    text-align: right;
     font-size: calc(1*var(--size));
-    letter-spacing: calc(.25*var(--size));
+    letter-spacing: calc(.2*var(--size));
     font-weight: 500;
     color: var(--theme-color-white);
+    text-align: right;
+    text-wrap: nowrap;
 }
 #overlay-container[name="info"] .block .options {
     display: flex;
     flex-direction: column;
     gap: calc(.5*var(--size));
-    flex: 1;
+    width: 100%;
 }
 #overlay-container[name="info"] .block .options .item {
     display: flex;
@@ -51,6 +51,9 @@
     color: var(--theme-color-white);
     align-items: center;
     text-align: right;
+}
+#overlay-container[name="info"] .block .options .item input.checkbox {
+    --checkbox-size: calc(1.5*var(--size));
 }
 #overlay-container[name="info"] .block .options .item input.switch[type="checkbox"] {
     --switch-size: calc(1.5*var(--size));

@@ -19,6 +19,9 @@ Global
     --theme-color-gray: #999999;
     --theme-color-gray-filter: invert(63%) sepia(0%) saturate(1179%) hue-rotate(195deg) brightness(96%) contrast(95%);
 
+    --theme-color-green: #E86F86;
+    --theme-color-green-filter: invert(63%) sepia(22%) saturate(3616%) hue-rotate(307deg) brightness(97%) contrast(87%);
+
     --theme-color-red: #E86F86;
     --theme-color-red-filter: invert(63%) sepia(22%) saturate(3616%) hue-rotate(307deg) brightness(97%) contrast(87%);
 
@@ -189,7 +192,7 @@ aside .side-button .icon img {
     height: calc(1*var(--size));
     filter: var(--theme-color-gray-filter);
 }
-aside .side-button .text {
+aside .side-button p {
     width: auto;
     text-align: left;
     font-size: calc(.875*var(--size));
@@ -203,7 +206,7 @@ aside .side-button.active::after {
 aside .side-button.active .icon img {
     filter: var(--theme-color-gold-filter);
 }
-aside .side-button.active .text {
+aside .side-button.active p {
     color: var(--theme-color-gold);
 }
 
@@ -213,7 +216,7 @@ aside .side-button.side-button-no-dot::after {
 aside .side-button.danger .icon img {
     filter: var(--theme-color-red-filter);
 }
-aside .side-button.danger .text {
+aside .side-button.danger p {
     color: var(--theme-color-red);
 }
 
@@ -248,7 +251,7 @@ main .main-nav-button::after {
     height: 20%;
     background-color: #FFFFFF80;
 }
-main .main-nav-button .text {
+main .main-nav-button p {
     width: auto;
     text-align: center;
     font-size: calc(1*var(--size));

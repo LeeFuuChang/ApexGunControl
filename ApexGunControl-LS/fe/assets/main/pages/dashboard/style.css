@@ -71,7 +71,6 @@
     height: calc(2*var(--size));
     font-size: calc(1.25*var(--size));
     font-weight: 400;
-    text-align: center;
     place-content: center;
     color: var(--theme-color-white);
 }
@@ -105,7 +104,6 @@
     font-size: calc(1.25*var(--size));
     font-weight: 600;
     color: var(--theme-color-red);
-    text-align: center;
     place-content: center;
 }
 #page[name="dashboard"] .container .auth form input {

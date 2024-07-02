@@ -3,6 +3,7 @@ window.LoadOverlay = function(name) {
     $("#overlay-container").attr("name", name);
     $.get(`assets/overlay/${name}/overlay.html`, {}, (html)=>{
         $(html).appendTo($("#overlay-container").empty());
+        window.LoadLang();
     });
 };
 
