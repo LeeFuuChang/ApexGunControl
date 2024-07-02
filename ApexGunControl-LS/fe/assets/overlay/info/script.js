@@ -42,7 +42,4 @@
             let tar = scales.indexOf(idx);
             changeScaling((tar<0?5:tar) - idx);
         });
-
-
-    window.LoadLang();
 })();

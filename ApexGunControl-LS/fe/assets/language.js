@@ -163,4 +163,24 @@ window.translation = {
         "tw": "送出",
         "cn": "送出",
     },
+
+
+    /*
+    Page Settings
+    */
+    "page-settings-sens": {
+        "en": "Game Sensitivity",
+        "tw": "遊戲滑鼠靈敏度",
+        "cn": "游戏滑鼠灵敏度",
+    },
+    "page-settings-dps": {
+        "en": "Detection Per Second",
+        "tw": "槍枝偵測頻率（秒）",
+        "cn": "枪枝侦测频率（秒）",
+    },
+    "page-settings-mult": {
+        "en": "Control Multiplier",
+        "tw": "控制倍率",
+        "cn": "控制倍率",
+    },
 }

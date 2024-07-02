@@ -17,7 +17,4 @@
     $("#login-input").keyup(function(e){
         if(e.keyCode == 13) $("#login-submit").trigger("click");
     });
-
-
-    window.LoadLang();
 })();

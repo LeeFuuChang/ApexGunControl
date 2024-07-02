@@ -26,7 +26,7 @@
                     </div>
                     <div class="group">
                         <div class="adjustment">
-                            <h5 class="name">GC Multiplier</h5>
+                            <h5 class="name lang" lang="page-settings-mult">GC Multiplier</h5>
                             <form>
                                 <input class="slider" type="range" min="0" max="2" step="0.1" value="${weapon.multiplier}">
                                 <input class="slider-input" type="text" value="${weapon.multiplier.toFixed(1)}">
@@ -77,8 +77,5 @@
             let value = parseFloat($(this).val());
             input.val(value.toFixed(1));
         });
-
-
-    window.LoadLang();
 })();
 

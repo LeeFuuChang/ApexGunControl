@@ -25,7 +25,4 @@
                 window.LoadOverlay("login");
             });
     }
-
-
-    window.LoadLang();
 })();

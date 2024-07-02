@@ -30,6 +30,7 @@ window.LoadPage = function(name) {
         $(`nav .side-button[name="${name}"], nav .main-nav-button[name="${name}"]`).addClass("active");
         $.get(`assets/main/pages/${name}/page.html`, {}, (html)=>{
             $(html).appendTo($("#page"));
+            window.LoadLang();
         });
     }
     else {
@@ -41,6 +42,20 @@ window.ReloadPage = function() {
 };
 window.LoadHomePage = function() {
     window.LoadPage("dashboard");
+};
+
+
+window.LoadOverlay = function(name) {
+    $("#overlay").css("display", "grid");
+    $("#overlay-container").attr("name", name);
+    $.get(`assets/overlay/${name}/overlay.html`, {}, (html)=>{
+        $(html).appendTo($("#overlay-container").empty());
+        window.LoadLang();
+    });
+};
+window.HideOverlay = function() {
+    $("#overlay").css("display", "none");
+    $("#overlay-container").empty();
 };
 
 
@@ -96,6 +111,9 @@ window.weaponData = [{
 
 
 $(document).ready(function(){
+    /*
+    Navigation
+    */
     $("nav .side-button").on("click", function(){
         if(!$(this).attr("name")) return;
         window.LoadPage($(this).attr("name"));
@@ -104,5 +122,31 @@ $(document).ready(function(){
         window.LoadPage($(this).attr("name"));
     });
 
+
+    /*
+    Overlay
+    */
+    $("#overlay").on("click", function(e){
+        if(this == e.target) window.HideOverlay();
+    });
+
+
+    /*
+    Controls
+    */
+    $(".app-control-button[name='app-control-close']").on("click", ()=>{
+        $.post("/app/controls/app-control-close");
+    });
+    $(".app-control-button[name='app-control-minimize']").on("click", ()=>{
+        $.post("/app/controls/app-control-minimize");
+    });
+    $(".app-control-button[name='app-control-settings']").on("click", ()=>{
+        window.LoadOverlay("info");
+    });
+
+
+    /*
+    Main
+    */
     window.LoadHomePage();
 });

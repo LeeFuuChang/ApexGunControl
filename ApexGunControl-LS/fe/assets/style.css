@@ -263,3 +263,57 @@ main .main-nav-button.active {
     opacity: 1;
     background-color: var(--theme-color-gold);
 }
+
+
+/*
+Overlay
+*/
+#overlay {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #00000080;
+}
+
+#overlay #overlay-container {
+    padding: calc(4*var(--size)) calc(3*var(--size));
+    border-radius: calc(2*var(--size));
+    background-color: var(--theme-color-3);
+    box-shadow: inset 0 0 calc(.5*var(--size)) calc(.5*var(--size)) #00000080;
+}
+
+
+/*
+Controls
+*/
+#controls {
+    position: absolute;
+    display: flex;
+    gap: calc(1*var(--size));
+    top: calc(1*var(--size));
+    right: calc(1*var(--size));
+}
+#controls button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(1*var(--size));
+    height: calc(1*var(--size));
+}
+#controls button img {
+    width: 100%;
+    height: 100%;
+}
+#controls .app-control-button {
+    filter: var(--theme-color-gray-filter);
+}
+#controls .app-control-button[name="app-control-close"] {
+    filter: var(--theme-color-red-filter);
+}
+#controls .app-control-button[name="app-control-minimize"] {
+    filter: var(--theme-color-gold-filter);
+}
