@@ -14,7 +14,7 @@ firebase.auth().onAuthStateChanged((user)=>{
     $("#side-login-button").css("display", !user?"flex":"none");
     $("#side-logout-button").css("display", user?"flex":"none");
 
-    window.LoadPage($("#page").attr("name"));
+    window.ReloadPage();
 
     if(user) {
         // User is signed in, see docs for a list of available properties

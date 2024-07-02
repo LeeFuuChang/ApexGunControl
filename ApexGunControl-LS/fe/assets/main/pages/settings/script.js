@@ -77,5 +77,8 @@
             let value = parseFloat($(this).val());
             input.val(value.toFixed(1));
         });
+
+
+    window.LoadLang();
 })();
 

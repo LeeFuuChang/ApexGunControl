@@ -28,12 +28,16 @@ window.LoadPage = function(name) {
         $("#page").attr("name", name).empty();
         $("nav .side-button, nav .main-nav-button").removeClass("active");
         $(`nav .side-button[name="${name}"], nav .main-nav-button[name="${name}"]`).addClass("active");
-        $.get(`assets/main/pages/${name}/page.html`, {}, (html)=>{ $(html).appendTo($("#page")) });
+        $.get(`assets/main/pages/${name}/page.html`, {}, (html)=>{
+            $(html).appendTo($("#page"));
+        });
     }
     else {
         window.LoadOverlay("login");
     }
-    window.LoadLang();
+};
+window.ReloadPage = function() {
+    window.LoadPage($("#page").attr("name"));
 };
 window.LoadHomePage = function() {
     window.LoadPage("dashboard");

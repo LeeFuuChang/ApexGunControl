@@ -118,4 +118,49 @@ window.translation = {
         "tw": "重置",
         "cn": "重置",
     },
+
+
+    /*
+    Page Dashboard
+    */
+    "page-dashboard-buy": {
+        "en": "Buy Credentials",
+        "tw": "購買憑證",
+        "cn": "购买凭证",
+    },
+    "page-dashboard-title": {
+        "en": "Authorized state:",
+        "tw": "授權狀態：",
+        "cn": "授权状态：",
+    },
+    "page-dashboard-state-waiting": {
+        "en": "Waiting for Login",
+        "tw": "等待登入",
+        "cn": "等待登录",
+    },
+    "page-dashboard-state-unauthorized": {
+        "en": "UnAuthorized",
+        "tw": "未授權",
+        "cn": "未授权",
+    },
+    "page-dashboard-placeholder-waiting": {
+        "en": "Please Login first",
+        "tw": "請先登入",
+        "cn": "请先登录",
+    },
+    "page-dashboard-placeholder-input": {
+        "en": "Credential Code",
+        "tw": "授權代碼",
+        "cn": "授权代码",
+    },
+    "page-dashboard-button-login": {
+        "en": "Login",
+        "tw": "登入",
+        "cn": "登录",
+    },
+    "page-dashboard-button-submit": {
+        "en": "Submit",
+        "tw": "送出",
+        "cn": "送出",
+    },
 }

@@ -1,4 +1,18 @@
 (function(){
+    /*
+    Language
+    */
+    $(".checkbox[name='language']").on("change", function(){
+        if($(this).is(":checked")) {
+            $("#app").attr("lang", $(this).attr("lang"));
+            window.ReloadPage();
+        }
+    });
+
+
+    /*
+    Window Scaling
+    */
     let scales = [
         0.50,
         0.67,
@@ -25,6 +39,10 @@
         .on("click", ()=>{
             let span = $("#overlay-container .block[name='window-scale'] span");
             let idx = parseInt(span.data("index"));
-            changeScaling(scales.indexOf(idx)-idx);
+            let tar = scales.indexOf(idx);
+            changeScaling((tar<0?5:tar) - idx);
         });
+
+
+    window.LoadLang();
 })();

@@ -9,4 +9,7 @@
         $("#page[name='guide'] .image").css("--slide-index", nextIndex);
         $("#page[name='guide'] nav ul li").removeClass("active").eq(nextIndex).addClass("active");
     });
+
+
+    window.LoadLang();
 })();
