@@ -168,6 +168,11 @@ window.translation = {
     /*
     Page Settings
     */
+    "page-config-install": {
+        "en": "Extra Options",
+        "tw": "額外選項",
+        "cn": "额外选项",
+    },
     "page-settings-sens": {
         "en": "Game Sensitivity",
         "tw": "遊戲滑鼠靈敏度",
@@ -183,4 +188,78 @@ window.translation = {
         "tw": "控制倍率",
         "cn": "控制倍率",
     },
-}
+
+
+    /*
+    Page Config
+    */
+    "page-config-general": {
+        "en": "General Options",
+        "tw": "基礎選項",
+        "cn": "基础选项",
+    },
+    "page-config-path": {
+        "en": "Apex CFG directory location",
+        "tw": "Apex CFG 資料夾位置",
+        "cn": "Apex CFG 资料夹位置",
+    },
+    "page-config-save": {
+        "en": "Save and Install",
+        "tw": "儲存並安裝",
+        "cn": "储存并安装",
+    },
+    "page-config-wrong-path": {
+        "en": "Wrong path for Apex cfg (should be '.../cfg')",
+        "tw": "Apex cfg 路徑錯誤 (應該是 '.../cfg')",
+        "cn": "Apex cfg 路径错误 (应该是 '.../cfg')",
+    },
+    "page-config-gun": {
+        "en": "Gun Controls",
+        "tw": "壓槍輔助",
+        "cn": "压枪辅助",
+    },
+    "page-config-tap": {
+        "en": "Auto Tap Single-Shots",
+        "tw": "單發自動連點",
+        "cn": "单发自动连点",
+    },
+    "page-config-movement": {
+        "en": "Movements",
+        "tw": "身法輔助",
+        "cn": "身法辅助",
+    },
+    "page-config-strafe": {
+        "en": "Enable Strafe-related Movements",
+        "tw": "開啟轉向相關身法",
+        "cn": "开启转向相关身法",
+    },
+    "page-config-jump": {
+        "en": "Enable Jump-related Movements",
+        "tw": "開啟跳躍相關身法",
+        "cn": "开启跳跃相关身法",
+    },
+    "page-config-rope": {
+        "en": "Enable Rope-related Movements",
+        "tw": "開啟繩索相關身法",
+        "cn": "开启绳索相关身法",
+    },
+    "page-config-extra": {
+        "en": "Extra Options",
+        "tw": "額外選項",
+        "cn": "额外选项",
+    },
+    "page-config-video": {
+        "en": "Install Video CFG if missing",
+        "tw": "安裝預設影像 CFG 如果缺失",
+        "cn": "安装预设影像 CFG 如果缺失",
+    },
+    "page-config-default": {
+        "en": "Install Default CFG if missing",
+        "tw": "安裝預設遊戲 CFG 如果缺失",
+        "cn": "安装预设游戏 CFG 如果缺失",
+    },
+};
+
+window.GetLangText = function(key) {
+    return window.translation[key][$("#app").attr("lang")||"en"];
+};

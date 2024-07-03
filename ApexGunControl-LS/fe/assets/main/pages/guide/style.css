@@ -27,6 +27,9 @@
     width: 100%;
     object-fit: contain;
     border-radius: calc(1*var(--size));
+    transform: scale(0.9);
+    box-shadow: 0 0 calc(.5*var(--size)) calc(.5*var(--size)) #00000080,
+                0 0 calc(1*var(--size)) calc(1*var(--size)) #00000080;
 }
 
 #page[name="guide"] .container nav {

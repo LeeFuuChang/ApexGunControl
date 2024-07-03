@@ -6,8 +6,8 @@ window.Notify = function(type, message) {
     `);
     element.appendTo($("#notify-container"));
     setTimeout(()=>{
-        element.fadeOut(1000, function() { $(this).remove(); });
-    }, 1000);
+        element.fadeOut(1500, function() { $(this).remove(); });
+    }, 1500);
 };
 
 

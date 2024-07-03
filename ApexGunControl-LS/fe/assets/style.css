@@ -101,6 +101,8 @@ Notify
     padding: calc(1*var(--size)) calc(2*var(--size));
     border-radius: calc(.5*var(--size));
     font-size: calc(1.25*var(--size));
+    margin-bottom: calc(1.25*var(--size));
+    text-wrap: nowrap;
 }
 .notify.notify-success {
     color: #155724;
@@ -121,7 +123,7 @@ Notify
 /*
 Side Navigation
 */
-aside {
+#app>aside {
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: calc(4*var(--size)) 1fr calc(3*var(--size));
@@ -132,20 +134,20 @@ aside {
     background-color: var(--theme-color-2);
 }
 
-aside #logo {
+#app>aside #logo {
     height: 100%;
 }
 
-aside>nav {
+#app>aside>nav {
     width: 100%;
 }
 
-aside>nav .seperator {
+#app>aside>nav .seperator {
     margin: calc(2*var(--size)) calc(1*var(--size));
     border: calc(.1*var(--size)) solid var(--theme-color-3);
 }
 
-aside>nav section .title {
+#app>aside>nav section .title {
     width: 100%;
     line-height: calc(1*var(--size));
     padding: calc(.75*var(--size));
@@ -154,13 +156,13 @@ aside>nav section .title {
     text-transform: uppercase;
     color: var(--theme-color-gray);
 }
-aside>nav section .options {
+#app>aside>nav section .options {
     display: flex;
     flex-direction: column;
     gap: calc(1*var(--size));
 }
 
-aside .side-button {
+#app>aside .side-button {
     position: relative;
     width: 100%;
     display: flex;
@@ -169,7 +171,7 @@ aside .side-button {
     padding: calc(.5*var(--size)) calc(1*var(--size));
     cursor: pointer;
 }
-aside .side-button::after {
+#app>aside .side-button::after {
     position: absolute;
     right: calc(1*var(--size));
     content: "";
@@ -178,7 +180,7 @@ aside .side-button::after {
     border-radius: 50%;
     background-color: var(--theme-color-gray);
 }
-aside .side-button .icon {
+#app>aside .side-button .icon {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -187,12 +189,12 @@ aside .side-button .icon {
     border-radius: calc(.5*var(--size));
     background-color: var(--theme-color-3);
 }
-aside .side-button .icon img {
+#app>aside .side-button .icon img {
     width: calc(1*var(--size));
     height: calc(1*var(--size));
     filter: var(--theme-color-gray-filter);
 }
-aside .side-button p {
+#app>aside .side-button p {
     width: auto;
     text-align: left;
     font-size: calc(.875*var(--size));
@@ -200,23 +202,23 @@ aside .side-button p {
     color: var(--theme-color-gray);
 }
 
-aside .side-button.active::after {
+#app>aside .side-button.active::after {
     background-color: var(--theme-color-gold);
 }
-aside .side-button.active .icon img {
+#app>aside .side-button.active .icon img {
     filter: var(--theme-color-gold-filter);
 }
-aside .side-button.active p {
+#app>aside .side-button.active p {
     color: var(--theme-color-gold);
 }
 
-aside .side-button.side-button-no-dot::after {
+#app>aside .side-button.side-button-no-dot::after {
     content: none;
 }
-aside .side-button.danger .icon img {
+#app>aside .side-button.danger .icon img {
     filter: var(--theme-color-red-filter);
 }
-aside .side-button.danger p {
+#app>aside .side-button.danger p {
     color: var(--theme-color-red);
 }
 

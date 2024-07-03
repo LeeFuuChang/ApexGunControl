@@ -13,6 +13,9 @@
     margin-bottom: calc(2.5* var(--size));
 }
 
+#page[name="settings"] .category>*:not(:last-child) {
+    margin-bottom: calc(1.5* var(--size));
+}
 #page[name="settings"] .category .title {
     width: auto;
     text-align: left;
@@ -26,7 +29,6 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding: calc(1.5*var(--size)) 0;
     padding-left: calc(1.5*var(--size));
 }
 #page[name="settings"] .category .option .image {
