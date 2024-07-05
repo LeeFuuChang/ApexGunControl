@@ -8,6 +8,4 @@ PyQtWebEngine
 flask
 waitress
 
-asyncio
-websockets
-protobuf
+opencv-python
