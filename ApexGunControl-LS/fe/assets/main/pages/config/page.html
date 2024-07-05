@@ -4,12 +4,9 @@
         <h3 class="title lang" lang="page-config-general">General Options</h3>
         <div class="adjustment">
             <h5 class="name lang" lang="page-config-path">Apex CFG directory location</h5>
-            <form class="directory">
+            <form class="directory" action="javascript:void(0);">
                 <input type="text" placeholder="C://....../cfg">
-                <input type="file" webkitdirectory directory multiple/>
-                <button type="button" class="directory-button">
-                    <img src="assets/media/illustration/Directory.svg" alt="">
-                </button>
+                <img src="assets/media/illustration/Directory.svg" alt="">
             </form>
         </div>
         <div class="adjustment">
@@ -24,33 +21,29 @@
         <h3 class="title lang" lang="page-config-gun">Gun Controls</h3>
         <div class="adjustment">
             <h5 class="name lang" lang="page-config-tap">Auto Tap Single-Shots</h5>
-            <input class="switch" type="checkbox">
+            <input class="switch" type="checkbox" path="cfg" name="tap">
         </div>
     </section>
     <section class="category">
         <h3 class="title lang" lang="page-config-movement">Movements</h3>
         <div class="adjustment">
             <h5 class="name lang" lang="page-config-strafe">Enable Strafe-related Movements</h5>
-            <input class="switch" type="checkbox">
+            <input class="switch" type="checkbox" path="cfg" name="walk">
         </div>
         <div class="adjustment">
             <h5 class="name lang" lang="page-config-jump">Enable Jump-related Movements</h5>
-            <input class="switch" type="checkbox">
+            <input class="switch" type="checkbox" path="cfg" name="jump">
         </div>
         <div class="adjustment">
             <h5 class="name lang" lang="page-config-rope">Enable Rope-related Movements</h5>
-            <input class="switch" type="checkbox">
+            <input class="switch" type="checkbox" path="cfg" name="rope">
         </div>
     </section>
     <section class="category">
         <h3 class="title lang" lang="page-config-extra">Extra Options</h3>
         <div class="adjustment">
-            <h5 class="name lang" lang="page-config-video">Install Video CFG if missing</h5>
-            <input class="switch" type="checkbox">
-        </div>
-        <div class="adjustment">
-            <h5 class="name lang" lang="page-config-default">Install Default CFG if missing</h5>
-            <input class="switch" type="checkbox">
+            <h5 class="name lang" lang="page-config-missing">Install missing Apex-default CFG</h5>
+            <input class="switch" type="checkbox" path="cfg" name="missing">
         </div>
     </section>
 </section>

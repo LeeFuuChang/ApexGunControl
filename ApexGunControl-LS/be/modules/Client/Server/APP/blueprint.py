@@ -20,24 +20,6 @@ def App_External():
     webbrowser.open(str(data["url"]))
     return Response(status=202)
 
-@App.route("/config/<string:name>", methods=["GET", "POST"])
-def App_Config(**kwargs):
-    configPath = sys.modules["StorageManager"].LocalStorage().path(os.path.join("cfg", "app", f"{kwargs['name']}.json"))
-    if(request.method == "GET"):
-        if(not configPath): return Response(status=404)
-        return send_from_directory(*os.path.split(configPath))
-    elif(request.method == "POST"):
-        try: data = request.get_json(force=True)
-        except: data = {}
-        if(not configPath): return Response(status=404)
-        with open(configPath, "a+") as f:
-            f.seek(0)
-            config = json.load(f)
-            config.update(data)
-            f.truncate(0)
-            json.dump(config, f, indent=4, ensure_ascii=False)
-        return Response(status=202)
-
 App.control_functions = {}
 @App.route("/controls/<string:name>", methods=["POST"])
 def App_Controls(**kwargs):
@@ -47,3 +29,28 @@ def App_Controls(**kwargs):
     except: data = []
     for func in App.control_functions[name]: func(*data)
     return Response(status=202)
+
+@App.route("/config/<path:filepath>", methods=["GET", "POST"])
+def App_Config(**kwargs):
+    kwargs['filepath'] = kwargs['filepath'] or "app.json"
+
+    configPath = sys.modules["StorageManager"].LocalStorage().path(os.path.join("cfg", kwargs["filepath"]))
+
+    if(not configPath): return Response(status=404)
+
+    if(os.path.isdir(configPath)): return os.listdir(configPath)
+
+    if(request.method == "GET"):
+        return send_from_directory(*os.path.split(configPath))
+    elif(request.method == "POST"):
+        try:
+            data = request.get_json(force=True)
+            with open(configPath, "a+") as f:
+                f.seek(0)
+                config = json.load(f)
+                config.update(data)
+                f.truncate(0)
+                json.dump(config, f, indent=4, ensure_ascii=False)
+            return Response(status=202)
+        except:
+            return Response(status=403)

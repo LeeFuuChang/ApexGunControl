@@ -60,54 +60,10 @@ window.HideOverlay = function() {
 
 
 window.LoadLang = function() {
-    let lang = $("#app").attr("lang") || "en";
     $(".lang").each(function(){
-        $(this).text(window.translation[$(this).attr("lang")][lang]);
+        $(this).text(window.GetLangText($(this).attr("lang")))
     });
 };
-
-
-window.weaponData = [{
-    name: "R-301",
-    ammo: "Light",
-    type: "repeat",
-    assisting: true,
-    multiplier: 1,
-    usage: 147243,
-    image: "assets/media/weapons/R-301.png",
-}, {
-    name: "L-STAR EMG",
-    ammo: "Energy",
-    type: "repeat",
-    assisting: true,
-    multiplier: 1,
-    usage: 147243,
-    image: "assets/media/weapons/L-STAR.png",
-}, {
-    name: "Flatline",
-    ammo: "Heavy",
-    type: "repeat",
-    assisting: true,
-    multiplier: 1,
-    usage: 147243,
-    image: "assets/media/weapons/Flatline.png",
-}, {
-    name: "R-99",
-    ammo: "Light",
-    type: "repeat",
-    assisting: true,
-    multiplier: 1,
-    usage: 147243,
-    image: "assets/media/weapons/R-99.png",
-}, {
-    name: "Volt SMG",
-    ammo: "Energy",
-    type: "repeat",
-    assisting: true,
-    multiplier: 1,
-    usage: 147243,
-    image: "assets/media/weapons/Volt.png",
-}];
 
 
 $(document).ready(function(){

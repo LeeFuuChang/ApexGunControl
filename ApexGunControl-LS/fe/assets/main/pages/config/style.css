@@ -95,7 +95,7 @@
     height: calc(2*var(--size));
     background-color: var(--theme-color-2);
 }
-#page[name="config"] .category .adjustment .directory input[type="text"] {
+#page[name="config"] .category .adjustment .directory input {
     flex: 1;
     height: 100%;
     outline: none;
@@ -107,18 +107,9 @@
     color: var(--theme-color-white);
     background-color: transparent;
 }
-#page[name="config"] .category .adjustment .directory input[type="file"] {
-    display: none;
-}
-#page[name="config"] .category .adjustment .directory button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+#page[name="config"] .category .adjustment .directory img {
     width: calc(2*var(--size));
-    height: calc(1.5*var(--size));
-}
-#page[name="config"] .category .adjustment .directory button img {
-    height: 75%;
+    height: calc(1*var(--size));
     filter: var(--theme-color-white-filter);
 }
 

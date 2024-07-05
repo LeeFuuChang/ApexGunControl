@@ -213,6 +213,11 @@ window.translation = {
         "tw": "Apex cfg 路徑錯誤 (應該是 '.../cfg')",
         "cn": "Apex cfg 路径错误 (应该是 '.../cfg')",
     },
+    "page-config-save-success": {
+        "en": "Saved",
+        "tw": "儲存成功",
+        "cn": "储存成功",
+    },
     "page-config-gun": {
         "en": "Gun Controls",
         "tw": "壓槍輔助",
@@ -248,15 +253,10 @@ window.translation = {
         "tw": "額外選項",
         "cn": "额外选项",
     },
-    "page-config-video": {
-        "en": "Install Video CFG if missing",
-        "tw": "安裝預設影像 CFG 如果缺失",
-        "cn": "安装预设影像 CFG 如果缺失",
-    },
-    "page-config-default": {
-        "en": "Install Default CFG if missing",
-        "tw": "安裝預設遊戲 CFG 如果缺失",
-        "cn": "安装预设游戏 CFG 如果缺失",
+    "page-config-missing": {
+        "en": "Install missing Apex-default CFG",
+        "tw": "補齊缺失的遊戲預設 CFG",
+        "cn": "补齐缺失的游戏预设 CFG",
     },
 };
 
