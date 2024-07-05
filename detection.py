@@ -6,27 +6,28 @@ import os
 
 
 def detect(rect, prevWeapon, confidence):
-    with mss() as screen: 
-        screenShot = np.array(screen.grab(rect))
+    screen = mss()
 
-        img = cv2.cvtColor(screenShot, cv2.COLOR_BGR2GRAY)
+    screenShot = np.array(screen.grab(rect))
 
-        img = cv2.threshold(img, 140, 255, cv2.THRESH_BINARY)[1]
+    img = cv2.cvtColor(screenShot, cv2.COLOR_BGR2GRAY)
 
-        silhouettes = os.path.join("ApexGunControl-LS", "apex", "silhouette")
+    img = cv2.threshold(img, 140, 255, cv2.THRESH_BINARY)[1]
 
-        def confidenceOf(weaponName):
-            nonlocal img, silhouettes
-            sil = cv2.imread(os.path.join(silhouettes, f"{weaponName}.jpg"), cv2.IMREAD_UNCHANGED)
-            result = cv2.matchTemplate(img, sil, cv2.TM_CCOEFF_NORMED)
-            return cv2.minMaxLoc(result)[1]
+    silhouettes = os.path.join("ApexGunControl-LS", "apex", "silhouette")
 
-        if(prevWeapon and confidenceOf(prevWeapon) > confidence): return prevWeapon
+    def confidenceOf(weaponName):
+        nonlocal img, silhouettes
+        sil = cv2.imread(os.path.join(silhouettes, f"{weaponName}.jpg"), cv2.IMREAD_UNCHANGED)
+        result = cv2.matchTemplate(img, sil, cv2.TM_CCOEFF_NORMED)
+        return cv2.minMaxLoc(result)[1]
 
-        for file in os.listdir(silhouettes):
-            if(not file.endswith(".jpg")): continue
-            weaponName = os.path.splitext(file)[0]
-            if(confidenceOf(weaponName) > confidence): return weaponName
+    if(prevWeapon and confidenceOf(prevWeapon) > confidence): return prevWeapon
+
+    for file in os.listdir(silhouettes):
+        if(not file.endswith(".jpg")): continue
+        weaponName = os.path.splitext(file)[0]
+        if(confidenceOf(weaponName) > confidence): return weaponName
 
     return None
 

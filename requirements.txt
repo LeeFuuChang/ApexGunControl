@@ -9,5 +9,4 @@ flask
 waitress
 
 opencv-python
-screeninfo
 mss
