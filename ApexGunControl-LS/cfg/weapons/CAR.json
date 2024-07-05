@@ -1,8 +1,8 @@
 {
-    "name": "Flatline",
+    "name": "CAR",
     "ammo": "Heavy",
     "supply": false,
     "tap": false,
     "multiplier": "1.0",
-    "image": "/apex/assets/weapons/Flatline.png"
+    "image": "/apex/assets/weapons/CAR.png"
 }

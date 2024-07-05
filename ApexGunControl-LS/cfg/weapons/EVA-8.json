@@ -1,0 +1,8 @@
+{
+    "name": "EVA-8",
+    "ammo": "Shotgun",
+    "supply": false,
+    "tap": true,
+    "multiplier": "1.0",
+    "image": "/apex/assets/weapons/EVA-8.png"
+}

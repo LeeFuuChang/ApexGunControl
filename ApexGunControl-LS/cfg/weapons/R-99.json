@@ -1,6 +1,8 @@
 {
     "name": "R-99",
     "ammo": "Light",
+    "supply": false,
+    "tap": false,
     "multiplier": "1.0",
     "image": "/apex/assets/weapons/R-99.png"
 }

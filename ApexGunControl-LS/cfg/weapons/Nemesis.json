@@ -1,0 +1,8 @@
+{
+    "name": "Nemesis",
+    "ammo": "Energy",
+    "supply": false,
+    "tap": true,
+    "multiplier": "1.0",
+    "image": "/apex/assets/weapons/Nemesis.png"
+}

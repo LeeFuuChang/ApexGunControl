@@ -68,29 +68,30 @@
             }));
         })
         .then((weaponsData)=>{
-            let sortedByAmmo = {};
+            let weaponsGrouped = {};
             for(weapon of weaponsData) {
-                if(!sortedByAmmo[weapon.ammo]) {
-                    sortedByAmmo[weapon.ammo] = [ weapon ];
+                let key = weapon.supply?"Supply":weapon.ammo;
+                if(!weaponsGrouped[key]) {
+                    weaponsGrouped[key] = [ weapon ];
                 }
                 else {
-                    sortedByAmmo[weapon.ammo].push(weapon);
+                    weaponsGrouped[key].push(weapon);
                 }
             }
-            return Promise.resolve(sortedByAmmo);
+            return Promise.resolve(weaponsGrouped);
         })
-        .then((sortedByAmmo)=>{
-            let weaponSettingsHtml = (Object.keys(sortedByAmmo).map(ammo=>{
-                sortedByAmmo[ammo].sort(function(a, b){
+        .then((weaponsGrouped)=>{
+            let weaponSettingsHtml = (Object.keys(weaponsGrouped).map(group=>{
+                weaponsGrouped[group].sort(function(a, b){
                     return a.name.localeCompare(b.name);
                 });
-                let ammoWeaponsOptions = sortedByAmmo[ammo].reduce((html, weapon)=>{
+                let ammoWeaponsOptions = weaponsGrouped[group].reduce((html, weapon)=>{
                     return html + `
                         <section class="option">
                             <div class="image">
                                 <img class="weapon" src="${weapon.image}" alt="">
                                 <h4 class="name">${weapon.name}</h4>
-                                <img class="bullet" src="/apex/assets/bullets/${weapon.ammo}.png" alt="">
+                                <img class="bullet" src="/apex/assets/bullets/${weapon.supply?"Supply":""}${weapon.ammo}.png" alt="">
                             </div>
                             <div class="group">
                                 <div class="adjustment">
@@ -106,7 +107,7 @@
                 }, "");
                 return `
                     <section class="category">
-                        <h3 class="title">${ammo}</h3>
+                        <h3 class="title">${group}</h3>
                         ${ammoWeaponsOptions}
                     </section>
                     `;

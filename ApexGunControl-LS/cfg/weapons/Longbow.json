@@ -1,0 +1,8 @@
+{
+    "name": "Longbow",
+    "ammo": "Sniper",
+    "supply": false,
+    "tap": true,
+    "multiplier": "1.0",
+    "image": "/apex/assets/weapons/Longbow.png"
+}

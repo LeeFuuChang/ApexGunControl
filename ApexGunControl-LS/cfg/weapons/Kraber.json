@@ -1,0 +1,8 @@
+{
+    "name": "Kraber",
+    "ammo": "Sniper",
+    "supply": true,
+    "tap": true,
+    "multiplier": "1.0",
+    "image": "/apex/assets/weapons/Kraber.png"
+}

@@ -1,8 +1,8 @@
 {
-    "path": "C://apex/cfg",
-    "tap": false,
-    "walk": false,
-    "jump": false,
-    "rope": false,
-    "missing": false
+    "path": "",
+    "tap": true,
+    "walk": true,
+    "jump": true,
+    "rope": true,
+    "missing": true
 }

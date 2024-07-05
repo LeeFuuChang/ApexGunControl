@@ -1,6 +1,8 @@
 {
     "name": "Volt",
     "ammo": "Energy",
+    "supply": false,
+    "tap": false,
     "multiplier": "1.0",
     "image": "/apex/assets/weapons/Volt.png"
 }

@@ -1,0 +1,8 @@
+{
+    "name": "Mastiff",
+    "ammo": "Shotgun",
+    "supply": false,
+    "tap": true,
+    "multiplier": "1.0",
+    "image": "/apex/assets/weapons/Mastiff.png"
+}
