@@ -41,6 +41,8 @@
                     let input = $(this).siblings(".slider-input");
                     let value = parseFloat($(this).val());
                     input.val(value.toFixed(1));
+                })
+                .on("focusout", function(){
                     Save(this);
                 });
         return $(parent);
