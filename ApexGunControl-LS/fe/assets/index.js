@@ -67,6 +67,8 @@ window.LoadLang = function() {
 
 
 $(document).ready(function(){
+    window.Resize(1);
+
     /*
     Navigation
     */

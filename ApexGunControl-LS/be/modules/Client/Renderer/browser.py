@@ -14,8 +14,6 @@ class BrowserWindow(QWebEngineView):
 
     resizeSignal = QtCore.pyqtSignal(int, int)
 
-    showSignal = QtCore.pyqtSignal()
-
     dragging = False
     mouseLastPosition = None
 
@@ -47,7 +45,6 @@ class BrowserWindow(QWebEngineView):
         self.closeSignal.connect(self.close)
         self.minimizeSignal.connect(self.showMinimized)
         self.resizeSignal.connect(self.resize)
-        self.showSignal.connect(self.show)
 
         self.centralize()
 
@@ -63,7 +60,7 @@ class BrowserWindow(QWebEngineView):
 
 
     def mousePressEvent(self, event):
-        self.dragging = ((event.buttons() == QtCore.Qt.LeftButton) and (event.y() < self.height()*0.08))
+        self.dragging = ((event.buttons() == QtCore.Qt.LeftButton) and (event.y() < self.height()*0.05))
         return super().mousePressEvent(event)
 
 
@@ -95,5 +92,6 @@ class BrowserWindow(QWebEngineView):
         self.server = server
         self.server.registerAppControl("app-control-close", self.closeSignal.emit)
         self.server.registerAppControl("app-control-minimize", self.minimizeSignal.emit)
+        self.server.registerAppControl("app-control-resize", self.resizeSignal.emit)
         self.load(QtCore.QUrl(f"http://{host}:{port}/ui"))
         self.centralize()

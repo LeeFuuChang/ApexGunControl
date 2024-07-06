@@ -24,22 +24,27 @@
         1.25,
         1.50,
     ];
+    let idx = scales.indexOf(parseFloat($(":root").css("--scale")));
+    $(".scale-text").text(`${(scales[idx]*100).toFixed(0)}%`);
     let changeScaling = function(deltaIndex) {
-        let span = $("#overlay-container .block[name='window-scale'] span");
-        let idx = parseInt(span.data("index"));
+        let idx = scales.indexOf(parseFloat($(":root").css("--scale")));
         idx = Math.max(0, Math.min(idx+deltaIndex, scales.length-1));
-        span.data("index", idx).text(`${(scales[idx]*100).toFixed(0)}%`);
+        $(".scale-text").text(`${(scales[idx]*100).toFixed(0)}%`);
         window.Resize(scales[idx]);
     };
-    $("#overlay-container .block[name='window-scale'] button[data-symbol='-']")
-        .on("click", ()=>changeScaling(-1));
-    $("#overlay-container .block[name='window-scale'] button[data-symbol='+']")
-        .on("click", ()=>changeScaling(+1));
-    $("#overlay-container .block[name='window-scale'] .reset-button")
-        .on("click", ()=>{
-            let span = $("#overlay-container .block[name='window-scale'] span");
-            let idx = parseInt(span.data("index"));
-            let tar = scales.indexOf(idx);
-            changeScaling((tar<0?5:tar) - idx);
+    $("#overlay-container .scale-button")
+        .on("click", function(){
+            switch($(this).data("symbol")) {
+                case '-':
+                    changeScaling(-1);
+                    break;
+                case '+':
+                    changeScaling(+1);
+                    break;
+                default:
+                    let idx = scales.indexOf(parseFloat($(":root").css("--scale")));
+                    changeScaling(scales.indexOf(1.0) - idx);
+                    break;
+            }
         });
 })();

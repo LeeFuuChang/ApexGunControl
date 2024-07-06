@@ -12,7 +12,7 @@ class Detector:
     defaultB = 1080 // 6
 
     @staticmethod
-    def regionOf(w, h):
+    def defaultRegionOf(w, h):
         b = h//6
         return (w-b*3, h-b, w, h)
 
@@ -22,12 +22,9 @@ class Detector:
         return cv2.minMaxLoc(result)[1]
 
     @staticmethod
-    def capture():
-        region = Detector.regionOf(Detector.monitor["width"], Detector.monitor["height"])
-        return np.array(Detector.mss.grab(region))
+    def detect(region, prioritize, confidence):
+        screenshot = np.array(Detector.mss.grab(region))
 
-    @staticmethod
-    def detect(screenshot, prioritize, confidence):
         img = cv2.resize(screenshot, (Detector.defaultB*3, Detector.defaultB), interpolation=cv2.INTER_NEAREST)
 
         img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -36,27 +33,27 @@ class Detector:
 
         silhouettes = os.path.join("ApexGunControl-LS", "apex", "silhouettes")
 
+        cof = 0
+
         if(prioritize):
             sil = cv2.imread(os.path.join(silhouettes, f"{prioritize}.jpg"), cv2.IMREAD_UNCHANGED)
-            if(Detector.similarityOf(img, sil) > confidence):
-                return prioritize
+            cof = max(cof, Detector.similarityOf(img, sil))
+            if(cof > confidence): return [ prioritize, cof ]
 
         for file in os.listdir(silhouettes):
             if(not file.endswith(".jpg")): continue
             sil = cv2.imread(os.path.join(silhouettes, file), cv2.IMREAD_UNCHANGED)
-            if(Detector.similarityOf(img, sil) > confidence): return os.path.splitext(file)[0]
+            cof = max(cof, Detector.similarityOf(img, sil))
+            if(cof > confidence): return [ os.path.splitext(file)[0], cof ]
 
-        return None
+        return [ None, cof ]
 
 
 
 if __name__ == "__main__":
     if(len(sys.argv) > 1):
         screenshot = cv2.imread(sys.argv[1], cv2.IMREAD_UNCHANGED)
-        w = screenshot.shape[1]
-        h = screenshot.shape[0]
-        r = Detector.regionOf(w, h)
-        screenshot = screenshot[r[1]:r[3], r[0]:r[2]]
+        r = Detector.defaultRegionOf(screenshot.shape[1], screenshot.shape[0])
     else:
-        screenshot = Detector.capture()
-    print(Detector.detect(screenshot, "", 0.8))
+        r = Detector.defaultRegionOf(Detector.monitor["width"], Detector.monitor["height"])
+    print(Detector.detect(r, "", 0.8))
