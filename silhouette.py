@@ -27,4 +27,4 @@ for x, y, w, h in zip(mx, my, mw, mh):
     img[y:y+h,x:x+w] = 0
 
 # saving
-cv2.imwrite(os.path.join("ApexGunControl-LS", "apex", "silhouette", sys.argv[1]), img)
+cv2.imwrite(os.path.join("ApexGunControl-LS", "apex", "silhouettes", sys.argv[1]), img)
