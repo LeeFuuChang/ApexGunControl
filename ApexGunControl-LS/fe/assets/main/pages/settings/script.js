@@ -60,6 +60,11 @@
         .then((data)=>{
             $("input[name='sensitivity']").val(data["sensitivity"]);
             $("input[name='dps']").val(data["dps"]);
+            let w = window.screen.width;
+            let h = window.screen.height;
+            let b = Math.round(h/6);
+            $("input[name='region']").val(data["region"] || `(${w-b*3}, ${h-b}, ${w}, ${h})`);
+            return Save($("input[path='settings']"));
         });
     $.get("/app/config/weapons", {})
         .then((list)=>{

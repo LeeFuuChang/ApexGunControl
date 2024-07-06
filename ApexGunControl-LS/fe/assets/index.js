@@ -37,7 +37,7 @@ window.LoadPage = function(name) {
         window.LoadOverlay("login");
     }
 };
-window.ReloadPage = function() {
+window.RefreshPage = function() {
     window.LoadPage($("#page").attr("name"));
 };
 window.LoadHomePage = function() {
@@ -66,8 +66,19 @@ window.LoadLang = function() {
 };
 
 
+$(window).on("focus", window.RefreshPage);
+
+
 $(document).ready(function(){
-    window.Resize(1);
+    /*
+    Initialization
+    */
+    $.get("/app/config/app.json", {})
+        .then((config)=>{
+            window.SetLanguage(config["language"]);
+            window.Resize(parseFloat(config["window-scale"]) || 1);
+        });
+
 
     /*
     Navigation

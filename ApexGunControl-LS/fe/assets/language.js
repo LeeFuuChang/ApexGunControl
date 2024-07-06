@@ -12,15 +12,15 @@ window.translation = {
         "tw": "首頁",
         "cn": "首页",
     },
-    "navigation-performance": {
-        "en": "Performance",
-        "tw": "使用表現",
-        "cn": "使用表现",
-    },
     "navigation-settings": {
         "en": "Settings",
         "tw": "輔助設定",
         "cn": "辅助设置",
+    },
+    "navigation-detection": {
+        "en": "Detection",
+        "tw": "偵測校準",
+        "cn": "侦测校准",
     },
     "nav-title-installation": {
         "en": "installation",
@@ -183,6 +183,11 @@ window.translation = {
         "tw": "槍枝偵測頻率（秒）",
         "cn": "枪枝侦测频率（秒）",
     },
+    "page-settings-region": {
+        "en": "Detecting Region",
+        "tw": "槍枝偵測區域",
+        "cn": "枪枝侦测区域",
+    },
     "page-settings-mult": {
         "en": "Control Multiplier",
         "tw": "控制倍率",
@@ -258,6 +263,11 @@ window.translation = {
         "tw": "補齊缺失的遊戲預設 CFG",
         "cn": "补齐缺失的游戏预设 CFG",
     },
+};
+
+window.SetLanguage = function(lang) {
+    $("#app").attr("lang", lang||"en");
+    window.RefreshPage();
 };
 
 window.GetLangText = function(key) {

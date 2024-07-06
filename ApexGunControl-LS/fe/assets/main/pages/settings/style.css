@@ -88,7 +88,7 @@
     grid-template-rows: 100%;
     grid-template-columns: 1fr calc(3*var(--size));
     gap: calc(.5*var(--size));
-    width: calc(16*var(--size));
+    width: calc(20*var(--size));
     height: 100%;
 }
 
@@ -107,4 +107,18 @@
 #page[name="settings"] .category .adjustment form .slider {
     --slider-width: 100%;
     --slider-height: calc(1*var(--size));
+}
+
+#page[name="settings"] .category .adjustment form button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border-radius: calc(.5*var(--size));
+    background-color: var(--theme-color-2);
+}
+#page[name="settings"] .category .adjustment form button img {
+    height: 75%;
+    filter: var(--theme-color-white-filter);
 }
