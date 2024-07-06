@@ -70,6 +70,7 @@ html, body, #app {
     height: calc(56*var(--size));
     pointer-events: auto;
     background-color: transparent;
+    overflow: hidden;
 }
 
 html {
