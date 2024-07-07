@@ -45,6 +45,11 @@
                 .on("focusout", function(){
                     Save(this);
                 });
+        $(parent)
+            .find(".region-button")
+                .on("click", function(){
+                    $.post("/app/controls/app-control-region");
+                });
         return $(parent);
     }
     /*

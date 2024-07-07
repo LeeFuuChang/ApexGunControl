@@ -17,6 +17,7 @@ def run():
         "app": server,
         "host": server.host, 
         "port": server.port,
+        "threads": 8,
     }).start()
 
     browserWindow = Client.Renderer.BrowserWindow()

@@ -1,10 +1,10 @@
-import environment
+import json
 import sys
 import os
 
 from detection import Detector
 
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QShortcut, QSizeGrip
+from PyQt5.QtWidgets import QWidget, QLabel, QShortcut, QSizeGrip
 from PyQt5.QtCore import Qt, QPoint, QTimer
 from PyQt5.QtGui import QKeySequence
 
@@ -23,9 +23,7 @@ class SelectionWindow(QWidget):
 
         self.setMinimumSize(64*3, 64)
 
-        self.region = Detector.defaultRegionOf(Detector.monitor["width"], Detector.monitor["height"])
-        self.resize(self.region[2]-self.region[0], self.region[3]-self.region[1])
-        self.move(self.region[0], self.region[1])
+        self.region = Detector.defaultR
 
         QShortcut(QKeySequence("ESC"), self).activated.connect(self.close)
         self.closeHint = QLabel(self)
@@ -58,8 +56,35 @@ class SelectionWindow(QWidget):
         self.setMouseTracking(True)
 
 
+    def showEvent(self, event):
+        path = sys.modules["StorageManager"].LocalStorage().path(os.path.join("cfg", "settings.json"))
+        with open(path, "r") as f:
+            config = json.load(f)
+            self.region = (
+                int(float(config.get("region-l", self.region[0]))),
+                int(float(config.get("region-t", self.region[1]))),
+                int(float(config.get("region-r", self.region[2]))),
+                int(float(config.get("region-b", self.region[3]))),
+            )
+        self.resize(self.region[2]-self.region[0], self.region[3]-self.region[1])
+        self.move(self.region[0], self.region[1])
+        super().showEvent(event)
+
+
+
     def closeEvent(self, event):
-        print("final region:", self.region)
+        path = sys.modules["StorageManager"].LocalStorage().path(os.path.join("cfg", "settings.json"))
+        with open(path, "a+") as f:
+            f.seek(0)
+            config = json.load(f)
+            config.update({
+                "region-l": f"{self.region[0]}",
+                "region-t": f"{self.region[1]}",
+                "region-r": f"{self.region[2]}",
+                "region-b": f"{self.region[3]}",
+            })
+            f.truncate(0)
+            json.dump(config, f, indent=4, ensure_ascii=False)
         super().closeEvent(event)
 
 
@@ -118,14 +143,3 @@ class SelectionWindow(QWidget):
         self.closeHint.move(int((w-self.closeHint.width())/2), 0)
         self.detectHint.move(int((w-self.detectHint.width())/2), h-self.detectHint.height())
 
-
-
-
-
-if __name__ == "__main__":
-    app = QApplication([*sys.argv, "--ignore-gpu-blocklist"])
-
-    selectionWindow = SelectionWindow()
-    selectionWindow.show()
-
-    sys.exit(app.exec_())

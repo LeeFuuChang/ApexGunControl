@@ -1,7 +1,6 @@
 from mss import mss
 import numpy as np
 import cv2
-import sys
 import os
 
 
@@ -11,10 +10,7 @@ class Detector:
 
     defaultB = 1080 // 6
 
-    @staticmethod
-    def defaultRegionOf(w, h):
-        b = h//6
-        return (w-b*3, h-b, w, h)
+    defaultR = (lambda w, h: (w-(h//6)*3, h-(h//6), w, h))(monitor["width"], monitor["height"])
 
     @staticmethod
     def similarityOf(base, match):
@@ -51,9 +47,4 @@ class Detector:
 
 
 if __name__ == "__main__":
-    if(len(sys.argv) > 1):
-        screenshot = cv2.imread(sys.argv[1], cv2.IMREAD_UNCHANGED)
-        r = Detector.defaultRegionOf(screenshot.shape[1], screenshot.shape[0])
-    else:
-        r = Detector.defaultRegionOf(Detector.monitor["width"], Detector.monitor["height"])
-    print(Detector.detect(r, "", 0.8))
+    print(Detector.detect(Detector.defaultR, "", 0.8))

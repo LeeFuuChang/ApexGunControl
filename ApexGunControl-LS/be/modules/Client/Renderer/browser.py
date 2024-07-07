@@ -5,6 +5,8 @@ from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEngineSettings
 from PyQt5.QtWidgets import QApplication, QDesktopWidget
 from PyQt5 import QtCore, QtGui
 
+from .selector import SelectionWindow
+
 
 
 class BrowserWindow(QWebEngineView):
@@ -13,6 +15,8 @@ class BrowserWindow(QWebEngineView):
     minimizeSignal = QtCore.pyqtSignal()
 
     resizeSignal = QtCore.pyqtSignal(int, int)
+
+    regionSignal = QtCore.pyqtSignal()
 
     dragging = False
     mouseLastPosition = None
@@ -42,9 +46,12 @@ class BrowserWindow(QWebEngineView):
 
         self.server = None
 
+        self.selectionWindow = SelectionWindow(self)
+
         self.closeSignal.connect(self.close)
         self.minimizeSignal.connect(self.showMinimized)
         self.resizeSignal.connect(self.resize)
+        self.regionSignal.connect(self.selectionWindow.show)
 
         self.centralize()
 
@@ -93,5 +100,6 @@ class BrowserWindow(QWebEngineView):
         self.server.registerAppControl("app-control-close", self.closeSignal.emit)
         self.server.registerAppControl("app-control-minimize", self.minimizeSignal.emit)
         self.server.registerAppControl("app-control-resize", self.resizeSignal.emit)
+        self.server.registerAppControl("app-control-region", self.regionSignal.emit)
         self.load(QtCore.QUrl(f"http://{host}:{port}/ui"))
         self.centralize()
