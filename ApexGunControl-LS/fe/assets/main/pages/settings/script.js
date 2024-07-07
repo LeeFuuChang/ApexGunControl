@@ -58,12 +58,16 @@
     Bind($("#page"));
     $.get("/app/config/settings.json", {})
         .then((data)=>{
-            $("input[name='sensitivity']").val(data["sensitivity"]);
-            $("input[name='dps']").val(data["dps"]);
             let w = window.screen.width;
             let h = window.screen.height;
             let b = Math.round(h/6);
-            $("input[name='region']").val(data["region"] || `(${w-b*3}, ${h-b}, ${w}, ${h})`);
+            $("input[name='region-l']").val(w-b*3)
+            $("input[name='region-t']").val(h-b)
+            $("input[name='region-r']").val(w)
+            $("input[name='region-b']").val(h)
+            for(key in data) {
+                $(`input[name="${key}"]`).val(data[key]);
+            }
             return Save($("input[path='settings']"));
         });
     $.get("/app/config/weapons", {})

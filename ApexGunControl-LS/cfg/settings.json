@@ -1,5 +1,8 @@
 {
     "sensitivity": "5.0",
     "dps": "5.0",
-    "region": "(1023, 819, 1512, 982)"
+    "region-l": "1020",
+    "region-t": "818",
+    "region-r": "1512",
+    "region-b": "982"
 }

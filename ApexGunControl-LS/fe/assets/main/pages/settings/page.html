@@ -18,7 +18,17 @@
         <div class="adjustment">
             <h5 class="name lang" lang="page-settings-region">Detection Region</h5>
             <form action="javascript:void(0);">
-                <input type="text" readonly path="settings" name="region">
+                <div>
+                    (
+                    <input type="text" readonly path="settings" name="region-l" value="1023">
+                    ,
+                    <input type="text" readonly path="settings" name="region-t" value="819">
+                    ,
+                    <input type="text" readonly path="settings" name="region-r" value="1512">
+                    ,
+                    <input type="text" readonly path="settings" name="region-b" value="982">
+                    )
+                </div>
                 <button type="button">
                     <img src="assets/media/illustration/Region.svg" alt="">
                 </button>
