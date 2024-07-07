@@ -16,7 +16,7 @@ def getRandomPort():
     return port
 
 
-class Server(Flask):
+class WebServer(Flask):
     host = "localhost"
     port = getRandomPort()
 

@@ -4,14 +4,15 @@ import sys
 
 from PyQt5.QtWidgets import QApplication
 
-from modules import Client
+from Renderer import BrowserWindow
+from Server import WebServer
 
 
 
 def run():
     app = QApplication([*sys.argv, "--ignore-gpu-blocklist"])
 
-    server = Client.Server.Server()
+    server = WebServer()
 
     threading.Thread(target=waitress.serve, daemon=True, kwargs={
         "app": server,
@@ -20,7 +21,7 @@ def run():
         "threads": 8,
     }).start()
 
-    browserWindow = Client.Renderer.BrowserWindow()
+    browserWindow = BrowserWindow()
     browserWindow.connect(server, server.host, server.port)
     browserWindow.show()
 

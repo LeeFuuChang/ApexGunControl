@@ -10,7 +10,7 @@ LocalStorage.setup(
     directory = os.environ["EXECUTABLE_ROOT"],
 )
 
-from modules import Client
+from Server import WebServer
 
-server = Client.Server.Server()
+server = WebServer()
 server.run(host=server.host, port=server.port, threaded=True)
