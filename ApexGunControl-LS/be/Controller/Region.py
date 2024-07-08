@@ -1,16 +1,19 @@
-import json
-import sys
 import os
-
-from detection import Detector
 
 from PyQt5.QtWidgets import QWidget, QLabel, QShortcut, QSizeGrip
 from PyQt5.QtCore import Qt, QPoint, QTimer
 from PyQt5.QtGui import QKeySequence
 
+from .Monitor import GameMonitor
+
 
 
 class SelectionWindow(QWidget):
+    region2geometry = staticmethod(lambda r : tuple([int(_) for _ in [r[0], r[1], r[2]-r[0], r[3]-r[1]]]))
+    geometry2region = staticmethod(lambda g : tuple([int(_) for _ in [g[0], g[1], g[0]+g[2], g[1]+g[3]]]))
+
+    regionCarrier = None
+
     def __init__(self, *args, **kwargs):
         super(self.__class__, self).__init__(*args, **kwargs)
 
@@ -22,8 +25,6 @@ class SelectionWindow(QWidget):
         self.setAutoFillBackground(True)
 
         self.setMinimumSize(64*3, 64)
-
-        self.region = Detector.defaultR
 
         QShortcut(QKeySequence("ESC"), self).activated.connect(self.close)
         self.closeHint = QLabel(self)
@@ -56,74 +57,65 @@ class SelectionWindow(QWidget):
         self.setMouseTracking(True)
 
 
-    def showEvent(self, event):
-        path = sys.modules["StorageManager"].LocalStorage().path(os.path.join("cfg", "settings.json"))
-        with open(path, "r") as f:
-            config = json.load(f)
-            self.region = (
-                int(float(config.get("region-l", self.region[0]))),
-                int(float(config.get("region-t", self.region[1]))),
-                int(float(config.get("region-r", self.region[2]))),
-                int(float(config.get("region-b", self.region[3]))),
-            )
-        self.resize(self.region[2]-self.region[0], self.region[3]-self.region[1])
-        self.move(self.region[0], self.region[1])
-        super().showEvent(event)
+    def select(self, carrier):
+        self.regionCarrier = carrier
+        self.show()
 
+
+    def showEvent(self, event):
+        if(self.regionCarrier is not None):
+            self.regionCarrier.load()
+            self.setGeometry(*self.region2geometry(self.regionCarrier.region))
+        return super().showEvent(event)
 
 
     def closeEvent(self, event):
-        path = sys.modules["StorageManager"].LocalStorage().path(os.path.join("cfg", "settings.json"))
-        with open(path, "a+") as f:
-            f.seek(0)
-            config = json.load(f)
-            config.update({
-                "region-l": f"{self.region[0]}",
-                "region-t": f"{self.region[1]}",
-                "region-r": f"{self.region[2]}",
-                "region-b": f"{self.region[3]}",
-            })
-            f.truncate(0)
-            json.dump(config, f, indent=4, ensure_ascii=False)
-        super().closeEvent(event)
+        if(self.regionCarrier is not None):
+            self.regionCarrier.save()
+            self.regionCarrier = None
+        return super().closeEvent(event)
 
 
     def mouseMoveEvent(self, event):
         self.farestGrip = max(self.grips, key=lambda g:(g.mapToParent(g.rect().center())-event.pos()).manhattanLength())
+        return super().mouseMoveEvent(event)
 
 
     def updateDetect(self):
-        res, cof = Detector.detect(self.region, "", 0.8)
-        self.detectHint.setText(f"{res} - {round(cof*100)}%")
+        self.detectHint.setText(f"{GameMonitor.weapon[0]} - {round(GameMonitor.weapon[1]*100)}%")
+        self.detectHint.adjustSize()
 
 
     def updateRegion(self):
-        rect = self.geometry()
-        x = rect.x()
-        y = rect.y()
-        w = rect.width()
-        h = rect.height()
+        if(not self.regionCarrier): return
+
+        g = self.geometry()
+        x = max(g.x(), self.regionCarrier.monitor["left"])
+        y = max(g.y(), self.regionCarrier.monitor["top"])
+        w = min(g.width(), self.regionCarrier.monitor["width"]-g.x())
+        h = min(g.height(), self.regionCarrier.monitor["height"]-g.y())
 
         nw = min(h*3, w)
         nh = min(w/3, h)
 
         if(self.grips[0] == self.farestGrip):
-            self.region = (x, y, x+nw, y+nh)
+            self.regionCarrier.region = self.geometry2region((x, y, nw, nh))
         if(self.grips[1] == self.farestGrip):
-            self.region = (x+w-nw, y, x+w, y+nh)
+            self.regionCarrier.region = self.geometry2region((x+w-nw, y, w, nh))
         if(self.grips[2] == self.farestGrip):
-            self.region = (x+w-nw, y+h-nh, x+w, y+h)
+            self.regionCarrier.region = self.geometry2region((x+w-nw, y+h-nh, w, h))
         if(self.grips[3] == self.farestGrip):
-            self.region = (x, y+h-nh, x+nw, y+h)
+            self.regionCarrier.region = self.geometry2region((x, y+h-nh, nw, h))
 
-        self.region = tuple([int(_) for _ in self.region])
+        self.setGeometry(*self.region2geometry(self.regionCarrier.region))
 
-        self.setGeometry(self.region[0], self.region[1], self.region[2]-self.region[0], self.region[3]-self.region[1])
+
+    def paintEvent(self, event):
+        self.updateRegion()
+        return super().paintEvent(event)
 
 
     def resizeEvent(self, event):
-        super().resizeEvent(event)
-
         self.updateRegion()
 
         rect = self.geometry()
@@ -142,4 +134,7 @@ class SelectionWindow(QWidget):
 
         self.closeHint.move(int((w-self.closeHint.width())/2), 0)
         self.detectHint.move(int((w-self.detectHint.width())/2), h-self.detectHint.height())
+
+        return super().resizeEvent(event)
+
 

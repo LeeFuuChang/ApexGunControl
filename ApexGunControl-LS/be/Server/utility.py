@@ -2,9 +2,9 @@ from flask import Flask, redirect
 import logging
 import socket
 
-from .UI import Ui
-from .APP import App
-from .APEX import Apex
+from .blueprints.Ui import Ui
+from .blueprints.App import App
+from .blueprints.Apex import Apex
 
 
 

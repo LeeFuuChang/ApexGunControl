@@ -5,11 +5,12 @@ from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEngineSettings
 from PyQt5.QtWidgets import QApplication, QDesktopWidget
 from PyQt5 import QtCore, QtGui
 
-from .selector import SelectionWindow
+from Controller.Detector import WeaponDetector
+from Controller.Region import SelectionWindow
 
 
 
-class BrowserWindow(QWebEngineView):
+class WebRenderer(QWebEngineView):
     closeSignal = QtCore.pyqtSignal()
 
     minimizeSignal = QtCore.pyqtSignal()
@@ -46,12 +47,12 @@ class BrowserWindow(QWebEngineView):
 
         self.server = None
 
-        self.selectionWindow = SelectionWindow(self)
+        self.regionSelector = SelectionWindow(self)
 
         self.closeSignal.connect(self.close)
         self.minimizeSignal.connect(self.showMinimized)
         self.resizeSignal.connect(self.resize)
-        self.regionSignal.connect(self.selectionWindow.show)
+        self.regionSignal.connect(self.selectWeaponDetectRegion)
 
         self.centralize()
 
@@ -93,6 +94,10 @@ class BrowserWindow(QWebEngineView):
         if((self.width(), self.height()) == (w, h)): return
         super().resize(w, h)
         self.centralize()
+
+
+    def selectWeaponDetectRegion(self):
+        self.regionSelector.select(WeaponDetector)
 
 
     def connect(self, server, host, port):

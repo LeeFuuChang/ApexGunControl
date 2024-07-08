@@ -4,7 +4,7 @@ import sys
 
 from PyQt5.QtWidgets import QApplication
 
-from Renderer import BrowserWindow
+from Browser import WebRenderer
 from Server import WebServer
 
 
@@ -21,7 +21,7 @@ def run():
         "threads": 8,
     }).start()
 
-    browserWindow = BrowserWindow()
+    browserWindow = WebRenderer()
     browserWindow.connect(server, server.host, server.port)
     browserWindow.show()
 
