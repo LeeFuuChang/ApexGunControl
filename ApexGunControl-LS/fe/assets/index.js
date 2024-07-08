@@ -29,7 +29,10 @@ window.LoadPage = function(name) {
         $("nav .side-button, nav .main-nav-button").removeClass("active");
         $(`nav .side-button[name="${name}"], nav .main-nav-button[name="${name}"]`).addClass("active");
         $.get(`assets/main/pages/${name}/page.html`, {}, (html)=>{
-            $(html).appendTo($("#page"));
+            $(html)
+                .hide()
+                .appendTo($("#page"))
+                .fadeIn(250);
             window.LoadLang();
         });
     }
@@ -49,7 +52,13 @@ window.LoadOverlay = function(name) {
     $("#overlay").css("display", "grid");
     $("#overlay-container").attr("name", name);
     $.get(`assets/overlay/${name}/overlay.html`, {}, (html)=>{
-        $(html).appendTo($("#overlay-container").empty());
+        $("#overlay-container")
+            .hide()
+            .empty()
+            .append($(html))
+            .fadeIn(250, function(){
+                $(this).find("[tabindex='0']").focus()
+            });
         window.LoadLang();
     });
 };
@@ -115,7 +124,8 @@ $(document).ready(function(){
 
 
     /*
-    Main
+    Landing
     */
     window.LoadHomePage();
+    window.LoadOverlay("login");
 });

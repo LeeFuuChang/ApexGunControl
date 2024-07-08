@@ -63,8 +63,6 @@ class WebRenderer(QWebEngineView):
         self.regionSignal.connect(self.selectWeaponDetectRegion)
         self.authChangedSignal.connect(self.authStateChanged)
 
-        self.centralize()
-
 
     def eventFilter(self, object, event):
         if(object.parent() == self and event.type() == QtCore.QEvent.MouseMove):
@@ -101,8 +99,10 @@ class WebRenderer(QWebEngineView):
 
     def resize(self, w, h):
         if((self.width(), self.height()) == (w, h)): return
+        logging.getLogger().info(f"Browser Scaled to ({w}, {h})")
         super().resize(w, h)
         self.centralize()
+        self.show()
 
 
     def selectWeaponDetectRegion(self):
@@ -123,6 +123,7 @@ class WebRenderer(QWebEngineView):
         self.server.registerAppControl("app-control-region", self.regionSignal.emit)
         self.server.registerAppControl("app-control-auth", self.authChangedSignal.emit)
         self.load(QtCore.QUrl(f"http://{host}:{port}/ui"))
+        logging.getLogger().info(f"Browser Listening on 'http://{host}:{port}/ui'")
         self.centralize()
 
 
@@ -141,7 +142,6 @@ def run():
 
     browserWindow = WebRenderer()
     browserWindow.connect(server, server.host, server.port)
-    browserWindow.show()
 
     sys.exit(app.exec_())
 

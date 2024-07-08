@@ -1,6 +1,7 @@
 import threading
 import logging
 import time
+import os
 
 from .Detector import WeaponDetector
 
@@ -19,6 +20,7 @@ class GameMonitor:
     @classmethod
     def update(cls):
         while(not time.sleep(.5)):
+            if(not os.environ["USER"]): continue
             weapon = WeaponDetector.detect()
             if(weapon[1] > cls.weaponConfidence):
                 if(weapon[0] != cls.weapon[0]):
