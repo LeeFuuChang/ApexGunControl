@@ -8,7 +8,7 @@ from .Monitor import GameMonitor
 
 
 
-class SelectionWindow(QWidget):
+class RegionSelector(QWidget):
     region2geometry = staticmethod(lambda r : tuple([int(_) for _ in [r[0], r[1], r[2]-r[0], r[3]-r[1]]]))
     geometry2region = staticmethod(lambda g : tuple([int(_) for _ in [g[0], g[1], g[0]+g[2], g[1]+g[3]]]))
 

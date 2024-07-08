@@ -5,8 +5,8 @@ from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEngineSettings
 from PyQt5.QtWidgets import QApplication, QDesktopWidget
 from PyQt5 import QtCore, QtGui
 
-from Controller.Detector import WeaponDetector
-from Controller.Region import SelectionWindow
+from Script.Detector import WeaponDetector
+from Script.Selector import RegionSelector
 
 
 
@@ -47,7 +47,7 @@ class WebRenderer(QWebEngineView):
 
         self.server = None
 
-        self.regionSelector = SelectionWindow(self)
+        self.regionSelector = RegionSelector(self)
 
         self.closeSignal.connect(self.close)
         self.minimizeSignal.connect(self.showMinimized)
