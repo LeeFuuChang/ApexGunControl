@@ -97,6 +97,10 @@ Notify
     left: 50%;
     transform: translateX(-50%);
 }
+#notify-container,
+#notify-container * {
+    pointer-events: none;
+}
 .notify {
     position: relative;
     padding: calc(1*var(--size)) calc(2*var(--size));
