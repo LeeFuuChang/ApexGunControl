@@ -9,6 +9,8 @@ import os
 """
 Environment Variables
 """
+os.environ["USER"] = ""
+
 os.environ["VERSION"] = "4.3.0"
 
 os.environ["PROJECT_NAME"] = "ApexGunControl"
