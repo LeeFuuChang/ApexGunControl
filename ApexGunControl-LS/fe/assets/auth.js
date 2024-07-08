@@ -16,6 +16,8 @@ firebase.auth().onAuthStateChanged((user)=>{
 
     window.RefreshPage();
 
+    $.post("/app/controls/app-control-auth", JSON.stringify([user, ]));
+
     if(user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/v8/firebase.User
