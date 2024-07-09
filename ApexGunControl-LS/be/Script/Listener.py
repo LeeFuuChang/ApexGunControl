@@ -1,6 +1,5 @@
 from pynput import mouse, keyboard
 from typing import Union
-import time
 
 
 
@@ -22,13 +21,13 @@ class Mouse:
 
     pressed: InputState = InputState({repr(button):False for button in mouse.Button})
 
-    @staticmethod
-    def Move(dx: int, dy: int):
-        Mouse.controller.move(dx, dy)
+    @classmethod
+    def Move(cls, dx: int, dy: int):
+        cls.controller.move(dx, dy)
 
-    @staticmethod
-    def OnClick(x: int, y: int, button: mouse.Button, pressed: bool):
-        Mouse.pressed[repr(button)] = pressed
+    @classmethod
+    def OnClick(cls, x: int, y: int, button: mouse.Button, pressed: bool):
+        cls.pressed[repr(button)] = pressed
 
 if(Mouse.listener is None):
     Mouse.listener = mouse.Listener(
@@ -44,23 +43,15 @@ class Keyboard:
 
     listener: keyboard.Listener = None
 
-    controller: keyboard.Controller = keyboard.Controller()
-
     pressed: InputState = InputState({repr(key):False for key in keyboard.Key})
 
-    @staticmethod
-    def Tap(key: keyboard.KeyCode, ms: int = 1):
-        keyboard.press(key)
-        time.sleep(ms/1000)
-        keyboard.release(key)
+    @classmethod
+    def OnPress(cls, key: keyboard.KeyCode):
+        cls.pressed[repr(key)] = True
 
-    @staticmethod
-    def OnPress(key: keyboard.KeyCode):
-        Keyboard.pressed[repr(key)] = True
-
-    @staticmethod
-    def OnRelease(key: keyboard.KeyCode):
-        Keyboard.pressed[repr(key)] = False
+    @classmethod
+    def OnRelease(cls, key: keyboard.KeyCode):
+        cls.pressed[repr(key)] = False
 
 if(Keyboard.listener is None):
     Keyboard.listener = keyboard.Listener(

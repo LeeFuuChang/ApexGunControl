@@ -10,3 +10,6 @@ waitress
 
 opencv-python
 mss
+
+pydirectinput
+pynput

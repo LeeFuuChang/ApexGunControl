@@ -14,6 +14,9 @@ from Script.Selector import RegionSelector
 
 from Server import WebServer
 
+from Script.Controller import GameController
+from Script.Monitor import GameMonitor
+
 
 
 class WebRenderer(QWebEngineView):
@@ -142,6 +145,14 @@ def run():
 
     browserWindow = WebRenderer()
     browserWindow.connect(server, server.host, server.port)
+
+    if(GameController.thread is None):
+        GameController.thread = threading.Thread(target=GameController.update, daemon=True)
+        GameController.thread.start()
+
+    if(GameMonitor.thread is None):
+        GameMonitor.thread = threading.Thread(target=GameMonitor.update, daemon=True)
+        GameMonitor.thread.start()
 
     sys.exit(app.exec_())
 
