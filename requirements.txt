@@ -12,4 +12,5 @@ opencv-python
 mss
 
 pydirectinput
+pywin32
 pynput

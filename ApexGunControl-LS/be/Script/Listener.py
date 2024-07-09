@@ -17,13 +17,7 @@ class Mouse:
 
     listener: mouse.Listener = None
 
-    controller: mouse.Controller = mouse.Controller()
-
     pressed: InputState = InputState({repr(button):False for button in mouse.Button})
-
-    @classmethod
-    def Move(cls, dx: int, dy: int):
-        cls.controller.move(dx, dy)
 
     @classmethod
     def OnClick(cls, x: int, y: int, button: mouse.Button, pressed: bool):
