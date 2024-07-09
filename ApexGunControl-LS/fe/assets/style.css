@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
 
 
@@ -34,7 +34,7 @@ Global
     margin: 0;
     padding: 0;
     letter-spacing: calc(.1*var(--size));
-    font-family: "Roboto", sans-serif;
+    font-family: "Noto Sans TC", "Times New Roman", Times, Georgia, serif, sans-serif;
 }
 
 
@@ -132,7 +132,6 @@ Side Navigation
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: calc(4*var(--size)) 1fr calc(3*var(--size));
-    gap: calc(1.5*var(--size));
     width: 100%;
     height: 100%;
     padding: calc(3*var(--size)) calc(1*var(--size));
@@ -145,6 +144,7 @@ Side Navigation
 
 #app>aside>nav {
     width: 100%;
+    margin: calc(1.5*var(--size)) 0;
 }
 
 #app>aside>nav .seperator {
@@ -164,7 +164,6 @@ Side Navigation
 #app>aside>nav section .options {
     display: flex;
     flex-direction: column;
-    gap: calc(1*var(--size));
 }
 
 #app>aside .side-button {
@@ -172,9 +171,11 @@ Side Navigation
     width: 100%;
     display: flex;
     align-items: center;
-    gap: calc(1*var(--size));
     padding: calc(.5*var(--size)) calc(1*var(--size));
     cursor: pointer;
+}
+#app>aside .side-button:not(:last-child) {
+    margin-bottom: calc(1*var(--size));
 }
 #app>aside .side-button::after {
     position: absolute;
@@ -189,6 +190,7 @@ Side Navigation
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-right: calc(1*var(--size));
     width: calc(2*var(--size));
     height: calc(2*var(--size));
     border-radius: calc(.5*var(--size));
@@ -235,6 +237,7 @@ main>nav {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: calc(1.5*var(--size));
 }
 main>nav section {
     margin: 0 calc(1*var(--size));
@@ -287,10 +290,14 @@ Overlay
 }
 
 #overlay #overlay-container {
-    padding: calc(4*var(--size)) calc(3*var(--size));
+    padding: calc(3*var(--size));
     border-radius: calc(2*var(--size));
     background-color: var(--theme-color-3);
     box-shadow: inset 0 0 calc(.5*var(--size)) calc(.5*var(--size)) #00000080;
+}
+
+#overlay #overlay-container>.block:not(:last-child) {
+    margin: calc(1*var(--size)) 0;
 }
 
 
@@ -300,7 +307,6 @@ Controls
 #controls {
     position: absolute;
     display: flex;
-    gap: calc(1*var(--size));
     top: calc(1*var(--size));
     right: calc(1*var(--size));
 }
@@ -310,6 +316,9 @@ Controls
     justify-content: center;
     width: calc(1*var(--size));
     height: calc(1*var(--size));
+}
+#controls button:not(:last-child) {
+    margin-right: calc(1*var(--size));
 }
 #controls button img {
     width: 100%;

@@ -24,9 +24,8 @@ firebase.auth().onAuthStateChanged((user)=>{
         var uid = user.uid;
         // ...
     } else {
-        // User is signed out
-        // ...
         window.LoadPage("dashboard");
+        window.LoadOverlay("login");
     }
 });
 

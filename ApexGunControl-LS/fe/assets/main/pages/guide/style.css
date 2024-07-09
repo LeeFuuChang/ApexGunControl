@@ -36,7 +36,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: calc(4*var(--size));
     width: 100%;
     height: 100%;
 }
@@ -50,12 +49,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: calc(1.5*var(--size));
+    margin: 0 calc(4* var(--size));
     height: 100%;
 }
 #page[name="guide"] .container nav ul li {
     width: calc(1*var(--size));
     height: calc(1*var(--size));
+    margin: 0 calc(1* var(--size));
     border-radius: 50%;
     background-color: var(--theme-color-gray);
 }

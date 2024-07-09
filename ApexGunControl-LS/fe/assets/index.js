@@ -127,5 +127,4 @@ $(document).ready(function(){
     Landing
     */
     window.LoadHomePage();
-    window.LoadOverlay("login");
 });

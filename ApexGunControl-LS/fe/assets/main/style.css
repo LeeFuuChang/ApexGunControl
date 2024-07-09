@@ -4,7 +4,6 @@ main {
     width: 100%;
     height: 100%;
     padding: calc(3*var(--size));
-    gap: calc(1.5*var(--size));
 }
 main #page {
     width: 100%;

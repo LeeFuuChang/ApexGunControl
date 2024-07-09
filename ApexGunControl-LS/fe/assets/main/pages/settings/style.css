@@ -5,12 +5,11 @@
 #page[name="settings"] .container {
     display: flex;
     flex-direction: column;
-    gap: calc(1*var(--size));
     width: 100%;
 }
 
 #page[name="settings"] .category:not(:last-child) {
-    margin-bottom: calc(2.5* var(--size));
+    margin-bottom: calc(4* var(--size));
 }
 
 #page[name="settings"] .category>*:not(:last-child) {
@@ -84,10 +83,7 @@
     color: var(--theme-color-white);
 }
 #page[name="settings"] .category .adjustment form {
-    display: grid;
-    grid-template-rows: 100%;
-    grid-template-columns: 1fr calc(3*var(--size));
-    gap: calc(.5*var(--size));
+    display: flex;
     width: calc(20*var(--size));
     height: 100%;
 }
@@ -101,6 +97,10 @@
     font-weight: 400;
     color: var(--theme-color-white);
     background-color: var(--theme-color-2);
+}
+#page[name="settings"] .category .adjustment form>*:nth-child(2) {
+    margin-left: calc(.5*var(--size));
+    width: calc(3*var(--size));
 }
 
 #page[name="settings"] .category .adjustment form div {

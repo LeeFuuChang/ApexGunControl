@@ -5,12 +5,11 @@
 #page[name="config"] .container {
     display: flex;
     flex-direction: column;
-    gap: calc(1*var(--size));
     width: 100%;
 }
 
 #page[name="config"] .category:not(:last-child) {
-    margin-bottom: calc(2.5* var(--size));
+    margin-bottom: calc(4* var(--size));
 }
 
 #page[name="config"] .category .title {
@@ -88,7 +87,6 @@
 #page[name="config"] .category .adjustment .directory {
     display: flex;
     align-items: center;
-    gap: calc(1*var(--size));
     padding: 0 calc(.5*var(--size));
     border-radius: calc(.5*var(--size));
     width: calc(20*var(--size));
@@ -111,6 +109,7 @@
     width: calc(2*var(--size));
     height: calc(1*var(--size));
     filter: var(--theme-color-white-filter);
+    margin-left: calc(1*var(--size));
 }
 
 #page[name="config"] .category .adjustment .install-button {
