@@ -7,13 +7,12 @@ from .Listener import Mouse, Keyboard
 import pydirectinput
 pydirectinput.FAILSAFE = False
 
-import win32con
 import win32api
 
 class GameController:
     thread = None
 
-    ShakeIndex = 0
+    ControlIndex = 0
     ShootingKey = 'p'
 
     @classmethod
@@ -24,10 +23,10 @@ class GameController:
                     pydirectinput.keyDown(cls.ShootingKey, _pause=False)
                     if(GameMonitor.weaponConfig and GameMonitor.weaponConfig.get("tap", False)):
                         pydirectinput.keyUp(cls.ShootingKey, _pause=False)
+                    recoil = GameMonitor.weaponConfig.get("recoil", [[0, 0], [0, 0]])
                     if(Mouse.pressed[Mouse.Button.right]):
-                        recoil = GameMonitor.weaponConfig.get("recoil", [[0, 0], [0, 0]])
-                        win32api.mouse_event(win32con.MOUSEEVENTF_MOVE, recoil[cls.ShakeIndex][0], recoil[cls.ShakeIndex][1], 0, 0)
-                        cls.ShakeIndex = (cls.ShakeIndex+1) % 2
+                        win32api.SetCursorPos([p+d for p, d in zip(win32api.GetCursorPos(), recoil[cls.ControlIndex])])
+                    cls.ControlIndex = (cls.ControlIndex+1) % len(recoil)
                 else:
                     cls.ShakeIndex = 0
                     if(Keyboard.pressed[repr(cls.ShootingKey)]):

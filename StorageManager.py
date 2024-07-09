@@ -132,4 +132,31 @@ class LocalStorage:
 
 
 
-
+if __name__ == "__main__":
+    import xml.dom.minidom
+    if(len(sys.argv) > 1):
+        target = sys.argv[1]
+        if(not os.path.exists(target)): raise FileNotFoundError()
+        root = ET.Element("folder")
+        root.attrib["name"] = os.path.split(target)[0]
+        with open(os.path.join(target, "storage.version"), "r") as f:
+            root.attrib["version"] = f.read()
+        def walk(root, node, path, excluding):
+            for child in sorted(os.listdir(path), key=lambda c : os.path.isdir(os.path.join(path, c))):
+                if(child in excluding): continue
+                if(os.path.splitext(child)[1] in excluding): continue
+                childPath = os.path.join(path, child)
+                if(os.path.isdir(childPath)):
+                    childNode = ET.SubElement(node, "folder")
+                    childNode.attrib["name"] = child
+                    walk(root, childNode, childPath, excluding)
+                else:
+                    fileName, fileType = os.path.splitext(child)
+                    childNode = ET.SubElement(node, "file")
+                    childNode.attrib["updated"] = root.attrib["version"]
+                    childNode.attrib["name"] = fileName
+                    childNode.attrib["type"] = fileType[1:]
+                    childNode.attrib["path"] = os.path.split(os.path.relpath(childPath, target))[0]
+        walk(root, root, target, ["__pycache__", ".py", ".DS_Store", ".version"])
+        with open("struct.xml", "w") as f:
+            f.write(xml.dom.minidom.parseString(ET.tostring(root, xml_declaration=False)).toprettyxml(indent="\t"))
