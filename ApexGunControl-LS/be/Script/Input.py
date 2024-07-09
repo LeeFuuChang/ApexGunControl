@@ -1,5 +1,6 @@
 from pynput import mouse, keyboard
 from typing import Union
+import time
 
 
 
@@ -13,6 +14,8 @@ class InputState(dict):
 
 
 class Mouse:
+    Button = mouse.Button
+
     listener: mouse.Listener = None
 
     controller: mouse.Controller = mouse.Controller()
@@ -37,11 +40,19 @@ if(Mouse.listener is None):
 
 
 class Keyboard:
+    Key = keyboard.Key
+
     listener: keyboard.Listener = None
 
     controller: keyboard.Controller = keyboard.Controller()
 
     pressed: InputState = InputState({repr(key):False for key in keyboard.Key})
+
+    @staticmethod
+    def Tap(key: keyboard.KeyCode, ms: int = 1):
+        keyboard.press(key)
+        time.sleep(ms/1000)
+        keyboard.release(key)
 
     @staticmethod
     def OnPress(key: keyboard.KeyCode):

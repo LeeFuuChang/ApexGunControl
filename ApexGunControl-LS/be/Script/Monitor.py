@@ -10,6 +10,10 @@ from .Detector import WeaponDetector
 class GameMonitor:
     thread = None
 
+    inGame = True
+
+    canShoot = True
+
     weaponConfidence = 0.75
     weapon = [ None, 0 ]
 
