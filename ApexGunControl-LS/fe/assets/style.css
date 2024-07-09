@@ -7,7 +7,7 @@ Global
 */
 :root {
     --scale: 1;
-    --size: calc(.75rem*var(--scale));
+    --size: calc(.9rem*var(--scale));
 
     --theme-color-1: #29263D;
     --theme-color-2: #2D2A41;
