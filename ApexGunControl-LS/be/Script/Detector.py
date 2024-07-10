@@ -1,5 +1,4 @@
 from mss import mss
-import numpy as np
 import json
 import cv2
 import sys
@@ -13,14 +12,14 @@ def PreloadRegion(cls):
 
 
 
+@PreloadRegion
 class Detector:
-    mss = mss()
 
-    monitor = [m for m in mss.monitors[1:] if(m["left"]==0 and m["top"]==0)][0]
+    monitor = [m for m in mss().monitors[1:] if(m["left"]==0 and m["top"]==0)][0]
 
     region = (lambda w, h: (w-(h//6)*3, h-(h//6), w, h))(monitor["width"], monitor["height"])
 
-    configPath = None
+    configPath = sys.modules["StorageManager"].LocalStorage().path(os.path.join("cfg", "settings.json"))
 
     silhouettesPath = None
 
@@ -31,7 +30,6 @@ class Detector:
 
     @classmethod
     def load(cls):
-        if(not cls.configPath): raise NotImplementedError()
         with open(cls.configPath, "r") as f:
             config = json.load(f)
             cls.region = (
@@ -40,10 +38,11 @@ class Detector:
                 int(float(config.get("region-r", cls.region[2]))),
                 int(float(config.get("region-b", cls.region[3]))),
             )
+        for detector in cls.__subclasses__():
+            detector.region = cls.region
 
     @classmethod
     def save(cls):
-        if(not cls.configPath): raise NotImplementedError()
         with open(cls.configPath, "a+") as f:
             f.seek(0)
             config = json.load(f)
@@ -55,12 +54,12 @@ class Detector:
             })
             f.truncate(0)
             json.dump(config, f, indent=4, ensure_ascii=False)
+        for detector in cls.__subclasses__():
+            detector.region = cls.region
 
     @classmethod
-    def detect(cls):
+    def detect(cls, screenshot):
         if(not cls.silhouettesPath): raise NotImplementedError()
-
-        screenshot = np.array(cls.mss.grab(cls.region))
 
         scale = 1080 / cls.monitor["height"]
 
@@ -84,7 +83,10 @@ class Detector:
 
 
 
-@PreloadRegion
+class InGameDetector(Detector):
+    silhouettesPath = sys.modules["StorageManager"].LocalStorage().path(os.path.join("apex", "silhouettes", "ingame"))
+
+
+
 class WeaponDetector(Detector):
-    configPath = sys.modules["StorageManager"].LocalStorage().path(os.path.join("cfg", "settings.json"))
-    silhouettesPath = sys.modules["StorageManager"].LocalStorage().path(os.path.join("apex", "silhouettes"))
+    silhouettesPath = sys.modules["StorageManager"].LocalStorage().path(os.path.join("apex", "silhouettes", "weapons"))

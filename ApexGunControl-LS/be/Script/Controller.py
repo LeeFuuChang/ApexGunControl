@@ -7,6 +7,7 @@ from .Listener import Mouse, Keyboard
 import pydirectinput
 pydirectinput.FAILSAFE = False
 
+import win32con
 import win32api
 
 class GameController:
@@ -25,7 +26,7 @@ class GameController:
                         pydirectinput.keyUp(cls.ShootingKey, _pause=False)
                     recoil = GameMonitor.weaponConfig.get("recoil", [[0, 0], [0, 0]])
                     if(Mouse.pressed[Mouse.Button.right]):
-                        win32api.SetCursorPos([p+d for p, d in zip(win32api.GetCursorPos(), recoil[cls.ControlIndex])])
+                        win32api.mouse_event(win32con.MOUSEEVENTF_MOVE, recoil[cls.ControlIndex][0], recoil[cls.ControlIndex][1], 0, 0)
                     cls.ControlIndex = (cls.ControlIndex+1) % len(recoil)
                 else:
                     cls.ShakeIndex = 0

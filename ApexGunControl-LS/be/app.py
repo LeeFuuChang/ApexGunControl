@@ -109,7 +109,7 @@ class WebRenderer(QWebEngineView):
 
 
     def selectWeaponDetectRegion(self):
-        self.regionSelector.select(WeaponDetector)
+        self.regionSelector.show()
 
 
     def authStateChanged(self, user):

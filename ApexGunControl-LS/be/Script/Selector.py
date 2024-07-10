@@ -5,6 +5,7 @@ from PyQt5.QtCore import Qt, QPoint, QTimer
 from PyQt5.QtGui import QKeySequence
 
 from .Monitor import GameMonitor
+from .Detector import Detector
 
 
 
@@ -57,22 +58,16 @@ class RegionSelector(QWidget):
         self.setMouseTracking(True)
 
 
-    def select(self, carrier):
-        self.regionCarrier = carrier
-        self.show()
-
-
     def showEvent(self, event):
-        if(self.regionCarrier is not None):
-            self.regionCarrier.load()
-            self.setGeometry(*self.region2geometry(self.regionCarrier.region))
+        if(Detector is not None):
+            Detector.load()
+            self.setGeometry(*self.region2geometry(Detector.region))
         return super().showEvent(event)
 
 
     def closeEvent(self, event):
-        if(self.regionCarrier is not None):
-            self.regionCarrier.save()
-            self.regionCarrier = None
+        if(Detector is not None):
+            Detector.save()
         return super().closeEvent(event)
 
 
@@ -87,27 +82,25 @@ class RegionSelector(QWidget):
 
 
     def updateRegion(self):
-        if(not self.regionCarrier): return
-
         g = self.geometry()
-        x = max(g.x(), self.regionCarrier.monitor["left"])
-        y = max(g.y(), self.regionCarrier.monitor["top"])
-        w = min(g.width(), self.regionCarrier.monitor["width"]-g.x())
-        h = min(g.height(), self.regionCarrier.monitor["height"]-g.y())
+        x = max(g.x(), Detector.monitor["left"])
+        y = max(g.y(), Detector.monitor["top"])
+        w = min(g.width(), Detector.monitor["width"]-g.x())
+        h = min(g.height(), Detector.monitor["height"]-g.y())
 
         nw = min(h*3, w)
         nh = min(w/3, h)
 
         if(self.grips[0] == self.farestGrip):
-            self.regionCarrier.region = self.geometry2region((x, y, nw, nh))
+            Detector.region = self.geometry2region((x, y, nw, nh))
         if(self.grips[1] == self.farestGrip):
-            self.regionCarrier.region = self.geometry2region((x+w-nw, y, w, nh))
+            Detector.region = self.geometry2region((x+w-nw, y, w, nh))
         if(self.grips[2] == self.farestGrip):
-            self.regionCarrier.region = self.geometry2region((x+w-nw, y+h-nh, w, h))
+            Detector.region = self.geometry2region((x+w-nw, y+h-nh, w, h))
         if(self.grips[3] == self.farestGrip):
-            self.regionCarrier.region = self.geometry2region((x, y+h-nh, nw, h))
+            Detector.region = self.geometry2region((x, y+h-nh, nw, h))
 
-        self.setGeometry(*self.region2geometry(self.regionCarrier.region))
+        self.setGeometry(*self.region2geometry(Detector.region))
 
 
     def paintEvent(self, event):
