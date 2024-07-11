@@ -11,6 +11,5 @@ waitress
 opencv-python
 mss
 
-pydirectinput
+keyboard
 pywin32
-pynput

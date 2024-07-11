@@ -36,19 +36,18 @@ class GameMonitor:
 
             # InGame Detection
             result = InGameDetector.detect(screenshot)
-            if(cls.inGame != (result[1] > cls.confidence/2)):
-                cls.inGame = (result[1] > cls.confidence/2)
+            if(cls.inGame != (result[1] > cls.confidence/3)):
+                cls.inGame = (result[1] > cls.confidence/3)
                 cls.log(f"InGame state changed {cls.inGame} {result}")
             if(not cls.inGame): continue
 
             # Weapon Detection
             result = WeaponDetector.detect(screenshot)
-            if(result[0] != cls.weapon[0]):
+            if(result[1] > cls.confidence and result[0] != cls.weapon[0]):
                 cls.log(f"Weapon changed ({cls.weapon} -> {result})")
                 cls.weapon = result
                 cls.weaponConfig = {}
-                if(result[1] > cls.confidence):
-                    weaponConfigPath = cls.storage.path(os.path.join("cfg", "weapons", f"{cls.weapon[0]}.json"))
-                    if(os.path.exists(weaponConfigPath)):
-                        with open(weaponConfigPath, "r") as f:
-                            cls.weaponConfig = json.load(f)
+                weaponConfigPath = cls.storage.path(os.path.join("cfg", "weapons", f"{cls.weapon[0]}.json"))
+                if(os.path.exists(weaponConfigPath)):
+                    with open(weaponConfigPath, "r") as f:
+                        cls.weaponConfig = json.load(f)
