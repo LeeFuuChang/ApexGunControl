@@ -20,14 +20,16 @@
             if(!CheckPath(path)) return;
             return new Promise((resolve, reject)=>{
                 let data = { "path": path };
-                for(let inp of $("input[path='cfg']")) {
+                for(let inp of $("input[type='checkbox']")) {
                     data[$(inp).attr("name")] = $(inp).prop("checked");
                 }
                 return resolve(data);
             }).then((data)=>{
-                return $.post("/app/config/cfg.json", JSON.stringify(data));
+                return $.post("/apex/config", JSON.stringify(data));
             }).then(()=>{
                 return window.Notify("success", window.GetLangText("page-config-save-success"));
+            }).catch((e)=>{
+                return window.Notify("error", e.statusText);
             });
         });
     /*
@@ -38,10 +40,10 @@
     /*
     Load Data Beg
     */
-    $.get("/app/config/cfg.json", {})
+    $.get("/apex/config", {})
         .then((data)=>{
             $(".directory input").val(data.path);
-            for(let inp of $("input[path='cfg']")) {
+            for(let inp of $("input[type='checkbox']")) {
                 $(inp).prop("checked", data[$(inp).attr("name")]);
             }
         });
