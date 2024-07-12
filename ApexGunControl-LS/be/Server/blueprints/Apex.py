@@ -22,7 +22,6 @@ def Apex_Config():
         return send_from_directory(*os.path.split(configPath))
 
     if(request.method == "POST"):
-        print("posting")
         try:
             data = request.get_json(force=True)
 
