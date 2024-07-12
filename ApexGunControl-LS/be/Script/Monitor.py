@@ -6,6 +6,10 @@ import json
 import sys
 import os
 
+import win32process
+import win32gui
+import psutil
+
 from .Detector import Detector, InGameDetector, WeaponDetector
 
 class GameMonitor:
@@ -14,6 +18,8 @@ class GameMonitor:
     storage = sys.modules["StorageManager"].LocalStorage()
 
     thread = None
+
+    focused = False
 
     inGame = False
 
@@ -32,13 +38,25 @@ class GameMonitor:
         while(not time.sleep(.5)):
             if(not os.environ["USER"]): continue
 
+            cls.focused = False
+            try:
+                focus = win32gui.GetForegroundWindow()
+                focusPID = win32process.GetWindowThreadProcessId(focus)[1]
+                focusName = psutil.Process(focusPID).name().strip().lower()
+                cls.focused = focusName.startswith("r5apex")
+            except:
+                pass
+            if(not cls.focused): continue
+
             screenshot = np.array(cls.mss.grab(Detector.region))
 
             # InGame Detection
             result = InGameDetector.detect(screenshot)
-            if(cls.inGame != (result[1] > cls.confidence/3)):
-                cls.inGame = (result[1] > cls.confidence/3)
-                cls.log(f"InGame state changed {cls.inGame} {result}")
+            foundClue = (result[1] > 0.1 and result[1] > cls.confidence/2)
+            newGameCof = 10 if(foundClue)else max(0, cls.inGame - 1)
+            if(bool(cls.inGame) != bool(newGameCof)):
+                cls.log(f"InGame state changed ({bool(cls.inGame)} -> {bool(newGameCof)})")
+            cls.inGame = newGameCof
             if(not cls.inGame): continue
 
             # Weapon Detection
