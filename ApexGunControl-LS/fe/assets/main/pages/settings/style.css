@@ -32,13 +32,17 @@
 }
 #page[name="settings"] .category .option .image {
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: calc(12*var(--size));
     height: calc(6*var(--size));
 }
 #page[name="settings"] .category .option .image .weapon {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: calc(3.6*var(--size));
 }
 #page[name="settings"] .category .option .image .bullet {
     position: absolute;
