@@ -1,6 +1,6 @@
 {
-    "name": "Rampage",
-    "ammo": "Heavy",
+    "name": "HAVOC-attachment",
+    "ammo": "Energy",
     "supply": false,
     "tap": false,
     "multiplier": "1.0",
@@ -8,5 +8,5 @@
         [ 3, 4],
         [-3,-3]
     ],
-    "image": "/apex/assets/weapons/Rampage.png"
+    "image": "/apex/assets/weapons/HAVOC-attachment.png"
 }
