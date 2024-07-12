@@ -95,9 +95,15 @@
             return Promise.resolve(weaponsGrouped);
         })
         .then((weaponsGrouped)=>{
-            let weaponSettingsHtml = (Object.keys(weaponsGrouped).map(group=>{
+            let sortedAmmoOrder = Object.keys(weaponsGrouped)
+                                    .sort((a, b)=>{
+                                        let va = a.split("").reduce((p,c)=>(p+c.charCodeAt(0)), 0)/a.length
+                                        let vb = b.split("").reduce((p,c)=>(p+c.charCodeAt(0)), 0)/b.length
+                                        return va - vb;
+                                    });
+            let weaponSettingsHtml = (sortedAmmoOrder.map(group=>{
                 weaponsGrouped[group].sort(function(a, b){
-                    return a.name.localeCompare(b.name);
+                    return a.tap - b.tap || a.name.localeCompare(b.name);
                 });
                 let ammoWeaponsOptions = weaponsGrouped[group].reduce((html, weapon)=>{
                     return html + `

@@ -1,7 +1,7 @@
 {
     "name": "EVA-8",
     "ammo": "Shotgun",
-    "supply": false,
+    "supply": true,
     "tap": true,
     "multiplier": "1.0",
     "recoil": [
