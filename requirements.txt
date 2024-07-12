@@ -13,3 +13,4 @@ mss
 
 keyboard
 pywin32
+psutil
