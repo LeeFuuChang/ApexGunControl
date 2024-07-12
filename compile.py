@@ -1,54 +1,38 @@
 from setuptools import setup, Extension
 from Cython.Build import cythonize
-import shutil, time, os
+import shutil, sys, os
 
 excludes = {
     "__pycache__",
-    "env",
-    "installer",
-    "LeagueAssistant-LS",
-    "compiled",
-    "screenshots",
-    "check.py",
     "__init__.py",
-    "manipulate.py",
-    "compile.py",
-    "server.py",
-    "test.py",
-    "LeagueAssistant-Discord.py",
 }
 
-def compile_folder(src, dst, hst):
-    if(not os.path.exists(hst)): os.mkdir(hst)
-    if(not os.path.exists(dst)): os.mkdir(dst)
+def compile(src):
     building = [os.path.join(src, f) for f in os.listdir(src) if(f.endswith(".py") and f not in excludes)]
     extensions = [Extension(os.path.split(file)[1][:-3], [file]) for file in building]
-    setup(ext_modules=cythonize(extensions), language_level=3, script_args=["build_ext", "--inplace", "-b", dst, "-t", dst])
-    for file in building: shutil.copy(file, os.path.join(hst, os.path.split(file)[1]))
-    shutil.rmtree(os.path.join(dst, "Release"), ignore_errors=True)
-    for file in os.listdir(dst):
-        path = os.path.join(dst, file)
-        if(not os.path.isfile(path)): continue
-        os.rename(path, os.path.join(dst, f"{file.split('.')[0]}.{file.split('.')[-1]}"))
+    setup(ext_modules=cythonize(extensions), language_level=3, script_args=["build_ext", "--inplace", "-b", src])
     for child in os.listdir(src):
+        if(child in excludes): continue
         nsrc = os.path.join(src, child)
-        ndst = os.path.join(dst, child)
-        nhst = os.path.join(hst, child)
-        if(child.endswith(".c")): os.remove(nsrc)
-        if(os.path.isdir(nsrc) and child not in excludes): compile_folder(nsrc, ndst, nhst)
-        elif(child == "__init__.py"): shutil.copy(nsrc, nhst)
+        if(os.path.isdir(nsrc)): 
+            compile(nsrc)
+        elif(child.endswith(".c")):
+            os.remove(nsrc)
+        elif(os.path.exists(child) and not os.path.samefile(child, nsrc)):
+            os.remove(child)
+        else:
+            print("rename", nsrc, os.path.join(src, ".".join(child.split(".")[::child.count(".")])))
+            os.rename(nsrc, os.path.join(src, ".".join(child.split(".")[::child.count(".")])))
 
-src = "./ApexGunControl-LS/be"
-dst = f"./{time.strftime('%Y-%m-%dT%H-%M-%S')}"
-hst = dst
 
-compile_folder(src, dst, hst)
+if __name__ == "__main__" and len(sys.argv) > 1:
+    compile(sys.argv[1])
 
-for file in os.listdir("."): 
-    if file.endswith(".pyd"):
-        os.remove(file)
+    shutil.rmtree("build", ignore_errors=True)
 
-for root, dirs, files in os.walk(src, topdown=False):
-    for name in files:
-        if(not name.endswith("pyd")): continue
-        os.unlink(os.path.join(root, name))
+    for root, dirs, files in os.walk(sys.argv[1], topdown=False):
+        for name in files:
+            os.rename(
+                os.path.join(root, name),
+                os.path.join(root, ".".join(name.split(".")[::name.count(".")]))
+            )
