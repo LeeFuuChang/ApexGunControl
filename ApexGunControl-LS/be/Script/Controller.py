@@ -22,7 +22,7 @@ class GameController:
     @classmethod
     def update(cls):
         while(not time.sleep(.5)):
-            while(os.environ["USER"] and GameMonitor.focused and GameMonitor.inGame):
+            while(os.environ["USER"] and GameMonitor.isFocused and GameMonitor.inGame):
                 if(win32api.GetAsyncKeyState(0x1) & 0x8000 > 0):
                     keyboard.send(cls.ShootingKey, do_press=True, do_release=False)
                     if(GameMonitor.weaponConfig and GameMonitor.weaponConfig.get("tap", False)):

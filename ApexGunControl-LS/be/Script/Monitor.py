@@ -19,7 +19,7 @@ class GameMonitor:
 
     thread = None
 
-    focused = False
+    isFocused = False
 
     inGame = False
 
@@ -38,15 +38,18 @@ class GameMonitor:
         while(not time.sleep(.5)):
             if(not os.environ["USER"]): continue
 
-            cls.focused = False
+            isFocused = False
             try:
                 focus = win32gui.GetForegroundWindow()
                 focusPID = win32process.GetWindowThreadProcessId(focus)[1]
                 focusName = psutil.Process(focusPID).name().strip().lower()
-                cls.focused = focusName.startswith("r5apex")
+                isFocused = focusName.startswith("r5apex")
             except:
                 pass
-            if(not cls.focused): continue
+            if(cls.isFocused != isFocused):
+                cls.log(f"Focus state changed ({cls.isFocused} -> {isFocused})")
+                cls.isFocused = isFocused
+            if(not cls.isFocused): continue
 
             screenshot = np.array(cls.mss.grab(Detector.region))
 
