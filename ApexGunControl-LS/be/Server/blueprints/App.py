@@ -10,7 +10,18 @@ App = Blueprint("App", __name__)
 
 @App.route("/version", methods=["GET"])
 def App_Version():
-    return rq.get(f"{os.environ['SERVER_URL']}/Version", params={"current":os.environ["VERSION"]}).json()
+    versionPath = sys.modules["StorageManager"].LocalStorage().path("storage.version")
+    if(not versionPath or not os.path.exists(versionPath)): return Response(status=404)
+
+    with open(versionPath, "r") as f: currentVersion = f.read()
+
+    latest = rq.get(f"{os.environ['SERVER_URL']}/Version").json()
+
+    return {
+        "current-version": currentVersion,
+        "latest-version": latest["version"],
+        "release-date": latest["last-edit"],
+    }
 
 @App.route("/external", methods=["POST"])
 def App_External():

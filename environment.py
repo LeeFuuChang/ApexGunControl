@@ -11,8 +11,6 @@ Environment Variables
 """
 os.environ["USER"] = ""
 
-os.environ["VERSION"] = "4.3.0"
-
 os.environ["PROJECT_NAME"] = "ApexGunControl"
 
 os.environ["SERVER_URL"] = f"https://www.leefuuchang.in/projects/{os.environ['PROJECT_NAME']}"
