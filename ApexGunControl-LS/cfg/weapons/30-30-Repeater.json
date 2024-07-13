@@ -5,8 +5,8 @@
     "tap": true,
     "multiplier": "1.0",
     "recoil": [
-        [ 3, 4],
-        [-3,-3]
+        [ 1, 1],
+        [-1, 0]
     ],
     "image": "/apex/assets/weapons/30-30-Repeater.png"
 }
