@@ -20,10 +20,17 @@
                     let slider = $(this).siblings(".slider");
                     let min = parseFloat(slider.attr("min"));
                     let max = parseFloat(slider.attr("max"));
-                    let val = parseFloat($(this).val());
-                    let value = Math.max(min, Math.min(val, max));
-                    slider.val(value);
-                    Save(this);
+                    let txt = $(this).val().replace(/[^0-9\.]/g, "");
+                    let val = parseFloat(txt);
+                    if(!isNaN(val)) {
+                        let value = Math.max(min, Math.min(val, max));
+                        $(this).val(txt);
+                        slider.val(value);
+                        Save(this);
+                    }
+                    else {
+                        $(this).val(parseFloat(slider.val()).toFixed(1));
+                    }
                 })
                 .on("focusout", function(){
                     let slider = $(this).siblings(".slider");
@@ -115,7 +122,7 @@
                             </div>
                             <div class="group">
                                 <div class="adjustment">
-                                    <h5 class="name lang" lang="page-settings-mult">GC Multiplier</h5>
+                                    <h5 class="name lang" lang="page-settings-mult">${window.GetLangText("page-settings-mult")}</h5>
                                     <form action="javascript:void(0);">
                                         <input class="slider" type="range" min="0" max="2" step="0.1" value="${weapon.multiplier}" path="weapons/${weapon.name}" name="multiplier">
                                         <input class="slider-input" type="text" value="${weapon.multiplier}" path="weapons/${weapon.name}" name="multiplier">

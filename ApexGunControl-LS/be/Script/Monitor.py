@@ -15,8 +15,6 @@ from .Detector import Detector, InGameDetector, WeaponDetector
 class GameMonitor:
     mss = None
 
-    storage = sys.modules["StorageManager"].LocalStorage()
-
     thread = None
 
     isFocused = False
@@ -68,7 +66,7 @@ class GameMonitor:
                 cls.log(f"Weapon changed ({cls.weapon} -> {result})")
                 cls.weapon = result
                 cls.weaponConfig = {}
-                weaponConfigPath = cls.storage.path(os.path.join("cfg", "weapons", f"{cls.weapon[0]}.json"))
+                weaponConfigPath = sys.modules["StorageManager"].LocalStorage().path(os.path.join("cfg", "weapons", f"{cls.weapon[0]}.json"))
                 if(os.path.exists(weaponConfigPath)):
                     with open(weaponConfigPath, "r") as f:
                         cls.weaponConfig = json.load(f)

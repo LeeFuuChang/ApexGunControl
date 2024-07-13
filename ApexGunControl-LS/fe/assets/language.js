@@ -174,14 +174,9 @@ window.translation = {
         "cn": "额外选项",
     },
     "page-settings-sens": {
-        "en": "Game Sensitivity",
-        "tw": "遊戲滑鼠靈敏度",
-        "cn": "游戏滑鼠灵敏度",
-    },
-    "page-settings-dps": {
-        "en": "Detection Per Second",
-        "tw": "槍枝偵測頻率（秒）",
-        "cn": "枪枝侦测频率（秒）",
+        "en": "Control Multiplier (Game Sensitivity)",
+        "tw": "壓槍係數（滑鼠靈敏度）",
+        "cn": "压枪系数（滑鼠灵敏度）",
     },
     "page-settings-region": {
         "en": "Detecting Region",
@@ -189,9 +184,9 @@ window.translation = {
         "cn": "枪枝侦测区域",
     },
     "page-settings-mult": {
-        "en": "Control Multiplier",
-        "tw": "控制倍率",
-        "cn": "控制倍率",
+        "en": "Recoil Scale",
+        "tw": "壓槍倍率",
+        "cn": "压枪倍率",
     },
 
 
