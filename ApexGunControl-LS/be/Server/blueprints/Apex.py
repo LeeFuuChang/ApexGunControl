@@ -35,7 +35,7 @@ def Apex_Config():
             # create the .cfg file
             with open(os.path.join(data["path"], "ApexGunControl.cfg"), "w") as f:
                 if(data["tap"]):
-                    f.write(f"bind_US_standard \"{os.environ['KEY_SHOOTING']}\" \"+attack\" 0\n")
+                    f.write(f"bind_US_standard \"{os.environ['KEY_SHOOTING']}\" \"+fixed;+hidden;+attack\"\n")
                 if(data["walk"] or data["jump"] or data["rope"]):
                     keycmdrf = {
                         "walk": "+forward",
@@ -43,7 +43,7 @@ def Apex_Config():
                         "rope": "+use",
                     }
                     commands = ";".join([keycmdrf[key] for key in keycmdrf if data[key]])
-                    f.write(f"bind_US_standard \"{os.environ['KEY_MOVEMENT']}\" \"{commands}\" 1\n")
+                    f.write(f"bind_US_standard \"{os.environ['KEY_MOVEMENT']}\" \"+fixed;+hidden;{commands}\"\n")
 
             # create missing default .cfg
             if(data["missing"]):

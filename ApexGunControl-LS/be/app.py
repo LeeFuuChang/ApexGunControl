@@ -146,8 +146,8 @@ def run():
     browserWindow = WebRenderer()
     browserWindow.connect(server, server.host, server.port)
 
-    os.environ["KEY_SHOOTING"] = "f17"
-    os.environ["KEY_MOVEMENT"] = "f18"
+    os.environ["KEY_SHOOTING"] = "f5"
+    os.environ["KEY_MOVEMENT"] = "f6"
 
     if(GameController.thread is None):
         GameController.thread = threading.Thread(target=GameController.update, daemon=True)
