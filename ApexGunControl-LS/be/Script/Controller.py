@@ -49,8 +49,8 @@ class GameController:
                     if(win32api.GetAsyncKeyState(0x2) & 0x8000 > 0):
                         win32api.mouse_event(
                             win32con.MOUSEEVENTF_MOVE,
-                            round(recoil[recoilIndex][0]*recoilMultiplier),
-                            round(recoil[recoilIndex][1]*recoilMultiplier),
+                            round(recoil[recoilIndex%len(recoil)][0]*recoilMultiplier),
+                            round(recoil[recoilIndex%len(recoil)][1]*recoilMultiplier),
                         )
                     recoilIndex = (recoilIndex+1) % len(recoil)
                 else:
