@@ -61,7 +61,9 @@ class GameMonitor:
                 cls.isFocused = isFocused
             if(not cls.isFocused): continue
 
-            screenshot = np.array(cls.mss.grab(Detector.region))
+            screenshot = np.array(cls.mss.grab((lambda w, h: (w-(h//6)*3, h-(h//6), w, h))(
+                Detector.monitor["width"], Detector.monitor["height"]
+            )))
 
             # InGame Detection
             result = InGameDetector.detect(screenshot)

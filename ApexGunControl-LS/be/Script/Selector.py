@@ -114,6 +114,8 @@ class RegionSelector(QWidget):
 
 
     def resizeEvent(self, event):
+        if(not self.farestGrip): return self.setGeometry(*self.region2geometry(Detector.region))
+
         self.updateRegion()
 
         rect = self.geometry()
