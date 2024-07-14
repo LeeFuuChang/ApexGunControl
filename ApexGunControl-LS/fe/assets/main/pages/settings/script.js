@@ -29,7 +29,7 @@
                         Save(this);
                     }
                     else {
-                        $(this).val(parseFloat(slider.val()).toFixed(1));
+                        $(this).val(parseFloat(slider.val()).toFixed(parseInt($(this).attr("decimals"))||0));
                     }
                 })
                 .on("focusout", function(){
@@ -38,7 +38,7 @@
                     let max = parseFloat(slider.attr("max"));
                     let val = parseFloat($(this).val());
                     let value = Math.max(min, Math.min(val, max));
-                    $(this).val(value.toFixed(1));
+                    $(this).val(value.toFixed(parseInt($(this).attr("decimals"))||0));
                     slider.val(value);
                     Save(this);
                 });
@@ -47,7 +47,7 @@
                 .on("input", function(){
                     let input = $(this).siblings(".slider-input");
                     let value = parseFloat($(this).val());
-                    input.val(value.toFixed(1));
+                    input.val(value.toFixed(parseInt(input.attr("decimals"))||0));
                 })
                 .on("focusout", function(){
                     Save(this);
@@ -125,7 +125,7 @@
                                     <h5 class="name lang" lang="page-settings-mult">${window.GetLangText("page-settings-mult")}</h5>
                                     <form action="javascript:void(0);">
                                         <input class="slider" type="range" min="0" max="2" step="0.1" value="${weapon.multiplier}" path="weapons/${weapon.name}" name="multiplier">
-                                        <input class="slider-input" type="text" value="${weapon.multiplier}" path="weapons/${weapon.name}" name="multiplier">
+                                        <input class="slider-input" type="text" value="${weapon.multiplier}" decimals="1" path="weapons/${weapon.name}" name="multiplier">
                                     </form>
                                 </div>
                             </div>

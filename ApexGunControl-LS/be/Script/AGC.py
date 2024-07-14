@@ -1,5 +1,6 @@
 import contextlib
 import threading
+import psutil
 import json
 import sys
 import os
@@ -58,7 +59,7 @@ class ApexGunControl(QWidget):
 
         self.resize(
             self.padding + self.sizeUnit*len(self.iconLabels) + self.padding*len(self.iconLabels),
-            self.padding + self.sizeUnit + self.padding + self.sizeUnit + self.padding
+            self.padding + self.sizeUnit + self.sizeUnit + self.sizeUnit + self.sizeUnit + self.padding
         )
 
         for i in range(len(self.iconLabels)):
@@ -69,17 +70,45 @@ class ApexGunControl(QWidget):
 
         self.weaponLabel = QLabel(self)
         self.weaponLabel.setAlignment(Qt.AlignVCenter|Qt.AlignLeft)
-        self.weaponLabel.setGeometry(self.padding, self.padding + self.sizeUnit + self.padding, stretch, self.sizeUnit)
+        self.weaponLabel.setGeometry(self.padding, self.padding + self.sizeUnit, stretch, self.sizeUnit)
         self.weaponLabel.setStyleSheet(f"font-size: {int(self.sizeUnit/2)}px; font-weight: 600; color: #FFFFFF")
         self.weaponLabel.setText("None")
         self.weaponLabel.show()
 
         self.confidenceLabel = QLabel(self)
         self.confidenceLabel.setAlignment(Qt.AlignVCenter|Qt.AlignRight)
-        self.confidenceLabel.setGeometry(self.padding + stretch, self.padding + self.sizeUnit + self.padding, stretch, self.sizeUnit)
+        self.confidenceLabel.setGeometry(self.padding + stretch, self.padding + self.sizeUnit, stretch, self.sizeUnit)
         self.confidenceLabel.setStyleSheet(f"font-size: {int(self.sizeUnit/2)}px; font-weight: 600; color: #FFFFFF")
         self.confidenceLabel.setText("0%")
         self.confidenceLabel.show()
+
+        self.cpuLabel = QLabel(self)
+        self.cpuLabel.setAlignment(Qt.AlignVCenter|Qt.AlignLeft)
+        self.cpuLabel.setGeometry(self.padding, self.padding + self.sizeUnit*2, stretch, self.sizeUnit)
+        self.cpuLabel.setStyleSheet(f"font-size: {int(self.sizeUnit/2)}px; font-weight: 600; color: #FFFFFF")
+        self.cpuLabel.setText("CPU")
+        self.cpuLabel.show()
+
+        self.cpuPercentLabel = QLabel(self)
+        self.cpuPercentLabel.setAlignment(Qt.AlignVCenter|Qt.AlignRight)
+        self.cpuPercentLabel.setGeometry(self.padding + stretch, self.padding + self.sizeUnit*2, stretch, self.sizeUnit)
+        self.cpuPercentLabel.setStyleSheet(f"font-size: {int(self.sizeUnit/2)}px; font-weight: 600; color: #FFFFFF")
+        self.cpuPercentLabel.setText("0%")
+        self.cpuPercentLabel.show()
+
+        self.memLabel = QLabel(self)
+        self.memLabel.setAlignment(Qt.AlignVCenter|Qt.AlignLeft)
+        self.memLabel.setGeometry(self.padding, self.padding + self.sizeUnit*3, stretch, self.sizeUnit)
+        self.memLabel.setStyleSheet(f"font-size: {int(self.sizeUnit/2)}px; font-weight: 600; color: #FFFFFF")
+        self.memLabel.setText("MEM")
+        self.memLabel.show()
+
+        self.memPercentLabel = QLabel(self)
+        self.memPercentLabel.setAlignment(Qt.AlignVCenter|Qt.AlignRight)
+        self.memPercentLabel.setGeometry(self.padding + stretch, self.padding + self.sizeUnit*3, stretch, self.sizeUnit)
+        self.memPercentLabel.setStyleSheet(f"font-size: {int(self.sizeUnit/2)}px; font-weight: 600; color: #FFFFFF")
+        self.memPercentLabel.setText("0%")
+        self.memPercentLabel.show()
 
 
     @staticmethod
@@ -112,6 +141,14 @@ class ApexGunControl(QWidget):
         with contextlib.suppress(RuntimeError):
             self.weaponLabel.setText(str(data[0]))
             self.confidenceLabel.setText(f"{round(data[1]*100)}%")
+
+    def setCPU(self, percent):
+        with contextlib.suppress(RuntimeError):
+            self.cpuPercentLabel.setText(f"{round(percent, 1)}%")
+
+    def setMEM(self, percent):
+        with contextlib.suppress(RuntimeError):
+            self.memPercentLabel.setText(f"{round(percent, 1)}%")
 
 
     def showEvent(self, event):

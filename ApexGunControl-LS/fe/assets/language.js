@@ -178,6 +178,11 @@ window.translation = {
         "tw": "壓槍係數（滑鼠靈敏度）",
         "cn": "压枪系数（滑鼠灵敏度）",
     },
+    "page-settings-confidence": {
+        "en": "Detection Confidence",
+        "tw": "槍枝偵測嚴謹度",
+        "cn": "枪枝侦测严谨度",
+    },
     "page-settings-region": {
         "en": "Detecting Region",
         "tw": "槍枝偵測區域",

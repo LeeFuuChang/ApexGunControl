@@ -22,8 +22,6 @@ class GameMonitor:
 
     inGame = False
 
-    confidence = 0.75
-
     weapon = [ None, 0 ]
     weaponConfig = {}
 
@@ -44,6 +42,10 @@ class GameMonitor:
             _AGC.setMatching(cls.isFocused and cls.inGame)
             _AGC.setWeapon(cls.weapon)
 
+            proc = psutil.Process(int(os.environ["PID"]))
+            _AGC.setCPU(proc.cpu_percent(interval=.5))
+            _AGC.setMEM(proc.memory_percent())
+
             # Focus Check
             isFocused = False
             try:
@@ -63,7 +65,7 @@ class GameMonitor:
 
             # InGame Detection
             result = InGameDetector.detect(screenshot)
-            foundClue = (result[1] > 0.1 and result[1] > cls.confidence/2)
+            foundClue = (result[1] > 0.1 and result[1] > (float(_AGC.config.get("confidence", "80"))/250))
             newGameCof = 3 if(foundClue)else max(0, cls.inGame - 1)
             if(bool(cls.inGame) != bool(newGameCof)):
                 cls.log(f"InGame state changed ({bool(cls.inGame)} -> {bool(newGameCof)})")
@@ -72,7 +74,7 @@ class GameMonitor:
 
             # Weapon Detection
             result = WeaponDetector.detect(screenshot)
-            if(result[1] > cls.confidence and result[0] != cls.weapon[0]):
+            if(result[1] > (float(_AGC.config.get("confidence", "80"))/100) and result[0] != cls.weapon[0]):
                 cls.log(f"Weapon changed ({cls.weapon} -> {result})")
                 cls.weapon = result
                 cls.weaponConfig = {}
@@ -80,9 +82,3 @@ class GameMonitor:
                 if(os.path.exists(weaponConfigPath)):
                     with open(weaponConfigPath, "r") as f:
                         cls.weaponConfig = json.load(f)
-
-            if(cls.isFocused and cls.inGame and cls.weaponConfig):
-                cls.log(f"ACG CPU Usage: {round(psutil.cpu_percent(), 1)}%")
-                cls.log(f"ACG MEM Usage {round(psutil.virtual_memory().percent, 1)}%")
-                cls.log(f"Apex CPU Usage: {round(focusProc.cpu_percent(), 1)}%")
-                cls.log(f"Apex MEM Usage {round(focusProc.memory_percent(), 1)}%")
