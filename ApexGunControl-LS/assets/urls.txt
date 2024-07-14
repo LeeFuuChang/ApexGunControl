@@ -1,0 +1,19 @@
+Aiming-F.png
+Aiming-T.png
+    https://icons8.com/icon/fweD_TCDAd6F/sniper
+
+Firing-F.png
+Firing-T.png
+    https://icons8.com/icon/2197/firing-gun
+
+Moving-F.png
+Moving-T.png
+    https://icons8.com/icon/916/running
+
+Focusing-F.png
+Focusing-T.png
+    https://icons8.com/icon/540/tv
+
+Matching-F.png
+Matching-T.png
+    https://icons8.com/icon/59335/battle

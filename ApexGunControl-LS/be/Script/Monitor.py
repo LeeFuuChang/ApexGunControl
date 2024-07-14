@@ -1,5 +1,6 @@
 from mss import mss
 import numpy as np
+import contextlib
 import logging
 import time
 import json
@@ -31,16 +32,25 @@ class GameMonitor:
         logging.getLogger().info(f"[{cls.__name__}] {message}")
 
     @classmethod
-    def update(cls):
+    def update(cls, _AGC):
         cls.mss = mss()
         while(not time.sleep(.5)):
+            with contextlib.suppress(RuntimeError):
+                _AGC.toggleStatusWindowSignal.emit(bool(os.environ["USER"]) and cls.isFocused)
+
             if(not os.environ["USER"]): continue
 
+            _AGC.setFocusing(cls.isFocused)
+            _AGC.setMatching(cls.isFocused and cls.inGame)
+            _AGC.setWeapon(cls.weapon)
+
+            # Focus Check
             isFocused = False
             try:
                 focus = win32gui.GetForegroundWindow()
                 focusPID = win32process.GetWindowThreadProcessId(focus)[1]
-                focusName = psutil.Process(focusPID).name().strip().lower()
+                focusProc = psutil.Process(focusPID)
+                focusName = focusProc.name().strip().lower()
                 isFocused = focusName.startswith("r5apex")
             except:
                 pass
@@ -54,7 +64,7 @@ class GameMonitor:
             # InGame Detection
             result = InGameDetector.detect(screenshot)
             foundClue = (result[1] > 0.1 and result[1] > cls.confidence/2)
-            newGameCof = 10 if(foundClue)else max(0, cls.inGame - 1)
+            newGameCof = 3 if(foundClue)else max(0, cls.inGame - 1)
             if(bool(cls.inGame) != bool(newGameCof)):
                 cls.log(f"InGame state changed ({bool(cls.inGame)} -> {bool(newGameCof)})")
             cls.inGame = newGameCof
@@ -70,3 +80,9 @@ class GameMonitor:
                 if(os.path.exists(weaponConfigPath)):
                     with open(weaponConfigPath, "r") as f:
                         cls.weaponConfig = json.load(f)
+
+            if(cls.isFocused and cls.inGame and cls.weaponConfig):
+                cls.log(f"ACG CPU Usage: {round(psutil.cpu_percent(), 1)}%")
+                cls.log(f"ACG MEM Usage {round(psutil.virtual_memory().percent, 1)}%")
+                cls.log(f"Apex CPU Usage: {round(focusProc.cpu_percent(), 1)}%")
+                cls.log(f"Apex MEM Usage {round(focusProc.memory_percent(), 1)}%")

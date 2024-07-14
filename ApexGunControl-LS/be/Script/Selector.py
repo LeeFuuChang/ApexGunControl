@@ -1,8 +1,9 @@
+import sys
 import os
 
-from PyQt5.QtWidgets import QWidget, QLabel, QShortcut, QSizeGrip
+from PyQt5.QtWidgets import QWidget, QDesktopWidget, QLabel, QShortcut, QSizeGrip
 from PyQt5.QtCore import Qt, QPoint, QTimer
-from PyQt5.QtGui import QKeySequence
+from PyQt5.QtGui import QKeySequence, QIcon
 
 from .Monitor import GameMonitor
 from .Detector import Detector
@@ -18,6 +19,9 @@ class RegionSelector(QWidget):
     def __init__(self, *args, **kwargs):
         super(self.__class__, self).__init__(*args, **kwargs)
 
+        self.icon = QIcon(sys.modules["StorageManager"].LocalStorage().path(os.path.join("logo", "Filled.png")))
+
+        self.setWindowIcon(self.icon)
         self.setWindowTitle(os.environ["PROJECT_NAME"])
         self.setWindowFlags(Qt.Window|Qt.WindowStaysOnTopHint|Qt.FramelessWindowHint|Qt.WindowMinMaxButtonsHint)
         self.setAttribute(Qt.WA_NoSystemBackground, True)
@@ -82,11 +86,12 @@ class RegionSelector(QWidget):
 
 
     def updateRegion(self):
-        g = self.geometry()
-        x = max(g.x(), Detector.monitor["left"])
-        y = max(g.y(), Detector.monitor["top"])
-        w = min(g.width(), Detector.monitor["width"]-g.x())
-        h = min(g.height(), Detector.monitor["height"]-g.y())
+        sg = QDesktopWidget().screenGeometry()
+        wg = self.geometry()
+        x = max(wg.x(), sg.x())
+        y = max(wg.y(), sg.y())
+        w = min(wg.width(), sg.width()-wg.x())
+        h = min(wg.height(), sg.height()-wg.y())
 
         nw = min(h*3, w)
         nh = min(w/3, h)

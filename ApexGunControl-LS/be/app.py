@@ -9,13 +9,10 @@ from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEngineSettings
 from PyQt5.QtWidgets import QApplication, QDesktopWidget
 from PyQt5 import QtCore, QtGui
 
-from Script.Detector import WeaponDetector
+from Server.Flask import WebServer
+
 from Script.Selector import RegionSelector
-
-from Server import WebServer
-
-from Script.Controller import GameController
-from Script.Monitor import GameMonitor
+from Script.AGC import ApexGunControl
 
 
 
@@ -63,7 +60,7 @@ class WebRenderer(QWebEngineView):
         self.closeSignal.connect(self.close)
         self.minimizeSignal.connect(self.showMinimized)
         self.resizeSignal.connect(self.resize)
-        self.regionSignal.connect(self.selectWeaponDetectRegion)
+        self.regionSignal.connect(self.regionSelector.show)
         self.authChangedSignal.connect(self.authStateChanged)
 
 
@@ -94,9 +91,21 @@ class WebRenderer(QWebEngineView):
         return super().mouseMoveEvent(event)
 
 
+    def moveEvent(self, event):
+        wg = self.geometry()
+        sg = QDesktopWidget().screenGeometry()
+        self.setGeometry(
+            max(0, min(wg.x(), sg.width()-wg.width())),
+            max(0, min(wg.y(), sg.height()-wg.height())),
+            wg.width(),
+            wg.height(),
+        )
+        return super().moveEvent(event)
+
+
     def centralize(self):
         wg = self.geometry()
-        sg = QDesktopWidget().availableGeometry()
+        sg = QDesktopWidget().screenGeometry()
         self.move(int((sg.width()-wg.width())/2), int((sg.height()-wg.height())/2))
 
 
@@ -106,10 +115,6 @@ class WebRenderer(QWebEngineView):
         super().resize(w, h)
         self.centralize()
         self.show()
-
-
-    def selectWeaponDetectRegion(self):
-        self.regionSelector.show()
 
 
     def authStateChanged(self, user):
@@ -149,13 +154,8 @@ def run():
     os.environ["KEY_SHOOTING"] = "f5"
     os.environ["KEY_MOVEMENT"] = "f6"
 
-    if(GameController.thread is None):
-        GameController.thread = threading.Thread(target=GameController.update, daemon=True)
-        GameController.thread.start()
-
-    if(GameMonitor.thread is None):
-        GameMonitor.thread = threading.Thread(target=GameMonitor.update, daemon=True)
-        GameMonitor.thread.start()
+    script = ApexGunControl(browserWindow)
+    script.run()
 
     sys.exit(app.exec_())
 
