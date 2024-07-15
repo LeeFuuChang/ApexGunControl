@@ -70,17 +70,28 @@
     Bind($("#page"));
     $.get("/app/config/settings.json", {})
         .then((data)=>{
-            let w = window.screen.width;
-            let h = window.screen.height;
-            let b = Math.round(h/6);
-            $("input[name='region-l']").val(w-b*3)
-            $("input[name='region-t']").val(h-b)
-            $("input[name='region-r']").val(w)
-            $("input[name='region-b']").val(h)
             for(key in data) {
                 $(`input[name="${key}"]`).val(data[key]);
             }
-            return Save($("input[path='settings']"));
+
+            let w = window.screen.width;
+            let h = window.screen.height;
+            let o = Math.round(h/6);
+            let p = Object.entries({
+                "region-l": w - o*3,
+                "region-t": h - o,
+                "region-r": w,
+                "region-b": h,
+            }).map(([key, value])=>{
+                let saved = parseInt(data[key]);
+                let coord = (isNaN(saved) || saved < 0) ? value : saved;
+                $(`input[name="${key}"]`).val(coord);
+                return Promise.resolve(coord);
+            });
+
+            return Promise.all(p).then(()=>{
+                return Save($("input[path='settings']"));
+            });
         });
     $.get("/app/config/weapons", {})
         .then((list)=>{

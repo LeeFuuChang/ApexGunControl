@@ -1,8 +1,8 @@
 import sys
 import os
 
-from PyQt5.QtWidgets import QWidget, QDesktopWidget, QLabel, QShortcut, QSizeGrip
-from PyQt5.QtCore import Qt, QPoint, QTimer
+from PyQt5.QtWidgets import QApplication, QDesktopWidget, QWidget, QLabel, QShortcut, QSizeGrip
+from PyQt5.QtCore import Qt, QPoint, QTimer, QEvent
 from PyQt5.QtGui import QKeySequence, QIcon
 
 from .Monitor import GameMonitor
@@ -13,8 +13,6 @@ from .Detector import Detector
 class RegionSelector(QWidget):
     region2geometry = staticmethod(lambda r : tuple([int(_) for _ in [r[0], r[1], r[2]-r[0], r[3]-r[1]]]))
     geometry2region = staticmethod(lambda g : tuple([int(_) for _ in [g[0], g[1], g[0]+g[2], g[1]+g[3]]]))
-
-    regionCarrier = None
 
     def __init__(self, *args, **kwargs):
         super(self.__class__, self).__init__(*args, **kwargs)
@@ -59,13 +57,12 @@ class RegionSelector(QWidget):
             self.grips.append(grip)
         self.farestGrip = None
 
-        self.setMouseTracking(True)
+        QApplication.instance().installEventFilter(self)
 
 
     def showEvent(self, event):
         if(Detector is not None):
             Detector.load()
-            self.setGeometry(*self.region2geometry(Detector.region))
         return super().showEvent(event)
 
 
@@ -75,9 +72,19 @@ class RegionSelector(QWidget):
         return super().closeEvent(event)
 
 
-    def mouseMoveEvent(self, event):
-        self.farestGrip = max(self.grips, key=lambda g:(g.mapToParent(g.rect().center())-event.pos()).manhattanLength())
-        return super().mouseMoveEvent(event)
+    def eventFilter(self, object, event):
+        if(object.parent() == self and event.type() == QEvent.MouseButtonPress):
+            self.mousePressEvent(event)
+        return False
+
+
+    def mousePressEvent(self, event):
+        if(event.buttons() & Qt.LeftButton):
+            def dist(grip):
+                gripWindowPos = grip.mapTo(grip.window(), grip.rect().center())
+                return (gripWindowPos - event.windowPos()).manhattanLength()
+            self.farestGrip = max(self.grips, key=dist)
+        return super().mousePressEvent(event)
 
 
     def updateDetect(self):
@@ -90,37 +97,37 @@ class RegionSelector(QWidget):
         wg = self.geometry()
         x = max(wg.x(), sg.x())
         y = max(wg.y(), sg.y())
-        w = min(wg.width(), sg.width()-wg.x())
-        h = min(wg.height(), sg.height()-wg.y())
+        w = min(wg.width(), sg.width()-x)
+        h = min(wg.height(), sg.height()-y)
 
+        nx = Detector.region[0]
+        ny = Detector.region[1]
         nw = min(h*3, w)
         nh = min(w/3, h)
 
         if(self.grips[0] == self.farestGrip):
-            Detector.region = self.geometry2region((x, y, nw, nh))
+            nx = Detector.region[0]
+            ny = Detector.region[1]
         if(self.grips[1] == self.farestGrip):
-            Detector.region = self.geometry2region((x+w-nw, y, w, nh))
+            nx = Detector.region[2] - nw
+            ny = Detector.region[1]
         if(self.grips[2] == self.farestGrip):
-            Detector.region = self.geometry2region((x+w-nw, y+h-nh, w, h))
+            nx = Detector.region[2] - nw
+            ny = Detector.region[3] - nh
         if(self.grips[3] == self.farestGrip):
-            Detector.region = self.geometry2region((x, y+h-nh, nw, h))
+            nx = Detector.region[0]
+            ny = Detector.region[3] - nh
 
-        self.setGeometry(*self.region2geometry(Detector.region))
-
-
-    def paintEvent(self, event):
-        self.updateRegion()
-        return super().paintEvent(event)
+        Detector.region = self.geometry2region((nx, ny, nw, nh))
 
 
     def resizeEvent(self, event):
-        if(not self.farestGrip): return self.setGeometry(*self.region2geometry(Detector.region))
+        if(self.farestGrip): self.updateRegion()
 
-        self.updateRegion()
+        self.setGeometry(*self.region2geometry(Detector.region))
 
-        rect = self.geometry()
-        w = rect.width()
-        h = rect.height()
+        w = self.width()
+        h = self.height()
 
         lt = QPoint(     0,      0)
         rt = QPoint(w - 16,      0)

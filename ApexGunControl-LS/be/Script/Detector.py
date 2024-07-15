@@ -32,11 +32,15 @@ class Detector:
     def load(cls):
         with open(cls.configPath, "r") as f:
             config = json.load(f)
+            l = int(float(config.get("region-l", cls.region[0])))
+            t = int(float(config.get("region-t", cls.region[1])))
+            r = int(float(config.get("region-r", cls.region[2])))
+            b = int(float(config.get("region-b", cls.region[3])))
             cls.region = (
-                int(float(config.get("region-l", cls.region[0]))),
-                int(float(config.get("region-t", cls.region[1]))),
-                int(float(config.get("region-r", cls.region[2]))),
-                int(float(config.get("region-b", cls.region[3]))),
+                l if(l >= 0)else cls.region[0],
+                t if(t >= 0)else cls.region[1],
+                r if(r >= 0)else cls.region[2],
+                b if(b >= 0)else cls.region[3],
             )
         for detector in cls.__subclasses__():
             detector.region = cls.region

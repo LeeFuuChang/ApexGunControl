@@ -10,7 +10,7 @@ LocalStorage.setup(
     directory = os.environ["EXECUTABLE_ROOT"],
 )
 
-from Server import WebServer
+from Server.Flask import WebServer
 
 server = WebServer()
 server.run(host=server.host, port=server.port, threaded=True)
