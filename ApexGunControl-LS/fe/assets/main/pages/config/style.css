@@ -101,7 +101,7 @@
     font-size: calc(1*var(--size));
     font-weight: 400;
     line-height: calc(1.25*var(--size));
-    padding: 0 calc(.5*var(--size));
+    padding: 0 calc(.25*var(--size));
     color: var(--theme-color-white);
     background-color: transparent;
 }
@@ -109,7 +109,7 @@
     width: calc(2*var(--size));
     height: calc(1*var(--size));
     filter: var(--theme-color-white-filter);
-    margin-left: calc(1*var(--size));
+    /* margin-left: calc(.25*var(--size)); */
 }
 
 #page[name="config"] .category .adjustment .install-button {
