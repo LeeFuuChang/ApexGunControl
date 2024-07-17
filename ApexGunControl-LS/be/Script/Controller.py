@@ -60,6 +60,6 @@ class GameController:
                 if(win32api.GetAsyncKeyState(0x5) & 0x8000 > 0):
                     keyboard.send(os.environ["KEY_MOVEMENT"], do_press=True, do_release=True)
 
-                time.sleep(0.001)
+                time.sleep(0.0175)
 
             keyboard.send(os.environ["KEY_SHOOTING"], do_press=False, do_release=True)

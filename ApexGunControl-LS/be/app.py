@@ -151,7 +151,6 @@ def run():
     browserWindow = WebRenderer()
     browserWindow.connect(server, server.host, server.port)
 
-    os.environ["PID"] = str(os.getpid())
     os.environ["KEY_SHOOTING"] = "f5"
     os.environ["KEY_MOVEMENT"] = "f6"
 

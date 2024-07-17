@@ -42,10 +42,6 @@ class GameMonitor:
             _AGC.setMatching(cls.isFocused and cls.inGame)
             _AGC.setWeapon(cls.weapon)
 
-            proc = psutil.Process(int(os.environ["PID"]))
-            _AGC.setCPU(proc.cpu_percent(interval=.5))
-            _AGC.setMEM(proc.memory_percent())
-
             # Focus Check
             isFocused = False
             try:
