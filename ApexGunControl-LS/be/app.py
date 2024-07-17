@@ -75,6 +75,7 @@ class WebRenderer(QWebEngineView):
 
 
     def mousePressEvent(self, event):
+        if(self.regionSelector.isVisible()): return super().mousePressEvent(event)
         self.dragging = ((event.buttons() == QtCore.Qt.LeftButton) and (event.y() < self.height()*0.05))
         return super().mousePressEvent(event)
 

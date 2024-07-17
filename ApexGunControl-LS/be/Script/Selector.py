@@ -2,10 +2,9 @@ import sys
 import os
 
 from PyQt5.QtWidgets import QApplication, QDesktopWidget, QWidget, QLabel, QShortcut, QSizeGrip
-from PyQt5.QtCore import Qt, QPoint, QTimer, QEvent
+from PyQt5.QtCore import Qt, QPoint, QEvent
 from PyQt5.QtGui import QKeySequence, QIcon
 
-from .Monitor import GameMonitor
 from .Detector import Detector
 
 
@@ -27,8 +26,6 @@ class RegionSelector(QWidget):
         self.setAttribute(Qt.WA_TransparentForMouseEvents, True)
         self.setAutoFillBackground(True)
 
-        self.setMinimumSize(64*3, 64)
-
         QShortcut(QKeySequence("ESC"), self).activated.connect(self.close)
         self.closeHint = QLabel(self)
         self.closeHint.setAlignment(Qt.AlignHCenter|Qt.AlignVCenter)
@@ -36,17 +33,6 @@ class RegionSelector(QWidget):
         self.closeHint.setText("[ E S C ]")
         self.closeHint.setStyleSheet("font-size: 12px; color: #FFFFFF; background: #FF0000; padding: 0 4px")
         self.closeHint.show()
-
-        self.detectHint = QLabel(self)
-        self.detectHint.setAlignment(Qt.AlignHCenter|Qt.AlignVCenter)
-        self.detectHint.setFixedHeight(16)
-        self.detectHint.setText("[ N/A - 0% ]")
-        self.detectHint.setStyleSheet("font-size: 12px; color: #FFFFFF; background: #FF0000; padding: 0 4px")
-        self.detectHint.show()
-
-        self.detectTimer = QTimer(self)
-        self.detectTimer.timeout.connect(self.updateDetect)
-        self.detectTimer.start(1000//2)
 
         self.grips = []
         for i in range(4):
@@ -63,11 +49,15 @@ class RegionSelector(QWidget):
     def showEvent(self, event):
         if(Detector is not None):
             Detector.load()
+            self.updateRegion()
+            self.setGeometry(*self.region2geometry(Detector.region))
         return super().showEvent(event)
 
 
     def closeEvent(self, event):
         if(Detector is not None):
+            self.updateRegion()
+            self.setGeometry(*self.region2geometry(Detector.region))
             Detector.save()
         return super().closeEvent(event)
 
@@ -75,6 +65,8 @@ class RegionSelector(QWidget):
     def eventFilter(self, object, event):
         if(object.parent() == self and event.type() == QEvent.MouseButtonPress):
             self.mousePressEvent(event)
+        if(object.parent() == self and event.type() == QEvent.MouseButtonRelease):
+            self.mouseReleaseEvent(event)
         return False
 
 
@@ -87,23 +79,25 @@ class RegionSelector(QWidget):
         return super().mousePressEvent(event)
 
 
-    def updateDetect(self):
-        self.detectHint.setText(f"{GameMonitor.weapon[0]} - {round(GameMonitor.weapon[1]*100)}%")
-        self.detectHint.adjustSize()
+    def mouseReleaseEvent(self, event):
+        if(event.buttons() & Qt.LeftButton and self.farestGrip):
+            self.farestGrip = None
+        return super().mousePressEvent(event)
 
 
     def updateRegion(self):
         sg = QDesktopWidget().screenGeometry()
         wg = self.geometry()
-        x = max(wg.x(), sg.x())
-        y = max(wg.y(), sg.y())
+
+        x = max(wg.x(), sg.x(), 0)
+        y = max(wg.y(), sg.y(), 0)
         w = min(wg.width(), sg.width()-x)
         h = min(wg.height(), sg.height()-y)
 
-        nx = Detector.region[0]
-        ny = Detector.region[1]
-        nw = min(h*3, w)
-        nh = min(w/3, h)
+        nw = min(h*3, w, sg.width())
+        nh = min(w/3, h, sg.height())
+        nx = min(max(Detector.region[0], sg.x()), sg.x()+sg.width()-nw)
+        ny = min(max(Detector.region[1], sg.y()), sg.y()+sg.height()-nh)
 
         if(self.grips[0] == self.farestGrip):
             nx = Detector.region[0]
@@ -140,7 +134,6 @@ class RegionSelector(QWidget):
         self.grips[3].move(lb)
 
         self.closeHint.move(int((w-self.closeHint.width())/2), 0)
-        self.detectHint.move(int((w-self.detectHint.width())/2), h-self.detectHint.height())
 
         return super().resizeEvent(event)
 

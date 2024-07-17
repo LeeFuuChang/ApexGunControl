@@ -49,7 +49,7 @@ class GameMonitor:
                 focusPID = win32process.GetWindowThreadProcessId(focus)[1]
                 focusProc = psutil.Process(focusPID)
                 focusName = focusProc.name().strip().lower()
-                isFocused = focusName.startswith("r5apex")
+                isFocused = focusName.startswith("r5apex") or focusPID == os.getpid()
             except:
                 pass
             if(cls.isFocused != isFocused):
