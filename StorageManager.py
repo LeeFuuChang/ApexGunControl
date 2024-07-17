@@ -135,7 +135,7 @@ class LocalStorage:
 if __name__ == "__main__":
     import xml.dom.minidom
     if(len(sys.argv) > 1):
-        target = sys.argv[1]
+        target = sys.argv[1].replace(".", "").replace("/", "").replace("\\", "")
         if(not os.path.exists(target)): raise FileNotFoundError()
         root = ET.Element("folder")
         root.attrib["name"] = os.path.split(target)[0]
