@@ -1,6 +1,5 @@
 import contextlib
 import threading
-import psutil
 import json
 import sys
 import os

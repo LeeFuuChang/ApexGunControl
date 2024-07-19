@@ -27,7 +27,7 @@ window.LoadPage = function(name) {
     if(window.auth().authorized || name == "dashboard") {
         $("nav .side-button, nav .main-nav-button").removeClass("active");
         $(`nav .side-button[name="${name}"], nav .main-nav-button[name="${name}"]`).addClass("active");
-        $.get(`assets/main/pages/${name}/page.html`)
+        $.get(`assets/pages/${name}/page.html`)
             .then((html)=>{
                 $("#page")
                     .hide()
