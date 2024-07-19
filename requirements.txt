@@ -14,3 +14,5 @@ mss
 keyboard
 pywin32
 psutil
+
+pytz

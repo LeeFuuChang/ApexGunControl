@@ -1,7 +1,6 @@
 import threading
 import waitress
 import logging
-import json
 import sys
 import os
 
@@ -120,8 +119,6 @@ class WebRenderer(QWebEngineView):
 
     def authStateChanged(self, user):
         os.environ["USER"] = str(user if(user)else "")
-        prettified = json.dumps(user if(user)else {}, indent=4, ensure_ascii=False)
-        logging.getLogger().info(f"AuthStateChanged: {prettified}")
 
 
     def connect(self, server, host, port):
@@ -138,6 +135,9 @@ class WebRenderer(QWebEngineView):
 
 
 def run():
+    os.environ["KEY_SHOOTING"] = "f5"
+    os.environ["KEY_MOVEMENT"] = "f6"
+
     app = QApplication([*sys.argv, "--ignore-gpu-blocklist"])
 
     server = WebServer()
@@ -151,9 +151,6 @@ def run():
 
     browserWindow = WebRenderer()
     browserWindow.connect(server, server.host, server.port)
-
-    os.environ["KEY_SHOOTING"] = "f5"
-    os.environ["KEY_MOVEMENT"] = "f6"
 
     script = ApexGunControl(browserWindow)
     script.run()

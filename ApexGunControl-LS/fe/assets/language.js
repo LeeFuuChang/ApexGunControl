@@ -1,4 +1,12 @@
 window.translation = {
+    "app-not-authorized": {
+        "en": "UNAUTHORIZED",
+        "tw": "尚未授權",
+        "cn": "尚未授权",
+    },
+
+
+
     /*
     navigations
     */
