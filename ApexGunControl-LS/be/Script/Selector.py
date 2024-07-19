@@ -16,10 +16,10 @@ class RegionSelector(QWidget):
     def __init__(self, *args, **kwargs):
         super(self.__class__, self).__init__(*args, **kwargs)
 
-        self.icon = QIcon(sys.modules["StorageManager"].LocalStorage().path(os.path.join("logo", "Filled.png")))
+        iconPath = sys.modules["StorageManager"].LocalStorage().path(os.path.join("fe", "assets", "logo", "filled.png"))
 
-        self.setWindowIcon(self.icon)
         self.setWindowTitle(os.environ["PROJECT_NAME"])
+        self.setWindowIcon(QIcon(iconPath))
         self.setWindowFlags(Qt.Window|Qt.WindowStaysOnTopHint|Qt.FramelessWindowHint|Qt.WindowMinMaxButtonsHint)
         self.setAttribute(Qt.WA_NoSystemBackground, True)
         self.setAttribute(Qt.WA_TranslucentBackground, True)

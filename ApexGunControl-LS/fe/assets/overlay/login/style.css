@@ -27,7 +27,7 @@
     background-repeat: repeat-x;
 }
 #overlay-container[name="login"] .connection .check img {
-    height: 50%;
+    height: calc(2*var(--size));
 }
 #overlay-container[name="login"] .title {
     font-family: "Fredoka", sans-serif;
