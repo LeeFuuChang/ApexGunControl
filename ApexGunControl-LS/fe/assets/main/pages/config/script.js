@@ -1,4 +1,4 @@
-(function(){
+setTimeout(function(){
     /*
     Event Binding Beg
     */
@@ -50,4 +50,4 @@
     /*
     Load Data End
     */
-})();
+}, 100);

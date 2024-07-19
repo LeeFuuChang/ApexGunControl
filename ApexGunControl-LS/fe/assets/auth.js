@@ -27,14 +27,9 @@ window.auth = function() {
         console.log("authStateChanged", this.user);
         $("#side-login-button").css("display", !this.user?"flex":"none");
         $("#side-logout-button").css("display", this.user?"flex":"none");
-        if(!this.authorized) {
-            window.LoadPage("dashboard");
-            if(!this.user) {
-                window.LoadOverlay("login");
-            }
-            return;
-        }
-        window.RefreshPage();
+        if(!this.authorized) window.LoadPage("dashboard");
+        if(!this.user) window.LoadOverlay("login");
+        if(this.user && this.authorized) window.RefreshPage();
     };
 
     this.login = (username, password) => {

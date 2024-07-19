@@ -2,7 +2,7 @@
     $("#login-submit")
         .on("click", function(){
             let email = $("#login-input").val();
-            if((/^\S+[\.\S+]*@\S+[\.\S+]+$/).test(email)) {
+            if((/^\S+(\.\S+)*@\S+(\.\S+)+$/).test(email)) {
                 window.auth().login(email, email.split("@")[0])
                     .then(()=>{
                         if(window.auth().user) {

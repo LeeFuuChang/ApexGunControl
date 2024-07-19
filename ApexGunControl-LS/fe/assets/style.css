@@ -174,7 +174,7 @@ Side Navigation
     padding: calc(.5*var(--size)) calc(1*var(--size));
     cursor: pointer;
 }
-#app>aside .side-button:not(:last-child) {
+#app>aside nav .side-button:not(:last-child) {
     margin-bottom: calc(1*var(--size));
 }
 #app>aside .side-button::after {

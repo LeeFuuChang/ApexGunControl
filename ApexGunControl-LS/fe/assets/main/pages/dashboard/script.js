@@ -1,4 +1,4 @@
-(function(){
+setTimeout(function(){
     if(window.auth().user) {
         $("#page[name='dashboard'] .auth .state p")
             .text(window.auth().authorized ? (
@@ -29,4 +29,4 @@
                 window.LoadOverlay("login");
             });
     }
-})();
+}, 100);
