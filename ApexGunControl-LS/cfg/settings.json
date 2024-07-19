@@ -1,8 +1,8 @@
 {
     "sensitivity": "5.0",
     "confidence": "80",
-    "region-l": "-1",
-    "region-t": "-1",
-    "region-r": "-1",
-    "region-b": "-1"
+    "region-l": "1020",
+    "region-t": "818",
+    "region-r": "1512",
+    "region-b": "982"
 }

@@ -3,17 +3,11 @@
         .on("click", function(){
             let email = $("#login-input").val();
             if((/^\S+[\.\S+]*@\S+[\.\S+]+$/).test(email)) {
-                window.Login(email, email.split("@")[0])
-                    .then((userCredential) => {
-                        console.log(userCredential);
-                        // Signed in
-                        var user = userCredential.user;
-                        // ...
-                        window.Notify("success", "OK");
-                        window.HideOverlay();
-                    })
-                    .catch((error) => {
-                        window.Notify("error", error.code);
+                window.auth().login(email, email.split("@")[0])
+                    .then(()=>{
+                        if(window.auth().user) {
+                            window.HideOverlay();
+                        }
                     });
             }
             else {

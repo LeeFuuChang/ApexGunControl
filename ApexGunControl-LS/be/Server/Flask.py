@@ -1,6 +1,7 @@
 from flask import Flask, redirect
 import logging
 import socket
+import os
 
 from .blueprints.Ui import Ui
 from .blueprints.App import App
@@ -23,6 +24,10 @@ class WebServer(Flask):
     def __init__(self):
         super(self.__class__, self).__init__(__name__)
         self.config["SECRET_KEY"] = "ThisIsNotSnakeCaseWhichShouldBeUsedInPython"
+
+        os.environ["USERNAME"] = ""
+        os.environ["PASSWORD"] = ""
+        os.environ["EXPIRE_AT"] = ""
 
         self.appControls = {}
 

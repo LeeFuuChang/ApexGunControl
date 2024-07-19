@@ -24,8 +24,6 @@ class WebRenderer(QWebEngineView):
 
     regionSignal = QtCore.pyqtSignal()
 
-    authChangedSignal = QtCore.pyqtSignal(object)
-
     dragging = False
     mouseLastPosition = None
 
@@ -60,7 +58,6 @@ class WebRenderer(QWebEngineView):
         self.minimizeSignal.connect(self.showMinimized)
         self.resizeSignal.connect(self.resize)
         self.regionSignal.connect(self.regionSelector.show)
-        self.authChangedSignal.connect(self.authStateChanged)
 
 
     def eventFilter(self, object, event):
@@ -117,17 +114,12 @@ class WebRenderer(QWebEngineView):
         self.show()
 
 
-    def authStateChanged(self, user):
-        os.environ["USER"] = str(user if(user)else "")
-
-
     def connect(self, server, host, port):
         self.server = server
         self.server.registerAppControl("app-control-close", self.closeSignal.emit)
         self.server.registerAppControl("app-control-minimize", self.minimizeSignal.emit)
         self.server.registerAppControl("app-control-resize", self.resizeSignal.emit)
         self.server.registerAppControl("app-control-region", self.regionSignal.emit)
-        self.server.registerAppControl("app-control-auth", self.authChangedSignal.emit)
         self.load(QtCore.QUrl(f"http://{host}:{port}/ui"))
         logging.getLogger().info(f"Browser Listening on 'http://{host}:{port}/ui'")
         self.centralize()

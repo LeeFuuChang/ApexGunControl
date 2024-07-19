@@ -1,5 +1,6 @@
+from datetime import datetime
+from pytz import timezone
 import requests as rq
-import webbrowser
 import json
 import sys
 import os
@@ -7,6 +8,47 @@ import os
 from flask import Blueprint, send_from_directory, request, Response
 
 App = Blueprint("App", __name__)
+
+@App.route("/login", methods=["POST"])
+def App_Login():
+    res = rq.post(
+        f"{os.environ['SERVER_URL']}/Login",
+        data={
+            "username": request.form.get("username", ""),
+            "password": request.form.get("password", ""),
+        })
+
+    try: data = res.json()
+    except: data = {}
+
+    os.environ["USERNAME"]  = data.get("username", "")
+    os.environ["PASSWORD"]  = data.get("password", "")
+    os.environ["EXPIRE_AT"] = data.get("expireAt", "")
+
+    return {
+        "username": data.get("username", ""),
+        "password": data.get("password", ""),
+        "expireAt": data.get("expireAt", ""),
+    }, res.status_code
+
+
+
+@App.route("/logout", methods=["POST"])
+def App_Logout():
+    os.environ["USERNAME"] = ""
+    os.environ["PASSWORD"] = ""
+    os.environ["EXPIRE_AT"] = ""
+    return Response(status=200)
+
+
+
+@App.route("/auth-state", methods=["POST"])
+def App_AuthState():
+    now = datetime.now(tz=timezone("Asia/Taipei"))
+    authorized = os.environ["EXPIRE_AT"] > now.strftime(r"%Y/%m/%d %H:%M:%S")
+    return os.environ["EXPIRE_AT"] if(authorized)else ""
+
+
 
 @App.route("/version", methods=["GET"])
 def App_Version():
@@ -23,13 +65,7 @@ def App_Version():
         "release-date": latest["last-edit"],
     }
 
-@App.route("/external", methods=["POST"])
-def App_External():
-    try: data = request.get_json(force=True)
-    except: data = {}
-    if("url" not in data): return Response(status=404)
-    webbrowser.open(str(data["url"]))
-    return Response(status=202)
+
 
 App.control_functions = {}
 @App.route("/controls/<string:name>", methods=["POST"])
@@ -39,7 +75,9 @@ def App_Controls(**kwargs):
     try: data = request.get_json(force=True)
     except: data = []
     App.control_functions[name](*data)
-    return Response(status=202)
+    return Response(status=200)
+
+
 
 @App.route("/config/<path:filepath>", methods=["GET", "POST"])
 def App_Config(**kwargs):

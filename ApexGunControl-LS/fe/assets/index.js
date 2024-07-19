@@ -24,20 +24,24 @@ window.Resize = function(scale) {
 
 
 window.LoadPage = function(name) {
-    if(firebase.auth().currentUser || name === "dashboard") {
-        $("#page").attr("name", name).empty();
+    if(window.auth().authorized || name == "dashboard") {
         $("nav .side-button, nav .main-nav-button").removeClass("active");
         $(`nav .side-button[name="${name}"], nav .main-nav-button[name="${name}"]`).addClass("active");
-        $.get(`assets/main/pages/${name}/page.html`, {}, (html)=>{
-            $(html)
-                .hide()
-                .appendTo($("#page"))
-                .fadeIn(250);
-            window.LoadLang();
-        });
+        $.get(`assets/main/pages/${name}/page.html`)
+            .then((html)=>{
+                $("#page")
+                    .hide()
+                    .html(html)
+                    .attr("name", name)
+                    .fadeIn(250);
+                window.LoadLang();
+            });
+    }
+    else if(!window.auth().user) {
+        window.LoadOverlay("login");
     }
     else {
-        window.LoadOverlay("login");
+        window.Notify("error", window.GetLangText("app-not-authorized"));
     }
 };
 window.RefreshPage = function() {

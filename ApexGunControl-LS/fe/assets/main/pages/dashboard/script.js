@@ -1,7 +1,11 @@
 (function(){
-    if(firebase.auth().currentUser) {
+    if(window.auth().user) {
         $("#page[name='dashboard'] .auth .state p")
-            .text(window.GetLangText("page-dashboard-state-unauthorized"));
+            .text(window.auth().authorized ? (
+                window.auth().expireAt
+            ) : (
+                window.GetLangText("page-dashboard-state-unauthorized")
+            ));
         $("#page[name='dashboard'] .auth input")
             .removeAttr("disabled")
             .attr("placeholder", window.GetLangText("page-dashboard-placeholder-input"));

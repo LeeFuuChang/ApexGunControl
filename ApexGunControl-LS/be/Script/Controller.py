@@ -1,6 +1,4 @@
 import time
-import json
-import sys
 import os
 
 from .Monitor import GameMonitor
@@ -22,7 +20,7 @@ class GameController:
         recoilMultiplier = 0
 
         controlRunning = lambda : (
-            os.environ["USER"] and 
+            GameMonitor.authorized and 
             GameMonitor.isFocused and 
             GameMonitor.inGame
         )

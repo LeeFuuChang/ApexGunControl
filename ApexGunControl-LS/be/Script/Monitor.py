@@ -1,3 +1,5 @@
+from datetime import datetime
+from pytz import timezone
 from mss import mss
 import numpy as np
 import contextlib
@@ -18,6 +20,8 @@ class GameMonitor:
 
     thread = None
 
+    authorized = False
+
     isFocused = False
 
     inGame = False
@@ -33,10 +37,14 @@ class GameMonitor:
     def update(cls, _AGC):
         cls.mss = mss()
         while(not time.sleep(.5)):
-            with contextlib.suppress(RuntimeError):
-                _AGC.toggleStatusWindowSignal.emit(bool(os.environ["USER"]) and cls.isFocused)
+            now = datetime.now(tz=timezone("Asia/Taipei"))
 
-            if(not os.environ["USER"]): continue
+            cls.authorized = os.environ["EXPIRE_AT"] > now.strftime(r"%Y/%m/%d %H:%M:%S")
+
+            with contextlib.suppress(RuntimeError):
+                _AGC.toggleStatusWindowSignal.emit(cls.authorized and cls.isFocused)
+
+            if(not cls.authorized): continue
 
             _AGC.setFocusing(cls.isFocused)
             _AGC.setMatching(cls.isFocused and cls.inGame)
