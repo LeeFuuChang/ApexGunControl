@@ -72,6 +72,11 @@ window.translation = {
         "tw": "登入至 Firebase",
         "cn": "登录至 Firebase",
     },
+    "overlay-login-wrong-format": {
+        "en": "Invalid Email format",
+        "tw": "信箱格式錯誤",
+        "cn": "信箱格式错误",
+    },
 
     "overlay-info-basic": {
         "en": "Software Info",
