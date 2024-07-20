@@ -4,3 +4,4 @@ env
 *.pyd
 *.xml
 *.log
+*.sh
