@@ -162,7 +162,7 @@ window.translation = {
         "cn": "请先登录",
     },
     "page-dashboard-placeholder-input": {
-        "en": "Credential Code",
+        "en": "Credential PIN",
         "tw": "授權代碼",
         "cn": "授权代码",
     },
@@ -175,6 +175,11 @@ window.translation = {
         "en": "Submit",
         "tw": "送出",
         "cn": "送出",
+    },
+    "page-dashboard-no-pin": {
+        "en": "Please input your Credential PIN",
+        "tw": "請確認輸入授權代碼",
+        "cn": "请确认输入授权代码",
     },
 
 

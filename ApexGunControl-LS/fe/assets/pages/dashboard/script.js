@@ -13,7 +13,9 @@ setTimeout(function(){
             .text(window.GetLangText("page-dashboard-button-submit"))
             .off("click")
             .on("click", ()=>{
-                console.log("submit")
+                let pin = $("#page[name='dashboard'] .auth input").val();
+                if(pin) return window.auth().activate(pin);
+                return window.Notify("error", window.GetLangText("page-dashboard-no-pin"));
             });
     }
     else {

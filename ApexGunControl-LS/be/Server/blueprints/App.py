@@ -26,9 +26,34 @@ def App_Login():
     os.environ["EXPIRE_AT"] = data.get("expireAt", "")
 
     return {
-        "username": data.get("username", ""),
-        "password": data.get("password", ""),
-        "expireAt": data.get("expireAt", ""),
+        "username": os.environ["USERNAME"],
+        "password": os.environ["PASSWORD"],
+        "expireAt": os.environ["EXPIRE_AT"],
+    }, res.status_code
+
+
+
+@App.route("/activate", methods=["POST"])
+def App_Activate():
+    res = rq.post(
+        f"{os.environ['SERVER_URL']}/Activate",
+        data={
+            "username": os.environ["USERNAME"],
+            "password": os.environ["PASSWORD"],
+            "pin"     : request.form.get("pin", ""),
+        })
+
+    try: data = res.json()
+    except: data = {}
+
+    os.environ["USERNAME"]  = data.get("username", "")
+    os.environ["PASSWORD"]  = data.get("password", "")
+    os.environ["EXPIRE_AT"] = data.get("expireAt", "")
+
+    return {
+        "username": os.environ["USERNAME"],
+        "password": os.environ["PASSWORD"],
+        "expireAt": os.environ["EXPIRE_AT"],
     }, res.status_code
 
 
@@ -38,7 +63,11 @@ def App_Logout():
     os.environ["USERNAME"] = ""
     os.environ["PASSWORD"] = ""
     os.environ["EXPIRE_AT"] = ""
-    return Response(status=200)
+    return {
+        "username": os.environ["USERNAME"],
+        "password": os.environ["PASSWORD"],
+        "expireAt": os.environ["EXPIRE_AT"],
+    }, 200
 
 
 

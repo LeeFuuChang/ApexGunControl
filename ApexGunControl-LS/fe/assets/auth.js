@@ -24,7 +24,6 @@ window.auth = function() {
     this.authStateUpdateTimeout = setTimeout(this.authStateUpdate, 1000);
 
     this.authStateChanged = () => {
-        console.log("authStateChanged", this.user);
         $("#side-login-button").css("display", !this.user?"flex":"none");
         $("#side-logout-button").css("display", this.user?"flex":"none");
         if(!this.authorized) window.LoadPage("dashboard");
@@ -32,11 +31,8 @@ window.auth = function() {
         if(this.user && this.authorized) window.RefreshPage();
     };
 
-    this.login = (username, password) => {
-        return $.post("/app/login", {
-                        "username": username,
-                        "password": password,
-                    })
+    this.post = (endpoint, data) => {
+        return $.post(endpoint, data)
                     .done((response)=>{
                         if(response["username"] && response["password"]) {
                             this.user = response;
@@ -48,22 +44,21 @@ window.auth = function() {
                         }
                     })
                     .fail((response)=>{
-                        this.user = null;
                         window.Notify("error", response.statusText);
                     })
                     .always(this.authStateChanged);
     };
 
+    this.login = (username, password) => {
+        return this.post("/app/login", {"username": username, "password": password});
+    };
+
+    this.activate = (pin) => {
+        return this.post("/app/activate", {"pin": pin});
+    };
+
     this.logout = () => {
-        return $.post("/app/logout")
-                    .done(()=>{
-                        this.user = null;
-                        window.Notify("success", "OK");
-                    })
-                    .fail((response)=>{
-                        window.Notify("error", response.statusText);
-                    })
-                    .always(this.authStateChanged);
+        return this.post("/app/logout", {});
     };
 
     window.auth._i = this;

@@ -26,6 +26,9 @@ class LocalStorage:
 
     @staticmethod
     def updateFile(remoteURL, directory, _root, _path, _name, _type):
+        logger.info(f"LS-Update updating {(_path, _name, _type)}")
+        if("--debug" in sys.argv): 
+            return logger.info(f"LS-Update update canceled duo to debug mode")
         fileName = f"{_name}.{_type}"
         targetPath = os.path.join(directory, _root.attrib["name"], _path, fileName)
         sourcePath = os.path.join(remoteURL, _path, f"{_name}.{_type}")
@@ -108,9 +111,14 @@ class LocalStorage:
                 progressCallback("Updating . . .", round(checkCount/totalCount*100))
             return parent.attrib["name"]
 
-        rootName = walk(structure, structure, directory)
+        rootName = structure.attrib["name"]
 
-        with open(os.path.join(directory, structure.attrib["name"], "storage.version"), "w") as f: f.write(structure.attrib["version"])
+        if("--debug" not in sys.argv):
+            logger.info(f"LS-Update walking structure")
+            rootName = walk(structure, structure, directory)
+
+        with open(os.path.join(directory, structure.attrib["name"], "storage.version"), "w") as f: 
+            f.write(structure.attrib["version"])
 
         progressCallback("Storage OK . . .", round(checkCount/totalCount*100))
 
