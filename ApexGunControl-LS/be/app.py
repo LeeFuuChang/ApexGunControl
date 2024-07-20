@@ -10,9 +10,6 @@ from PyQt5 import QtCore, QtGui
 
 from Server.Flask import WebServer
 
-from Script.Selector import RegionSelector
-from Script.AGC import ApexGunControl
-
 
 
 class WebRenderer(QWebEngineView):
@@ -21,8 +18,6 @@ class WebRenderer(QWebEngineView):
     minimizeSignal = QtCore.pyqtSignal()
 
     resizeSignal = QtCore.pyqtSignal(int, int)
-
-    regionSignal = QtCore.pyqtSignal()
 
     dragging = False
     mouseLastPosition = None
@@ -52,12 +47,9 @@ class WebRenderer(QWebEngineView):
 
         self.server = None
 
-        self.regionSelector = RegionSelector(self)
-
         self.closeSignal.connect(self.close)
         self.minimizeSignal.connect(self.showMinimized)
         self.resizeSignal.connect(self.resize)
-        self.regionSignal.connect(self.regionSelector.show)
 
 
     def eventFilter(self, object, event):
@@ -71,7 +63,6 @@ class WebRenderer(QWebEngineView):
 
 
     def mousePressEvent(self, event):
-        if(self.regionSelector.isVisible()): return super().mousePressEvent(event)
         self.dragging = ((event.buttons() == QtCore.Qt.LeftButton) and (event.y() < self.height()*0.05))
         return super().mousePressEvent(event)
 
@@ -119,9 +110,7 @@ class WebRenderer(QWebEngineView):
         self.server.registerAppControl("app-control-close", self.closeSignal.emit)
         self.server.registerAppControl("app-control-minimize", self.minimizeSignal.emit)
         self.server.registerAppControl("app-control-resize", self.resizeSignal.emit)
-        self.server.registerAppControl("app-control-region", self.regionSignal.emit)
         self.load(QtCore.QUrl(f"http://{host}:{port}/ui"))
-        logging.getLogger().info(f"Browser Listening on 'http://{host}:{port}/ui'")
         self.centralize()
 
 
@@ -144,9 +133,12 @@ def run():
     browserWindow = WebRenderer()
     browserWindow.connect(server, server.host, server.port)
 
+    from Script.Selector import RegionSelector
+    regionSelector = RegionSelector(browserWindow)
+    server.registerAppControl("app-control-region", regionSelector.showSignal.emit)
+
+    from Script.AGC import ApexGunControl
     script = ApexGunControl(browserWindow)
     script.run()
 
     sys.exit(app.exec_())
-
-

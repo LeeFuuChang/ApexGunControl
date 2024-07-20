@@ -2,7 +2,7 @@ import sys
 import os
 
 from PyQt5.QtWidgets import QApplication, QDesktopWidget, QWidget, QLabel, QShortcut, QSizeGrip
-from PyQt5.QtCore import Qt, QPoint, QEvent
+from PyQt5.QtCore import Qt, QPoint, QEvent, pyqtSignal
 from PyQt5.QtGui import QKeySequence, QIcon
 
 from .Detector import Detector
@@ -12,6 +12,8 @@ from .Detector import Detector
 class RegionSelector(QWidget):
     region2geometry = staticmethod(lambda r : tuple([int(_) for _ in [r[0], r[1], r[2]-r[0], r[3]-r[1]]]))
     geometry2region = staticmethod(lambda g : tuple([int(_) for _ in [g[0], g[1], g[0]+g[2], g[1]+g[3]]]))
+
+    showSignal = pyqtSignal()
 
     def __init__(self, *args, **kwargs):
         super(self.__class__, self).__init__(*args, **kwargs)
@@ -42,6 +44,8 @@ class RegionSelector(QWidget):
             grip.show()
             self.grips.append(grip)
         self.farestGrip = None
+
+        self.showSignal.connect(self.show)
 
         QApplication.instance().installEventFilter(self)
 
@@ -76,13 +80,13 @@ class RegionSelector(QWidget):
                 gripWindowPos = grip.mapTo(grip.window(), grip.rect().center())
                 return (gripWindowPos - event.windowPos()).manhattanLength()
             self.farestGrip = max(self.grips, key=dist)
-        return super().mousePressEvent(event)
+        event.accept()
 
 
     def mouseReleaseEvent(self, event):
         if(event.buttons() & Qt.LeftButton and self.farestGrip):
             self.farestGrip = None
-        return super().mousePressEvent(event)
+        event.accept()
 
 
     def updateRegion(self):

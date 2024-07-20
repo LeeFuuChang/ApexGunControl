@@ -14,7 +14,7 @@ LocalStorage = getattr(getPackage("StorageManager", os.environ["STORAGE_URL"]), 
 def init():
     loader = LoadingWindow()
     loader.setIconPath(f"{os.environ['STORAGE_URL']}/LoadingIcon.png")
-    loader.setSplashArtURL(f"{os.environ['STORAGE_URL']}/LoadingSplash.png")
+    loader.setSplashArtURL(f"{os.environ['STORAGE_URL']}/LoadingSplash.jpg")
     def statusCallback(text, progress):
         nonlocal loader
         loader.text = text
