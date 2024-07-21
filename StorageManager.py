@@ -146,7 +146,7 @@ if __name__ == "__main__":
         target = sys.argv[1].replace(".", "").replace("/", "").replace("\\", "")
         if(not os.path.exists(target)): raise FileNotFoundError()
         root = ET.Element("folder")
-        root.attrib["name"] = os.path.split(target)[0]
+        root.attrib["name"] = os.path.split(target)[1]
         with open(os.path.join(target, "storage.version"), "r") as f:
             root.attrib["version"] = f.read()
         def walk(root, node, path, excluding):

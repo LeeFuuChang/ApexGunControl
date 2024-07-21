@@ -18,12 +18,15 @@ def App_Login():
             "password": request.form.get("password", ""),
         })
 
-    try: data = res.json()
-    except: data = {}
-
-    os.environ["USERNAME"]  = data.get("username", "")
-    os.environ["PASSWORD"]  = data.get("password", "")
-    os.environ["EXPIRE_AT"] = data.get("expireAt", "")
+    try: 
+        data = res.json()
+        if( "username" in data and
+            "password" in data and
+            "expireAt" in data):
+            os.environ["USERNAME"]  = data["username"]
+            os.environ["PASSWORD"]  = data["password"]
+            os.environ["EXPIRE_AT"] = data["expireAt"]
+    except: pass
 
     return {
         "username": os.environ["USERNAME"],
@@ -43,12 +46,15 @@ def App_Activate():
             "pin"     : request.form.get("pin", ""),
         })
 
-    try: data = res.json()
-    except: data = {}
-
-    os.environ["USERNAME"]  = data.get("username", "")
-    os.environ["PASSWORD"]  = data.get("password", "")
-    os.environ["EXPIRE_AT"] = data.get("expireAt", "")
+    try: 
+        data = res.json()
+        if( "username" in data and
+            "password" in data and
+            "expireAt" in data):
+            os.environ["USERNAME"]  = data["username"]
+            os.environ["PASSWORD"]  = data["password"]
+            os.environ["EXPIRE_AT"] = data["expireAt"]
+    except: pass
 
     return {
         "username": os.environ["USERNAME"],
