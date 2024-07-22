@@ -186,15 +186,15 @@ window.translation = {
     /*
     Page Settings
     */
-    "page-config-install": {
-        "en": "Extra Options",
-        "tw": "額外選項",
-        "cn": "额外选项",
-    },
     "page-settings-sens": {
-        "en": "Control Multiplier (Game Sensitivity)",
-        "tw": "壓槍係數（滑鼠靈敏度）",
-        "cn": "压枪系数（滑鼠灵敏度）",
+        "en": "Control Scale (Default to Game Sensitivity)",
+        "tw": "壓槍係數（請預設成滑鼠靈敏度）",
+        "cn": "压枪系数（请预设成滑鼠灵敏度）",
+    },
+    "page-settings-fps": {
+        "en": "Control Freq. (Default to Game minimum FPS)",
+        "tw": "控槍頻率（請預設成遊戲最低幀數 FPS）",
+        "cn": "控枪频率（请预设成游戏最低帧数 FPS）",
     },
     "page-settings-confidence": {
         "en": "Detection Confidence",

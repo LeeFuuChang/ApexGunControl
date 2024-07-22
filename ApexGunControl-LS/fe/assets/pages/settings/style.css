@@ -16,11 +16,8 @@
     margin-bottom: calc(1.5* var(--size));
 }
 #page[name="settings"] .category .title {
-    width: auto;
-    text-align: left;
     font-size: calc(1.5*var(--size));
     font-weight: 600;
-    line-height: calc(2*var(--size));
     color: var(--theme-color-white);
 }
 #page[name="settings"] .category .option {
@@ -57,7 +54,6 @@
     bottom: 0;
     font-size: calc(1*var(--size));
     font-weight: 500;
-    line-height: calc(1.25*var(--size));
     color: var(--theme-color-white);
 }
 #page[name="settings"] .category .option .group {
@@ -81,9 +77,9 @@
 }
 #page[name="settings"] .category .adjustment .name {
     flex: 1;
+    padding-left: calc(.5*var(--size));
     font-size: calc(1*var(--size));
     font-weight: 400;
-    line-height: calc(1.25*var(--size));
     color: var(--theme-color-white);
 }
 #page[name="settings"] .category .adjustment form {

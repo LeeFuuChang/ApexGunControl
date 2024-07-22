@@ -1,5 +1,6 @@
 {
     "sensitivity": "5.0",
+    "frequency": "120",
     "confidence": "80",
     "region-l": "-1",
     "region-t": "-1",
