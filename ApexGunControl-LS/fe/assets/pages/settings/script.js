@@ -67,94 +67,103 @@ setTimeout(function(){
     /*
     Load Data Beg
     */
-    Bind($("#page"));
-    $.get("/app/config/settings.json", {})
-        .then((data)=>{
-            for(key in data) {
-                $(`input[name="${key}"]`).val(data[key]);
-            }
-
-            let w = window.screen.width;
-            let h = window.screen.height;
-            let o = Math.round(h/6);
-            let p = Object.entries({
-                "region-l": w - o*3,
-                "region-t": h - o,
-                "region-r": w,
-                "region-b": h,
-            }).map(([key, value])=>{
-                let saved = parseInt(data[key]);
-                let coord = (isNaN(saved) || saved < 0) ? value : saved;
-                $(`input[name="${key}"]`).val(coord);
-                return Promise.resolve(coord);
-            });
-
-            return Promise.all(p).then(()=>{
-                return Save($("input[path='settings']"));
-            });
-        });
-    $.get("/app/config/weapons", {})
-        .then((list)=>{
-            return Promise.all(list.map((file)=>{
-                return $.get(`/app/config/weapons/${file}`, {})
-            }));
-        })
-        .then((weaponsData)=>{
-            let weaponsGrouped = {};
-            for(weapon of weaponsData) {
-                let key = weapon.supply?"Supply":weapon.ammo;
-                if(!weaponsGrouped[key]) {
-                    weaponsGrouped[key] = [ weapon ];
+    Promise.all([
+        Bind($("#page")),
+        $.get("/app/config/settings.json", {})
+            .then((data)=>{
+                for(key in data) {
+                    $(`input[name="${key}"]`).val(data[key]);
                 }
-                else {
-                    weaponsGrouped[key].push(weapon);
-                }
-            }
-            return Promise.resolve(weaponsGrouped);
-        })
-        .then((weaponsGrouped)=>{
-            let sortedAmmoOrder = Object.keys(weaponsGrouped)
-                                    .sort((a, b)=>{
-                                        let va = a.split("").reduce((p,c)=>(p+c.charCodeAt(0)), 0)/a.length
-                                        let vb = b.split("").reduce((p,c)=>(p+c.charCodeAt(0)), 0)/b.length
-                                        return va - vb;
-                                    });
-            let weaponSettingsHtml = (sortedAmmoOrder.map(group=>{
-                weaponsGrouped[group].sort(function(a, b){
-                    return a.tap - b.tap || a.name.localeCompare(b.name);
+
+                let w = window.screen.width;
+                let h = window.screen.height;
+                let o = Math.round(h/6);
+                let p = Object.entries({
+                    "region-l": w - o*3,
+                    "region-t": h - o,
+                    "region-r": w,
+                    "region-b": h,
+                }).map(([key, value])=>{
+                    let saved = parseInt(data[key]);
+                    let coord = (isNaN(saved) || saved < 0) ? value : saved;
+                    $(`input[name="${key}"]`).val(coord);
+                    return Promise.resolve(coord);
                 });
-                let ammoWeaponsOptions = weaponsGrouped[group].reduce((html, weapon)=>{
-                    return html + `
-                        <section class="option">
-                            <div class="image">
-                                <img class="weapon" src="${weapon.image}" alt="">
-                                <h4 class="name">${weapon.name}</h4>
-                                <img class="bullet" src="/apex/assets/bullets/${weapon.supply?"Supply":""}${weapon.ammo}.png" alt="">
-                            </div>
-                            <div class="group">
-                                <div class="adjustment">
-                                    <h5 class="name lang" lang="page-settings-mult">${window.GetLangText("page-settings-mult")}</h5>
-                                    <form action="javascript:void(0);">
-                                        <input class="slider" type="range" min="0" max="2" step="0.1" value="${weapon.multiplier}" path="weapons/${weapon.name}" name="multiplier">
-                                        <input class="slider-input" type="text" value="${weapon.multiplier}" decimals="1" path="weapons/${weapon.name}" name="multiplier">
-                                    </form>
+
+                return Promise.all(p).then(()=>{
+                    return Save($("input[path='settings']"));
+                });
+            }),
+        $.get("/app/config/weapons", {})
+            .then((list)=>{
+                return Promise.all(list.map((file)=>{
+                    return $.get(`/app/config/weapons/${file}`, {})
+                }));
+            })
+            .then((weaponsData)=>{
+                let weaponsGrouped = {};
+                for(weapon of weaponsData) {
+                    let key = weapon.supply?"Supply":weapon.ammo;
+                    if(!weaponsGrouped[key]) {
+                        weaponsGrouped[key] = [ weapon ];
+                    }
+                    else {
+                        weaponsGrouped[key].push(weapon);
+                    }
+                }
+                return Promise.resolve(weaponsGrouped);
+            })
+            .then((weaponsGrouped)=>{
+                let sortedAmmoOrder = Object.keys(weaponsGrouped)
+                                        .sort((a, b)=>{
+                                            let va = a.split("").reduce((p,c)=>(p+c.charCodeAt(0)), 0)/a.length
+                                            let vb = b.split("").reduce((p,c)=>(p+c.charCodeAt(0)), 0)/b.length
+                                            return va - vb;
+                                        });
+                let weaponSettingsHtml = (sortedAmmoOrder.map(group=>{
+                    weaponsGrouped[group].sort(function(a, b){
+                        return a.tap - b.tap || a.name.localeCompare(b.name);
+                    });
+                    let ammoWeaponsOptions = weaponsGrouped[group].reduce((html, weapon)=>{
+                        return html + `
+                            <section class="option">
+                                <div class="image">
+                                    <img class="weapon" src="${weapon.image}" alt="">
+                                    <h4 class="name">${weapon.name}</h4>
+                                    <img class="bullet" src="/apex/assets/bullets/${weapon.supply?"Supply":""}${weapon.ammo}.png" alt="">
                                 </div>
-                            </div>
+                                <div class="group">
+                                    <div class="adjustment">
+                                        <h5 class="name lang" lang="page-settings-mult">${window.GetLangText("page-settings-mult")}</h5>
+                                        <form action="javascript:void(0);">
+                                            <input class="slider" type="range" min="0" max="2" step="0.1" value="${weapon.multiplier}" path="weapons/${weapon.name}" name="multiplier">
+                                            <input class="slider-input" type="text" value="${weapon.multiplier}" decimals="1" path="weapons/${weapon.name}" name="multiplier">
+                                        </form>
+                                    </div>
+                                </div>
+                            </section>
+                            `;
+                    }, "");
+                    return `
+                        <section class="category">
+                            <h3 class="title">${group}</h3>
+                            ${ammoWeaponsOptions}
                         </section>
                         `;
-                }, "");
-                return `
-                    <section class="category">
-                        <h3 class="title">${group}</h3>
-                        ${ammoWeaponsOptions}
-                    </section>
-                    `;
-            })).join("");
-            return Promise.resolve(weaponSettingsHtml);
-        })
-        .then((weaponSettingsHtml)=>{
-            Bind($(weaponSettingsHtml)).appendTo($("#page[name='settings'] .container"));
+                })).join("");
+                return Promise.resolve(weaponSettingsHtml);
+            })
+            .then((weaponSettingsHtml)=>{
+                Bind($(weaponSettingsHtml)).appendTo($("#page[name='settings'] .container"));
+            }),
+    ]).then(()=>{
+        $(".adjustment").on("mouseenter", function(){
+            if(!$(this).attr("tooltip")) return;
+            let tip = window.Tooltip(window.GetLangText($(this).attr("tooltip")));
+            $(tip).on("mouseleave", function(){ $(this).remove() });
+            $(this).on("remove mouseleave", function(){ $(tip).remove() });
         });
+    });
     /*
     Load Data End
     */

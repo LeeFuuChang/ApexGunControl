@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
 
 
@@ -34,7 +35,10 @@ Global
     margin: 0;
     padding: 0;
     letter-spacing: calc(.1*var(--size));
-    font-family: "Noto Sans TC", "Times New Roman", Times, Georgia, serif, sans-serif;
+    font-family: "Noto Sans TC", monospace, Georgia, serif, sans-serif;
+}
+code, pre {
+    font-family: "Noto Sans Mono", monospace, Georgia, serif, sans-serif;
 }
 
 
@@ -106,18 +110,24 @@ Notify
     padding: calc(1*var(--size)) calc(2*var(--size));
     border-radius: calc(.5*var(--size));
     font-size: calc(1.25*var(--size));
+    line-height: calc(2.5*var(--size));
     margin-bottom: calc(1.25*var(--size));
     text-wrap: nowrap;
 }
-.notify.notify-success {
+.notify.success {
     color: #155724;
-    background-color: #d4edda;
     border-color: #c3e6cb;
+    background-color: #d4eddadc;
 }
-.notify.notify-error {
+.notify.error {
     color: #721c24;
-    background-color: #f8d7da;
     border-color: #f5c6cb;
+    background-color: #f8d7dadc;
+}
+.notify.info {
+    color: #0c5460;
+    border-color: #bee5eb;
+    background-color: #d1ecf1dc;
 }
 .notify strong {
     margin-right: calc(1*var(--size));

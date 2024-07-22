@@ -1,6 +1,6 @@
 window.Notify = function(type, message) {
     var element = $(`
-        <div class="notify notify-${type}">
+        <div class="notify ${type}">
             <strong>${type[0].toUpperCase()+type.slice(1)}</strong> ${message}
         </div>
     `);
@@ -8,6 +8,10 @@ window.Notify = function(type, message) {
     setTimeout(()=>{
         element.fadeOut(1500, function() { $(this).remove(); });
     }, 1500);
+};
+window.Tooltip = function(message) {
+    var element = $(`<div class="notify info">${message}</div>`);
+    return element.prependTo($("#notify-container"));
 };
 
 

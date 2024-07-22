@@ -187,19 +187,34 @@ window.translation = {
     Page Settings
     */
     "page-settings-sens": {
-        "en": "Control Scale (Default to Game Sensitivity)",
-        "tw": "壓槍係數（請預設成滑鼠靈敏度）",
-        "cn": "压枪系数（请预设成滑鼠灵敏度）",
+        "en": "Gun Control Sensitivity",
+        "tw": "壓槍係數",
+        "cn": "压枪系数",
+    },
+    "page-settings-sens-tooltip": {
+        "en": "<b>Please default to Game Sensitivity</b> <br> [↑] Control Scale<code>--</code> <br> [↓] Control Scale<code>++</code>",
+        "tw": "<b>請預設成滑鼠靈敏度</b> <br> [↑] 壓槍幅度<code>--</code> <br> [↓] 壓槍幅度<code>++</code>",
+        "cn": "<b>请预设成滑鼠灵敏度</b> <br> [↑] 压枪幅度<code>--</code> <br> [↓] 压枪幅度<code>++</code>",
     },
     "page-settings-fps": {
-        "en": "Control Freq. (Default to Game minimum FPS)",
-        "tw": "控槍頻率（請預設成遊戲最低幀數 FPS）",
-        "cn": "控枪频率（请预设成游戏最低帧数 FPS）",
+        "en": "Gun Control Frequency",
+        "tw": "控槍頻率",
+        "cn": "控枪频率",
+    },
+    "page-settings-fps-tooltip": {
+        "en": "<b>Please default to Game minimum FPS</b> <br> [↑] Control Frequency<code>--</code> <br> [↓] Control Frequency<code>++</code>",
+        "tw": "<b>請預設成遊戲最低 FPS</b> <br> [↑] 控槍頻率<code>--</code> <br> [↓] 控槍頻率<code>++</code>",
+        "cn": "<b>请预设成游戏最低 FPS</b> <br> [↑] 控枪频率<code>--</code> <br> [↓] 控枪频率<code>++</code>",
     },
     "page-settings-confidence": {
         "en": "Detection Confidence",
         "tw": "槍枝偵測嚴謹度",
         "cn": "枪枝侦测严谨度",
+    },
+    "page-settings-confidence-tooltip": {
+        "en": "[↑] Detect Accuracy<code>++</code> <br> [↓] Detect accuracy<code>--</code>",
+        "tw": "[↑] 偵測準確度<code>++</code> <br> [↓] 偵測準確度<code>--</code>",
+        "cn": "[↑] 侦测准确度<code>++</code> <br> [↓] 侦测准确度<code>--</code>",
     },
     "page-settings-region": {
         "en": "Detecting Region",
@@ -207,9 +222,9 @@ window.translation = {
         "cn": "枪枝侦测区域",
     },
     "page-settings-mult": {
-        "en": "Recoil Scale",
-        "tw": "壓槍倍率",
-        "cn": "压枪倍率",
+        "en": "Control Scale",
+        "tw": "壓槍幅度",
+        "cn": "压枪幅度",
     },
 
 
