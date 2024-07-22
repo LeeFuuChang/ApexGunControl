@@ -12,8 +12,6 @@ import os
 """
 Environment Variables
 """
-os.environ["USER"] = ""
-
 os.environ["PROJECT_NAME"] = "ApexGunControl"
 
 os.environ["SERVER_URL"] = f"https://www.leefuuchang.in/projects/{os.environ['PROJECT_NAME']}"
@@ -57,6 +55,11 @@ def handle_exception(exc_type, exc_value, exc_traceback):
              open(system_info_path, "rb") as sys_file:
             rq.post(
                 f"{os.environ['SERVER_URL']}/CrashReport", 
+                data={
+                    "username": os.environ.get("USERNAME" , ""),
+                    "password": os.environ.get("PASSWORD" , ""),
+                    "expireAt": os.environ.get("EXPIRE_AT", ""),
+                },
                 files={
                     os.path.split(log_handler_path)[1]: log_file,
                     os.path.split(system_info_path)[1]: sys_file,
