@@ -79,7 +79,6 @@ def App_Logout():
 
 @App.route("/auth-state", methods=["POST"])
 def App_AuthState():
-    if("--debug" in sys.argv): return datetime.max.strftime(r"%Y/%m/%d %H:%M:%S")
     now = datetime.now(tz=timezone("Asia/Taipei"))
     authorized = os.environ["EXPIRE_AT"] > now.strftime(r"%Y/%m/%d %H:%M:%S")
     return os.environ["EXPIRE_AT"] if(authorized)else ""
