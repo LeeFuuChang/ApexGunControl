@@ -1,4 +1,5 @@
-from flask import Flask, redirect
+from flask import Flask, Response, redirect, request
+import traceback
 import logging
 import socket
 import os
@@ -23,7 +24,7 @@ class WebServer(Flask):
 
     def __init__(self):
         super(self.__class__, self).__init__(__name__)
-        self.config["SECRET_KEY"] = "ThisIsNotSnakeCaseWhichShouldBeUsedInPython"
+        self.config["TRAP_HTTP_EXCEPTIONS"] = True
 
         os.environ["USERNAME"] = ""
         os.environ["PASSWORD"] = ""
@@ -36,6 +37,13 @@ class WebServer(Flask):
             name = bp.name.lower() 
             self.blueprints[name] = bp
             self.register_blueprint(bp, url_prefix=f"/{name}")
+
+        @self.errorhandler(Exception)
+        def handle_error(error):
+            if(not hasattr(error, "code") or error.code//100 == 5):
+                logging.getLogger().error(traceback.format_exc())
+                return Response(repr(error), 500)
+            return Response.force_type(error, request.environ)
 
         logging.getLogger().info(f"Server Initlized on ({self.host}, {self.port})")
 

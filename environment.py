@@ -1,6 +1,9 @@
 import requests as rq
+import traceback
+import platform
 import logging
 import atexit
+import json
 import sys
 import os
 
@@ -26,6 +29,10 @@ else:
 """
 Logging Configuration
 """
+system_info_path = os.path.join(os.environ["EXECUTABLE_ROOT"], "system.json")
+with open(system_info_path, "w") as f: 
+    json.dump(platform.uname()._asdict(), f, indent=4, ensure_ascii=False)
+
 logger = logging.getLogger()
 
 logger.setLevel(logging.INFO)
@@ -37,22 +44,27 @@ cout_handler.setLevel(logging.DEBUG)
 cout_handler.setFormatter(formatter)
 logger.addHandler(cout_handler)
 
-file_handler_path = os.path.join(os.environ["EXECUTABLE_ROOT"], "logs.log")
-file_handler = logging.FileHandler(file_handler_path, "w")
-file_handler.setLevel(logging.DEBUG)
-file_handler.setFormatter(formatter)
-logger.addHandler(file_handler)
+log_handler_path = os.path.join(os.environ["EXECUTABLE_ROOT"], "logs.log")
+log_handler = logging.FileHandler(log_handler_path, "w")
+log_handler.setLevel(logging.DEBUG)
+log_handler.setFormatter(formatter)
+logger.addHandler(log_handler)
 
 def handle_exception(exc_type, exc_value, exc_traceback):
-    logger.error("Uncaught exception", exc_info=(exc_type, exc_value, exc_traceback))
+    logging.getLogger().error(f"Crash Log Uploading:\n{''.join(traceback.format_exception(exc_type, exc_value, exc_traceback))}")
     try:
-        logging.disable(logging.CRITICAL)
-        with open(file_handler_path, "rb") as log_file:
-            rq.post(f"{os.environ['SERVER_URL']}/CrashReport", files={"Log":(file_handler_path, log_file)})
+        with open(log_handler_path, "rb") as log_file, \
+             open(system_info_path, "rb") as sys_file:
+            rq.post(
+                f"{os.environ['SERVER_URL']}/CrashReport", 
+                files={
+                    os.path.split(log_handler_path)[1]: log_file,
+                    os.path.split(system_info_path)[1]: sys_file,
+                },
+            )
     except Exception as e:
-        logger.error(f"Crash Log Upload Failed {e}")
-    finally:
-        logging.disable(logging.NOTSET)
+        logging.getLogger().error(f"Log Upload Fail:\n{''.join(traceback.format_exception(e.__class__, e, e.__traceback__))}")
+    sys.exit(1)
 sys.excepthook = handle_exception
 
 def handle_exit():
