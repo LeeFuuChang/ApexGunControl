@@ -2,6 +2,7 @@
 __pycache__
 env
 *.pyd
+*.pyc
 *.xml
 *.log
 *.sh
