@@ -153,6 +153,6 @@ class LocalStorage:
 
         cls.version = cls.latest
 
-        progressCallback(f"[{cls.__name__}] OK", round(100*cls.walkCount/cls.walkTotal))
+        progressCallback(f"[{cls.__name__}] OK", 100)
 
         return cls.structure.attrib["name"]
