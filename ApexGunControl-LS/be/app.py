@@ -32,7 +32,7 @@ class WebRenderer(QWebEngineView):
 
         super(self.__class__, self).__init__(*args, **kwargs)
 
-        iconPath = sys.modules["StorageManager"].LocalStorage().path(os.path.join("fe", "assets", "logo", "filled.png"))
+        iconPath = sys.modules["StorageManager"].LocalStorage.path(os.path.join("fe", "assets", "logo", "filled.png"))
 
         self.setWindowTitle(os.environ["PROJECT_NAME"])
         self.setWindowIcon(QtGui.QIcon(iconPath))
@@ -99,7 +99,7 @@ class WebRenderer(QWebEngineView):
 
     def resize(self, w, h):
         if((self.width(), self.height()) == (w, h)): return
-        logging.getLogger().info(f"Browser Scaled to ({w}, {h})")
+        logging.info(f"Browser Scaled to ({w}, {h})")
         super().resize(w, h)
         self.centralize()
         self.show()

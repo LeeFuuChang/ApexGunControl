@@ -24,7 +24,7 @@ class ApexGunControl(QWidget):
     def __init__(self, *args, **kwargs):
         super(self.__class__, self).__init__(*args, **kwargs)
 
-        iconPath = sys.modules["StorageManager"].LocalStorage().path(os.path.join("fe", "assets", "logo", "filled.png"))
+        iconPath = sys.modules["StorageManager"].LocalStorage.path(os.path.join("fe", "assets", "logo", "filled.png"))
 
         self.setWindowTitle(os.environ["PROJECT_NAME"])
         self.setWindowIcon(QIcon(iconPath))
@@ -85,7 +85,7 @@ class ApexGunControl(QWidget):
     @staticmethod
     def setStateIcon(label: QLabel, name: str, state: bool):
         path = os.path.join("assets", f"{name.capitalize()}-{str(bool(state))[0]}.png")
-        icon = QPixmap(sys.modules["StorageManager"].LocalStorage().path(path))
+        icon = QPixmap(sys.modules["StorageManager"].LocalStorage.path(path))
         with contextlib.suppress(RuntimeError):
             label.setPixmap(icon.scaled(label.width(), label.height()))
 
@@ -105,7 +105,7 @@ class ApexGunControl(QWidget):
         self.setStateIcon(self.focusingLabel, "Focusing", boolean)
         if(not boolean): return
         configRelPath = os.path.join("cfg", "settings.json")
-        configAbsPath = sys.modules["StorageManager"].LocalStorage().path(configRelPath)
+        configAbsPath = sys.modules["StorageManager"].LocalStorage.path(configRelPath)
         with open(configAbsPath, "r") as f: self.config = json.load(f)
 
     def setWeapon(self, data):

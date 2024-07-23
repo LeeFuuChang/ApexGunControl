@@ -1,9 +1,11 @@
 import requests as rq
 import importlib
+import logging
+import types
 import sys
 import os
 
-def getPackage(name, storageUrl, retries=3):
+def Import(name, retries=3):
     if(name in sys.modules): return sys.modules[name]
 
     root = os.environ["EXECUTABLE_ROOT"]
@@ -12,24 +14,22 @@ def getPackage(name, storageUrl, retries=3):
     if("--debug" in sys.argv):
         path = os.path.join(root, f"{name}.py")
         if(os.path.exists(path)):
-            return importlib.import_module(name)
+            sys.modules[name] = importlib.import_module(name)
+            return sys.modules.get(name, None)
         raise ModuleNotFoundError(name)
 
-    path = os.path.join(root, f"{name}.pyd")
-    for file in os.listdir(root):
-        fname, fext = os.path.splitext(file)
-        if(fname != name or fext.endswith("py")): continue
-        try: os.remove(os.path.join(root, file))
-        except Exception as e: continue
-
+    module = types.ModuleType(name)
     for t in range(retries):
-        print(f"Package Installing {name} (tries:{t+1})")
+        logging.info(f"Package Installing {name} (tries:{t+1})")
         try: 
-            res = rq.get(f"{storageUrl}/{name}.pyd")
-            with open(path, "wb") as f: f.write(res.content)
-        except Exception as e: continue
+            res = rq.get(f"{os.environ['STORAGE_URL']}/{name}.py")
+            exec(res.text, module.__dict__)
+            sys.modules[name] = module
+        except Exception as e: 
+            logging.error(f"Package Install Error {name} {e}")
         break
 
-    if(os.path.exists(path)): sys.modules[name] = importlib.import_module(name)
+    if(name in sys.modules): 
+        return sys.modules[name]
+    raise ModuleNotFoundError(name)
 
-    return sys.modules.get(name, None)

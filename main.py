@@ -8,12 +8,14 @@ urllib3.disable_warnings()
 
 from LoadingWindow import LoadingWindow
 
-from PackageManager import getPackage
-LocalStorage = getattr(getPackage("StorageManager", os.environ["STORAGE_URL"]), "LocalStorage")
+import PackageManager
+PackageManager.Import("StorageManager")
+
+LocalStorage = sys.modules["StorageManager"].LocalStorage
 
 def init():
     loader = LoadingWindow()
-    loader.setIconPath(f"{os.environ['STORAGE_URL']}/LoadingIcon.png")
+    loader.setIconURL(f"{os.environ['STORAGE_URL']}/LoadingIcon.png")
     loader.setSplashArtURL(f"{os.environ['STORAGE_URL']}/LoadingSplash.jpg")
     def statusCallback(text, progress):
         nonlocal loader
@@ -27,7 +29,7 @@ def init():
     loader.exec_()
 
 def main():
-    sys.path.append(LocalStorage().path("be"))
+    sys.path.append(LocalStorage.path("be"))
     sys.modules["app"] = importlib.import_module("app")
     sys.exit(sys.modules["app"].run())
 

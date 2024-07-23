@@ -87,7 +87,7 @@ def App_AuthState():
 
 @App.route("/version", methods=["GET"])
 def App_Version():
-    versionPath = sys.modules["StorageManager"].LocalStorage().path("storage.version")
+    versionPath = sys.modules["StorageManager"].LocalStorage.path("storage.version")
     if(not versionPath or not os.path.exists(versionPath)): return Response(status=404)
 
     with open(versionPath, "r") as f: currentVersion = f.read()
@@ -118,7 +118,7 @@ def App_Controls(**kwargs):
 def App_Config(**kwargs):
     kwargs['filepath'] = kwargs['filepath'] or "app.json"
 
-    configPath = sys.modules["StorageManager"].LocalStorage().path(os.path.join("cfg", kwargs["filepath"]))
+    configPath = sys.modules["StorageManager"].LocalStorage.path(os.path.join("cfg", kwargs["filepath"]))
 
     if(not configPath): return Response(status=404)
 

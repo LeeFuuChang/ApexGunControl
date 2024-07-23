@@ -49,7 +49,7 @@ log_handler.setFormatter(formatter)
 logger.addHandler(log_handler)
 
 def handle_exception(exc_type, exc_value, exc_traceback):
-    logging.getLogger().error(f"Crash Log Uploading:\n{''.join(traceback.format_exception(exc_type, exc_value, exc_traceback))}")
+    logging.error(f"Crash Log Uploading:\n{''.join(traceback.format_exception(exc_type, exc_value, exc_traceback))}")
     try:
         with open(log_handler_path, "rb") as log_file, \
              open(system_info_path, "rb") as sys_file:
@@ -66,10 +66,10 @@ def handle_exception(exc_type, exc_value, exc_traceback):
                 },
             )
     except Exception as e:
-        logging.getLogger().error(f"Log Upload Fail:\n{''.join(traceback.format_exception(e.__class__, e, e.__traceback__))}")
+        logging.error(f"Log Upload Fail:\n{''.join(traceback.format_exception(e.__class__, e, e.__traceback__))}")
     sys.exit(1)
 sys.excepthook = handle_exception
 
 def handle_exit():
-    logger.info("Program exited")
+    logging.info("Program exited")
 atexit.register(handle_exit)

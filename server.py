@@ -1,14 +1,15 @@
 import environment
 import sys
 import os
-sys.path.append("ApexGunControl-LS/be")
 
-from PackageManager import getPackage
-LocalStorage = getattr(getPackage("StorageManager", os.environ["STORAGE_URL"]), "LocalStorage")
-LocalStorage.setup(
-    remoteURL = os.environ["STORAGE_URL"],
-    directory = os.environ["EXECUTABLE_ROOT"],
-)
+import PackageManager
+PackageManager.Import("StorageManager")
+
+LocalStorage = sys.modules["StorageManager"].LocalStorage
+
+LocalStorage.setup(os.environ["STORAGE_URL"], os.environ["EXECUTABLE_ROOT"])
+
+sys.path.append(LocalStorage.path("be"))
 
 from Server.Flask import WebServer
 

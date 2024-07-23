@@ -31,7 +31,7 @@ class GameMonitor:
 
     @classmethod
     def log(cls, message):
-        logging.getLogger().info(f"[{cls.__name__}] {message}")
+        logging.info(f"[{cls.__name__}] {message}")
 
     @classmethod
     def update(cls, _AGC):
@@ -82,7 +82,7 @@ class GameMonitor:
                 cls.log(f"Weapon changed ({cls.weapon} -> {result})")
                 cls.weapon = result
                 cls.weaponConfig = {}
-                weaponConfigPath = sys.modules["StorageManager"].LocalStorage().path(os.path.join("cfg", "weapons", f"{cls.weapon[0]}.json"))
+                weaponConfigPath = sys.modules["StorageManager"].LocalStorage.path(os.path.join("cfg", "weapons", f"{cls.weapon[0]}.json"))
                 if(os.path.exists(weaponConfigPath)):
                     with open(weaponConfigPath, "r") as f:
                         cls.weaponConfig = json.load(f)

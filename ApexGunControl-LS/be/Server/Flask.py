@@ -41,11 +41,11 @@ class WebServer(Flask):
         @self.errorhandler(Exception)
         def handle_error(error):
             if(not hasattr(error, "code") or error.code//100 == 5):
-                logging.getLogger().error(traceback.format_exc())
+                logging.error(traceback.format_exc())
                 return Response(repr(error), 500)
             return Response.force_type(error, request.environ)
 
-        logging.getLogger().info(f"Server Initlized on ({self.host}, {self.port})")
+        logging.info(f"Server Initlized on ({self.host}, {self.port})")
 
 
     def registerAppControl(self, name, func):

@@ -19,7 +19,7 @@ class Detector:
 
     region = (lambda w, h: (w-(h//6)*3, h-(h//6), w, h))(monitor["width"], monitor["height"])
 
-    configPath = sys.modules["StorageManager"].LocalStorage().path(os.path.join("cfg", "settings.json"))
+    configPath = sys.modules["StorageManager"].LocalStorage.path(os.path.join("cfg", "settings.json"))
 
     silhouettesPath = None
 
@@ -88,9 +88,9 @@ class Detector:
 
 
 class InGameDetector(Detector):
-    silhouettesPath = sys.modules["StorageManager"].LocalStorage().path(os.path.join("apex", "silhouettes", "ingame"))
+    silhouettesPath = sys.modules["StorageManager"].LocalStorage.path(os.path.join("apex", "silhouettes", "ingame"))
 
 
 
 class WeaponDetector(Detector):
-    silhouettesPath = sys.modules["StorageManager"].LocalStorage().path(os.path.join("apex", "silhouettes", "weapons"))
+    silhouettesPath = sys.modules["StorageManager"].LocalStorage.path(os.path.join("apex", "silhouettes", "weapons"))

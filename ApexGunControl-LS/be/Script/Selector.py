@@ -18,7 +18,7 @@ class RegionSelector(QWidget):
     def __init__(self, *args, **kwargs):
         super(self.__class__, self).__init__(*args, **kwargs)
 
-        iconPath = sys.modules["StorageManager"].LocalStorage().path(os.path.join("fe", "assets", "logo", "filled.png"))
+        iconPath = sys.modules["StorageManager"].LocalStorage.path(os.path.join("fe", "assets", "logo", "filled.png"))
 
         self.setWindowTitle(os.environ["PROJECT_NAME"])
         self.setWindowIcon(QIcon(iconPath))
