@@ -19,7 +19,11 @@ def init():
         nonlocal loader
         loader.text = text
         loader.progress = progress
-    loader.setTasks([ lambda : LocalStorage.setup(os.environ["STORAGE_URL"], os.environ["EXECUTABLE_ROOT"], statusCallback) ])
+    loader.setTasks([ lambda : LocalStorage.setup(
+        os.environ["STORAGE_URL"],
+        os.environ["EXECUTABLE_ROOT"],
+        progressCallback=statusCallback,
+    ) ])
     loader.exec_()
 
 def main():

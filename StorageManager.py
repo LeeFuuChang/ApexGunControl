@@ -1,170 +1,158 @@
+from urllib.request import pathname2url
+import requests as rq
+
+import xml.etree.ElementTree as ET
+
+import logging
 import shutil
 import sys
 import os
 
-import urllib3
-urllib3.disable_warnings()
-
-import logging
-logger = logging.getLogger()
-
-import xml.etree.ElementTree as ET
-import requests as rq
-
 
 
 class LocalStorage:
-    remoteURL: str = ""
+    latest: int = 0
+    version: int = 0
+
     directory: str = ""
+    remoteURL: str = ""
     structure: ET.Element = None
+
+    walkCount: int = 0
+    walkTotal: int = 0
+
 
 
     def __new__(cls):
-        if hasattr(cls, "_instance"): return cls._instance
-        raise NotImplementedError(f"{cls.__name__} has not been setup, no instance can be returned")
+        return cls._instance
 
 
-    @staticmethod
-    def updateFile(remoteURL, directory, _root, _path, _name, _type):
-        logger.info(f"LS-Update updating {(_path, _name, _type)}")
-        if("--debug" in sys.argv): 
-            return logger.info(f"LS-Update update canceled duo to debug mode")
-        fileName = f"{_name}.{_type}"
-        targetPath = os.path.join(directory, _root.attrib["name"], _path, fileName)
-        sourcePath = os.path.join(remoteURL, _path, f"{_name}.{_type}")
-        fileFailed = True
+
+    def singletonmethod(func):
+        @classmethod
+        def ensureInstance(cls, *args, **kwargs):
+            if hasattr(cls, "_instance"): return func(cls, *args, **kwargs)
+            raise NotImplementedError(
+                f"{cls.__name__} has not been setup, no available instance"
+            )
+        return ensureInstance
+
+
+
+    @singletonmethod
+    def path(cls, path:str) -> str:
+        filepath = os.path.join(cls.directory, path)
+        if(not os.path.exists(filepath)): 
+            _path, _file = os.path.split(path)
+            _name, _type = os.path.splitext(_file)
+            cls.updateFile(_path=_path,
+                           _name=_name,
+                           _type=_type[1:])
+        return (filepath if(os.path.exists(filepath))else "")
+
+
+
+    @singletonmethod
+    def updateFile(cls, _path, _name, _type):
+        relpath = os.path.join(_path, f"{_name}.{_type}")
+        fulpath = os.path.join(cls.directory, relpath)
+        urlpath = "/".join([cls.remoteURL, pathname2url(relpath)])
+        logging.info(f"[{cls.__name__}] updating: {relpath}")
         try:
-            response = rq.get(sourcePath.replace("\\", "/"), verify=False)
-            if(response.status_code//100 == 2):
-                fileFailed = False
-                os.makedirs(os.path.dirname(targetPath), exist_ok=True)
-                with open(targetPath, "wb") as f: f.write(response.content)
-            else: logger.info(f"LS-Update failed on {(_path, _name, _type)} {response}")
-        except Exception as e: logger.error(f"LS-Update error on {(_path, _name, _type)} {e}")
-        if(fileFailed and os.path.exists(targetPath)): os.remove(targetPath)
+            response = rq.get(urlpath, verify=False)
+            if(response.status_code//100 != 2):
+                os.makedirs(os.path.split(fulpath)[0], exist_ok=True)
+                with open(fulpath, "wb") as f: f.write(response.content)
+            else:
+                raise rq.RequestException(f"Failed {response.status_code}")
+        except Exception as e:
+            logging.error(f"[{cls.__name__}] update failed: {relpath} {e}")
+            if(os.path.exists(os.path.join(cls.directory, relpath))):
+                os.remove(os.path.join(cls.directory, relpath))
+
+
+
+    @singletonmethod
+    def walkUpdate(cls, root, node, dirpath, *, progressCallback=lambda text="",progress=0:0):
+        if("--debug" in sys.argv): return node.attrib["name"]
+
+        cls.walkCount += 1
+
+        if(node.tag == "folder"):
+            dirpath = os.path.join(dirpath, node.attrib["name"])
+
+            if(not os.path.exists(dirpath)): os.mkdir(dirpath)
+
+            children = {"folder":set(), "file":set(["storage"])}
+            for child in node: children[child.tag].add(cls.walkUpdate(child, dirpath))
+
+            for child in os.listdir(dirpath):
+                childPath = os.path.join(dirpath, child)
+                childName = os.path.splitext(child)[0]
+                if(childName in children["file"] or childName in children["folder"]): continue
+                if(os.path.isfile(childPath)): os.remove(childPath)
+                if(os.path.isdir(childPath)): shutil.rmtree(childPath, ignore_errors=True)
+
+        if(node.tag == "file"):
+            filepath = os.path.join(dirpath, f"{node.attrib['name']}.{node.attrib['type']}")
+
+            alreadyExist = os.path.exists(filepath)
+
+            if(alreadyExist):
+                with open(filepath, "rb") as f: 
+                    fileContent = f.read()
+            else: fileContent = b""
+
+            lastUpdated = int(f"0{node.attrib['updated']}", 16)
+
+            updateCuzStorage = (cls.version < lastUpdated and lastUpdated <= int(f"0{root.attrib['version']}", 16))
+            updateCuzMissing = (not alreadyExist)
+            updateCuzContent = (not fileContent)
+
+            if(not (updateCuzStorage and updateCuzMissing and updateCuzContent)): return node.attrib["name"]
+
+            reason = f"[CuzStorage({updateCuzStorage}) | CuzMissing({updateCuzMissing}) | CuzContent({updateCuzContent})]"
+            logging.info(f"[{cls.__name__}] Updating: {reason} {filepath}")
+
+            cls.updateFile(_path=node.attrib["path"],
+                           _name=node.attrib["name"],
+                           _type=node.attrib["type"])
+
+            relpath = os.path.join(node.attrib["path"], f"{node.attrib['name']}.{node.attrib['type']}")
+            progressCallback(relpath, round(100*cls.walkTotal/cls.walkTotal))
+
+        return node.attrib["name"]
+
 
 
     @classmethod
-    def setup(cls, remoteURL, directory, progressCallback=lambda current=0,total=0:0) -> str:
-        structure = ET.fromstring(rq.get(os.path.join(remoteURL, "struct.xml").replace("\\", "/"), verify=False).text)
+    def setup(cls, remoteURL, executableLOC, *, progressCallback=lambda text="",progress=0:0):
+        structure = ET.fromstring(rq.get("/".join([remoteURL, "struct.xml"]), verify=False).text)
+
+        cls.directory = os.path.join(executableLOC, structure.attrib["name"])
+        cls.remoteURL = remoteURL
+        cls.structure = structure
 
         cls._instance = object.__new__(cls)
-        cls._instance.remoteURL = remoteURL
-        cls._instance.directory = directory
-        cls._instance.structure = structure
 
-        if(not os.path.exists(os.path.join(directory, structure.attrib["name"]))):
-            os.mkdir(os.path.join(directory, structure.attrib["name"]))
+        if(not os.path.exists(cls.directory)): os.mkdir(cls.directory)
 
-        versionFile = os.path.join(directory, structure.attrib["name"], "storage.version")
+        versionFile = os.path.join(cls.directory, "storage.version")
         if(not os.path.exists(versionFile)): open(versionFile, "w").close()
-        with open(versionFile, "r") as f: currentHexVersion = f.read()
+        with open(versionFile, "r") as f: cls.version = int(f"0{f.read()}", 16)
 
-        CHVN = int(f"0{currentHexVersion}", 16)
-        LHVN = int(f"0{structure.attrib['version']}", 16)
-        if(LHVN > CHVN): logger.info(f"Updating storage from {CHVN} to {LHVN}")
+        cls.latest = int(f"0{cls.structure.attrib['version']}", 16)
 
-        totalCount = len(structure.findall(".//file")) + len(structure.findall(".//folder")) + 1
-        checkCount = 0
+        cls.walkCount = 0
+        cls.walkTotal = len(cls.structure.findall(".//file")) + len(cls.structure.findall(".//folder")) + 1
+        cls.walkUpdate(cls.structure, cls.structure, executableLOC, progressCallback=progressCallback)
 
-        def walk(root, parent, path):
-            nonlocal progressCallback, totalCount, checkCount
-            path = os.path.join(path, parent.attrib["name"])
-            if(parent.tag == "folder"):
-                checkCount += 1
-                if(not os.path.exists(path)): os.mkdir(path)
-                children = {"folder":set(), "file":set(), "type":set(["version"])}
-                for child in parent: children[child.tag].add(walk(root, child, path))
-                if(getattr(sys, "frozen", False)):
-                    for child in os.listdir(path):
-                        childPath = os.path.join(path, child)
-                        childName, childType = os.path.splitext(child)
-                        if(childType[1:] in children["type"]): continue
-                        needed_file = (os.path.isfile(childPath) and childName in children["file"]) 
-                        needed_dir = (os.path.isdir(childPath) and childName in children["folder"]) 
-                        if(needed_file or needed_dir): continue
-                        if(os.path.isfile(childPath)): os.remove(childPath)
-                        else: shutil.rmtree(childPath, ignore_errors=True)
-            elif(parent.tag == "file"):
-                checkCount += 1
-                filePath = f"{path}.{parent.attrib['type']}"
-                lastUpdatedOnVersion = int(f"0{parent.attrib['updated']}", 16)
-                alreadyExist = os.path.exists(filePath)
-                if(alreadyExist):
-                    with open(filePath, "rb") as f: fileContent = f.read()
-                else: fileContent = b""
-                updateCuzStorage = (CHVN<lastUpdatedOnVersion and lastUpdatedOnVersion<=LHVN)
-                updateCuzMissing = (not alreadyExist)
-                updateCuzContent = (not fileContent)
-                needUpdateFile = (updateCuzStorage or updateCuzMissing or updateCuzContent)
-                fileInfoString = f"{parent.attrib['name']:>15} {parent.attrib['type']:>5} {parent.attrib['path']}"
-                if(not needUpdateFile): return parent.attrib["name"]
-                elif(updateCuzStorage): logger.info(f"{root.attrib['name']}-Update: [Cuz: Storage] {fileInfoString}")
-                elif(updateCuzMissing): logger.info(f"{root.attrib['name']}-Update: [Cuz: Missing] {fileInfoString}")
-                elif(updateCuzContent): logger.info(f"{root.attrib['name']}-Update: [Cuz: Content] {fileInfoString}")
-                cls.updateFile( remoteURL=remoteURL,
-                                directory=directory,
-                                _root=root,
-                                _path=parent.attrib["path"],
-                                _name=parent.attrib["name"],
-                                _type=parent.attrib["type"])
-                progressCallback("Updating . . .", round(checkCount/totalCount*100))
-            return parent.attrib["name"]
+        with open(versionFile, "w") as f: f.write(cls.structure.attrib["version"])
 
-        rootName = structure.attrib["name"]
+        if(cls.latest > cls.version): logging.info(f"[{cls.__name__}] Updated: {cls.version} -> {cls.latest}")
 
-        if("--debug" not in sys.argv):
-            logger.info(f"LS-Update walking structure")
-            rootName = walk(structure, structure, directory)
+        cls.version = cls.latest
 
-        with open(os.path.join(directory, structure.attrib["name"], "storage.version"), "w") as f: 
-            f.write(structure.attrib["version"])
+        progressCallback(f"[{cls.__name__}] OK", round(100*cls.walkCount/cls.walkTotal))
 
-        progressCallback("Storage OK . . .", round(checkCount/totalCount*100))
-
-        return rootName
-
-
-    def path(self, path:str) -> str:
-        filePath = os.path.normpath(os.path.join(self.directory, self.structure.attrib["name"], path))
-        if(not os.path.exists(filePath)): 
-            _path, _file = os.path.split(path)
-            _name, _type = os.path.splitext(_file)
-            self.updateFile(remoteURL=self.remoteURL,
-                            directory=self.directory,
-                            _root=self.structure,
-                            _path=_path,
-                            _name=_name,
-                            _type=_type[1:])
-        return (filePath if(os.path.exists(filePath))else "")
-
-
-
-if __name__ == "__main__":
-    import xml.dom.minidom
-    if(len(sys.argv) > 1):
-        target = sys.argv[1].replace(".", "").replace("/", "").replace("\\", "")
-        if(not os.path.exists(target)): raise FileNotFoundError()
-        root = ET.Element("folder")
-        root.attrib["name"] = os.path.split(target)[1]
-        with open(os.path.join(target, "storage.version"), "r") as f:
-            root.attrib["version"] = f.read()
-        def walk(root, node, path, excluding):
-            for child in sorted(os.listdir(path), key=lambda c : os.path.isdir(os.path.join(path, c))):
-                if(child in excluding): continue
-                if(os.path.splitext(child)[1] in excluding): continue
-                childPath = os.path.join(path, child)
-                if(os.path.isdir(childPath)):
-                    childNode = ET.SubElement(node, "folder")
-                    childNode.attrib["name"] = child
-                    walk(root, childNode, childPath, excluding)
-                else:
-                    fileName, fileType = os.path.splitext(child)
-                    childNode = ET.SubElement(node, "file")
-                    childNode.attrib["updated"] = root.attrib["version"]
-                    childNode.attrib["name"] = fileName
-                    childNode.attrib["type"] = fileType[1:]
-                    childNode.attrib["path"] = os.path.split(os.path.relpath(childPath, target))[0]
-        walk(root, root, target, ["__pycache__", ".py", ".DS_Store", ".version"])
-        with open("struct.xml", "w") as f:
-            f.write(xml.dom.minidom.parseString(ET.tostring(root, xml_declaration=False)).toprettyxml(indent="\t"))
+        return cls.structure.attrib["name"]
