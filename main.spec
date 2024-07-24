@@ -24,9 +24,9 @@ a = Analysis(
 )
 
 for d in list(a.datas):
-    if 'pyconfig' in d[0]:
+    if "pyconfig" in d[0]:
         a.datas.remove(d)
-    if '_C.cp38-win_amd64.pyd' in d[0]:
+    if "_C.cp38-win_amd64.pyd" in d[0]:
         a.datas.remove(d)
 
 pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
@@ -38,11 +38,11 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name='ApexGunControl',
+    name="ApexGunControl",
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
-    upx=False,
+    upx=True,
     upx_exclude=[],
     uac_admin=True,
     runtime_tmpdir=None,
