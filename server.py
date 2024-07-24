@@ -1,9 +1,8 @@
 import environment
+environment.RemoteImport("StorageManager")
+
 import sys
 import os
-
-import PackageManager
-PackageManager.Import("StorageManager")
 
 LocalStorage = sys.modules["StorageManager"].LocalStorage
 

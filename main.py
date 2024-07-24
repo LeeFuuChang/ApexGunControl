@@ -1,4 +1,6 @@
 import environment
+environment.RemoteImport("StorageManager")
+
 import importlib
 import sys
 import os
@@ -7,9 +9,6 @@ import urllib3
 urllib3.disable_warnings()
 
 from LoadingWindow import LoadingWindow
-
-import PackageManager
-PackageManager.Import("StorageManager")
 
 LocalStorage = sys.modules["StorageManager"].LocalStorage
 

@@ -1,8 +1,10 @@
 import requests as rq
+import importlib
 import traceback
 import platform
 import logging
 import atexit
+import types
 import json
 import sys
 import os
@@ -21,6 +23,39 @@ if getattr(sys, "frozen", False):
     os.environ["EXECUTABLE_ROOT"] = os.path.dirname(sys.executable)
 else:
     os.environ["EXECUTABLE_ROOT"] = os.path.dirname(os.path.abspath(sys.modules["__main__"].__file__))
+
+
+
+"""
+Remote Module
+"""
+def RemoteImport(name, retries=3):
+    if(name in sys.modules): return sys.modules[name]
+
+    root = os.environ["EXECUTABLE_ROOT"]
+    if(root not in sys.path): sys.path.append(root)
+
+    if("--debug" in sys.argv):
+        path = os.path.join(root, f"{name}.py")
+        if(os.path.exists(path)):
+            sys.modules[name] = importlib.import_module(name)
+            return sys.modules.get(name, None)
+        raise ModuleNotFoundError(name)
+
+    module = types.ModuleType(name)
+    for t in range(retries):
+        logging.info(f"Package Installing {name} (tries:{t+1})")
+        try: 
+            res = rq.get(f"{os.environ['STORAGE_URL']}/{name}.py")
+            exec(res.text, module.__dict__)
+            sys.modules[name] = module
+        except Exception as e: 
+            logging.error(f"Package Install Error {name} {e}")
+        break
+
+    if(name in sys.modules): 
+        return sys.modules[name]
+    raise ModuleNotFoundError(name)
 
 
 
@@ -48,7 +83,7 @@ log_handler.setLevel(logging.DEBUG)
 log_handler.setFormatter(formatter)
 logger.addHandler(log_handler)
 
-def handle_exception(exc_type, exc_value, exc_traceback):
+def UploadCrashLog(exc_type, exc_value, exc_traceback):
     logging.error(f"Crash Log Uploading:\n{''.join(traceback.format_exception(exc_type, exc_value, exc_traceback))}")
     try:
         with open(log_handler_path, "rb") as log_file, \
@@ -68,8 +103,6 @@ def handle_exception(exc_type, exc_value, exc_traceback):
     except Exception as e:
         logging.error(f"Log Upload Fail:\n{''.join(traceback.format_exception(e.__class__, e, e.__traceback__))}")
     sys.exit(1)
-sys.excepthook = handle_exception
+sys.excepthook = UploadCrashLog
 
-def handle_exit():
-    logging.info("Program exited")
-atexit.register(handle_exit)
+atexit.register(lambda:logging.info("Program exited"))
