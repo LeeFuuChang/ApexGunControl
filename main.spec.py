@@ -1,17 +1,22 @@
 # -*- mode: python ; coding: utf-8 -*-
 
-block_cipher = pyi_crypto.PyiBlockCipher(key='helloworldishard')
+import sys
+import os
+
+working = os.path.dirname(os.path.abspath(sys.modules["__main__"].__file__))
+
+block_cipher = pyi_crypto.PyiBlockCipher(key="helloworldishard")
 
 a = Analysis(
     ["main.py"],
-    pathex=['.\\env\\Lib\\site-packages'],
+    pathex=[p for p in sys.path if working in p and p.endswith("site-packages")],
     binaries=[],
     datas=[],
     hiddenimports=["environment.py"],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
-    excludes=[],
+    excludes=["StorageManager.py"],
     win_no_prefer_redirects=False,
     win_private_assemblies=False,
     cipher=block_cipher,
@@ -33,7 +38,7 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name='LeagueAssistant-4.3.0',
+    name='ApexGunControl',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -47,5 +52,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['.\\LeagueAssistant-LS\\logo\\Filled.ico'],
+    icon=["filled.ico"],
 )

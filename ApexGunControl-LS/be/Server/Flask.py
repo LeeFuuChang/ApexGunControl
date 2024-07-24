@@ -9,7 +9,6 @@ from .blueprints.App import App
 from .blueprints.Apex import Apex
 
 
-
 def getRandomPort():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.bind(("localhost", 0))
@@ -21,6 +20,9 @@ def getRandomPort():
 class WebServer(Flask):
     host = "localhost"
     port = getRandomPort()
+
+    def registerAppControl(self, name, func):
+        self.blueprints["app"].control_functions[name] = func
 
     def __init__(self):
         super(self.__class__, self).__init__(__name__)
@@ -46,7 +48,3 @@ class WebServer(Flask):
             return Response.force_type(error, request.environ)
 
         logging.info(f"Server Initlized on ({self.host}, {self.port})")
-
-
-    def registerAppControl(self, name, func):
-        self.blueprints["app"].control_functions[name] = func

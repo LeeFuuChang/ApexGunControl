@@ -119,16 +119,27 @@ def run():
     os.environ["KEY_SHOOTING"] = "f5"
     os.environ["KEY_MOVEMENT"] = "f6"
 
-    app = QApplication([*sys.argv, "--ignore-gpu-blocklist"])
-
     server = WebServer()
 
-    threading.Thread(target=waitress.serve, daemon=True, kwargs={
-        "app": server,
-        "host": server.host, 
-        "port": server.port,
-        "threads": 8,
-    }).start()
+    if("--server" in sys.argv):
+        return server.run(
+            host=server.host,
+            port=server.port,
+            threaded=True,
+        )
+
+    threading.Thread(
+        target=waitress.serve,
+        daemon=True,
+        kwargs={
+            "app": server,
+            "host": server.host,
+            "port": server.port,
+            "threads": 8,
+        }
+    ).start()
+
+    qapp = QApplication([*sys.argv, "--ignore-gpu-blocklist"])
 
     browserWindow = WebRenderer()
     browserWindow.connect(server, server.host, server.port)
@@ -141,4 +152,4 @@ def run():
     script = ApexGunControl(browserWindow)
     script.run()
 
-    sys.exit(app.exec_())
+    sys.exit(qapp.exec_())
