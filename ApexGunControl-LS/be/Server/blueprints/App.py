@@ -126,13 +126,13 @@ def App_Config(**kwargs):
 
     if(request.method == "GET"):
         return send_from_directory(*os.path.split(configPath))
-    elif(request.method == "POST"):
+
+    if(request.method == "POST"):
         try:
-            data = request.get_json(force=True)
             with open(configPath, "a+") as f:
                 f.seek(0)
                 config = json.load(f)
-                config.update(data)
+                config.update(request.form)
                 f.truncate(0)
                 json.dump(config, f, indent=4, ensure_ascii=False)
             return Response(status=202)

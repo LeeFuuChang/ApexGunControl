@@ -25,7 +25,7 @@ setTimeout(function(){
                 }
                 return resolve(data);
             }).then((data)=>{
-                return $.post("/apex/config", JSON.stringify(data));
+                return $.post("/apex/config", data);
             }).then(()=>{
                 return window.Notify("success", window.GetLangText("page-config-save-success"));
             }).catch((e)=>{

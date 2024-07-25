@@ -23,7 +23,7 @@ def Apex_Config():
 
     if(request.method == "POST"):
         try:
-            data = request.get_json(force=True)
+            data = request.form
 
             # make sure the apex cfg path is correct
             if(not os.path.exists(data.get("path", ""))): return Response(status=404)

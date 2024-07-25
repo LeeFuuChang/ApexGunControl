@@ -10,7 +10,7 @@ setTimeout(function(){
             }
             return resolve(data);
         }).then((data)=>{
-            return $.post(`/app/config/${$(input).attr("path")}.json`, JSON.stringify(data))
+            return $.post(`/app/config/${$(input).attr("path")}.json`, data);
         });
     };
     function Bind(parent) {
