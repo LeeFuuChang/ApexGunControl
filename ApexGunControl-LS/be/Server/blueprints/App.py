@@ -128,13 +128,10 @@ def App_Config(**kwargs):
         return send_from_directory(*os.path.split(configPath))
 
     if(request.method == "POST"):
-        try:
-            with open(configPath, "a+") as f:
-                f.seek(0)
-                config = json.load(f)
-                config.update(request.form)
-                f.truncate(0)
-                json.dump(config, f, indent=4, ensure_ascii=False)
-            return Response(status=202)
-        except:
-            return Response(status=403)
+        with open(configPath, "a+") as f:
+            f.seek(0)
+            config = json.load(f)
+            config.update(request.form)
+            f.truncate(0)
+            json.dump(config, f, indent=4, ensure_ascii=False)
+        return Response(status=202)

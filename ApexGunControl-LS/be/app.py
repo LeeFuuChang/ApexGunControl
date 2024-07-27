@@ -32,10 +32,8 @@ class WebRenderer(QWebEngineView):
 
         super(self.__class__, self).__init__(*args, **kwargs)
 
-        iconPath = sys.modules["StorageManager"].LocalStorage.path(os.path.join("fe", "assets", "logo", "filled.png"))
-
         self.setWindowTitle(os.environ["PROJECT_NAME"])
-        self.setWindowIcon(QtGui.QIcon(iconPath))
+        self.setWindowIcon(QtGui.QIcon(os.environ["ICON_PATH"]))
         self.setWindowFlags(QtCore.Qt.Window|QtCore.Qt.FramelessWindowHint|QtCore.Qt.WindowMinMaxButtonsHint)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground, True)
         self.page().setBackgroundColor(QtCore.Qt.transparent)
@@ -116,6 +114,8 @@ class WebRenderer(QWebEngineView):
 
 
 def run():
+    os.environ["ICON_PATH"] = sys.modules["StorageManager"].LocalStorage.path(os.path.join("fe", "assets", "logo", "filled.png"))
+
     os.environ["KEY_SHOOTING"] = "f5"
     os.environ["KEY_MOVEMENT"] = "f6"
 
