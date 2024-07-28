@@ -1,3 +1,4 @@
+from datetime import datetime
 import threading
 import waitress
 import logging
@@ -118,6 +119,10 @@ def run():
 
     os.environ["KEY_SHOOTING"] = "f5"
     os.environ["KEY_MOVEMENT"] = "f6"
+
+    os.environ["USERNAME"] = "" if("--debug" not in sys.argv)else "debug@gmail.com"
+    os.environ["PASSWORD"] = "" if("--debug" not in sys.argv)else "debug"
+    os.environ["EXPIRE_AT"] = "" if("--debug" not in sys.argv)else datetime.max.strftime(r"%Y/%m/%d %H:%M:%S")
 
     server = WebServer()
 

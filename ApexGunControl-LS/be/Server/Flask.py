@@ -28,10 +28,6 @@ class WebServer(Flask):
         super(self.__class__, self).__init__(__name__)
         self.config["TRAP_HTTP_EXCEPTIONS"] = True
 
-        os.environ["USERNAME"] = ""
-        os.environ["PASSWORD"] = ""
-        os.environ["EXPIRE_AT"] = ""
-
         self.appControls = {}
 
         self.add_url_rule("/", endpoint="ui", view_func=lambda:redirect("/ui"))
