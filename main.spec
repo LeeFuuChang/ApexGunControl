@@ -11,7 +11,7 @@ a = Analysis(
     ["main.py"],
     pathex=[p for p in sys.path if working in p and p.endswith("site-packages")],
     binaries=[],
-    datas=[],
+    datas=[(".\\extensions\\*.*", "."), ],
     hiddenimports=["environment.py"],
     hookspath=[],
     hooksconfig={},
