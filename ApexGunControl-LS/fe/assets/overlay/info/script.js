@@ -29,8 +29,6 @@
     Window Scaling
     */
     let scales = [
-        0.50,
-        0.67,
         0.75,
         0.80,
         0.90,
@@ -75,6 +73,6 @@
             $("span[name='release-date']").text(config["release-date"]);
             $("input[name='crash-report']").prop("checked", config["crash-report"]);
             $(`input[type='radio'][name='language'][lang='${config["language"]}']`).prop("checked", true);
-            changeScaling(scales.indexOf(config["window-scale"]) - scales.indexOf(parseFloat($(":root").css("--scale"))));
+            changeScaling(scales.indexOf(parseFloat(config["window-scale"])) - scales.indexOf(parseFloat($(":root").css("--scale"))));
         });
 })();
