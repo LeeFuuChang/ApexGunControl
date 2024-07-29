@@ -60,7 +60,7 @@ class LocalStorage:
         logging.info(f"[{cls.__name__}] updating: {relpath}")
         try:
             response = rq.get(urlpath, verify=False)
-            if(response.status_code//100 != 2):
+            if(response.status_code//100 == 2):
                 os.makedirs(os.path.split(fulpath)[0], exist_ok=True)
                 with open(fulpath, "wb") as f: f.write(response.content)
             else:
