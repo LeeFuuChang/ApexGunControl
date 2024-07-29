@@ -1,4 +1,3 @@
-from urllib.request import pathname2url
 import requests as rq
 
 import xml.etree.ElementTree as ET
