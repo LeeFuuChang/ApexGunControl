@@ -1,17 +1,12 @@
 window.Notify = function(type, message) {
-    var element = $(`
-        <div class="notify ${type}">
-            <strong>${type[0].toUpperCase()+type.slice(1)}</strong> ${message}
-        </div>
-    `);
+    var element = $(`<div class="notify ${type}"><b style="text-transform:uppercase">${type}</b>&ensp;${message}</div>`);
     element.appendTo($("#notify-container"));
     setTimeout(()=>{
         element.fadeOut(1500, function() { $(this).remove(); });
     }, 1500);
 };
 window.Tooltip = function(message) {
-    var element = $(`<div class="notify info">${message}</div>`);
-    return element.prependTo($("#notify-container"));
+    return $(`<div class="notify info">${message}</div>`).prependTo($("#notify-container"));
 };
 
 
@@ -29,8 +24,10 @@ window.Resize = function(scale) {
 
 window.LoadPage = function(name) {
     if(window.auth().authorized || name == "dashboard") {
-        $("nav .side-button, nav .main-nav-button").removeClass("active");
-        $(`nav .side-button[name="${name}"], nav .main-nav-button[name="${name}"]`).addClass("active");
+        $("nav .side-button, nav .main-nav-button")
+            .removeClass("active")
+            .filter(`[name="${name}"]`)
+            .addClass("active");
         $.get(`assets/pages/${name}/page.html`)
             .then((html)=>{
                 $("#page")

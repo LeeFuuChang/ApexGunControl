@@ -129,10 +129,6 @@ Notify
     border-color: #bee5eb;
     background-color: #d1ecf1dc;
 }
-.notify strong {
-    margin-right: calc(1*var(--size));
-    text-transform: uppercase;
-}
 
 
 /*
