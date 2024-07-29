@@ -2,12 +2,13 @@ LoadingWindow
 
 requests
 
-pyqt5
+PyQt5
 PyQtWebEngine
 
 flask
 waitress
 
+numpy
 opencv-python
 mss
 

@@ -5,9 +5,6 @@ import importlib
 import sys
 import os
 
-import urllib3
-urllib3.disable_warnings()
-
 from LoadingWindow import LoadingWindow
 
 LocalStorage = sys.modules["StorageManager"].LocalStorage

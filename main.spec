@@ -3,7 +3,32 @@
 import sys
 import os
 
+name = "ApexGunControl"
+
 working = os.path.dirname(os.path.abspath(sys.modules["__main__"].__file__))
+
+hiddenimports=[
+    "PyQt5",
+    "PyQt5.QtWebEngineWidgets",
+
+    "flask",
+    "waitress",
+
+    "numpy",
+    "cv2",
+    "mss",
+
+    "keyboard",
+
+    "win32con",
+    "win32api",
+    "win32process",
+    "win32gui",
+
+    "psutil",
+
+    "pytz",
+]
 
 block_cipher = pyi_crypto.PyiBlockCipher(key="helloworldishard")
 
@@ -11,12 +36,12 @@ a = Analysis(
     ["main.py"],
     pathex=[p for p in sys.path if working in p and p.endswith("site-packages")],
     binaries=[],
-    datas=[(".\\extensions\\*.*", "."), ],
-    hiddenimports=["environment.py"],
+    datas=[(".\\extensions\\*.*", "."), (".\\filled.ico", ".")],
+    hiddenimports=hiddenimports,
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
-    excludes=["StorageManager.py"],
+    excludes=["StorageManager.py", "CLI", f"{name}-LS"],
     win_no_prefer_redirects=False,
     win_private_assemblies=False,
     cipher=block_cipher,
@@ -38,7 +63,7 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name="ApexGunControl",
+    name=name,
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
