@@ -42,7 +42,7 @@ class LocalStorage:
     @singletonmethod
     def path(cls, path:str) -> str:
         filepath = os.path.join(cls.directory, path)
-        if(not os.path.exists(filepath)): 
+        if(not os.path.exists(filepath)):
             _path, _file = os.path.split(path)
             _name, _type = os.path.splitext(_file)
             cls.updateFile(_path=_path,
@@ -56,7 +56,7 @@ class LocalStorage:
     def updateFile(cls, _path, _name, _type):
         relpath = os.path.join(_path, f"{_name}.{_type}")
         fulpath = os.path.join(cls.directory, relpath)
-        urlpath = "/".join([cls.remoteURL, pathname2url(relpath)])
+        urlpath = "/".join([cls.remoteURL, relpath.replace("\\", "/")])
         logging.info(f"[{cls.__name__}] updating: {relpath}")
         try:
             response = rq.get(urlpath, verify=False)
@@ -99,7 +99,7 @@ class LocalStorage:
             alreadyExist = os.path.exists(filepath)
 
             if(alreadyExist):
-                with open(filepath, "rb") as f: 
+                with open(filepath, "rb") as f:
                     fileContent = f.read()
             else: fileContent = b""
 
@@ -109,7 +109,7 @@ class LocalStorage:
             updateCuzMissing = (not alreadyExist)
             updateCuzContent = (not fileContent)
 
-            if(not (updateCuzStorage and updateCuzMissing and updateCuzContent)): return node.attrib["name"]
+            if(not (updateCuzStorage or updateCuzMissing or updateCuzContent)): return node.attrib["name"]
 
             reason = f"[CuzStorage({updateCuzStorage}) | CuzMissing({updateCuzMissing}) | CuzContent({updateCuzContent})]"
             logging.info(f"[{cls.__name__}] Updating: {reason} {filepath}")
@@ -119,7 +119,7 @@ class LocalStorage:
                            _type=node.attrib["type"])
 
             relpath = os.path.join(node.attrib["path"], f"{node.attrib['name']}.{node.attrib['type']}")
-            progressCallback(relpath, round(100*cls.walkTotal/cls.walkTotal))
+            progressCallback(relpath, round(100*cls.walkCount/cls.walkTotal))
 
         return node.attrib["name"]
 

@@ -1,5 +1,6 @@
 # -*- mode: python ; coding: utf-8 -*-
 
+import json
 import sys
 import os
 
@@ -7,37 +8,17 @@ name = "ApexGunControl"
 
 working = os.path.dirname(os.path.abspath(sys.modules["__main__"].__file__))
 
-hiddenimports=[
-    "PyQt5",
-    "PyQt5.QtWebEngineWidgets",
+with open("packages.json", "r") as f:
+    imports = json.load(f)
 
-    "flask",
-    "waitress",
-
-    "numpy",
-    "cv2",
-    "mss",
-
-    "keyboard",
-
-    "win32con",
-    "win32api",
-    "win32process",
-    "win32gui",
-
-    "psutil",
-
-    "pytz",
-]
-
-block_cipher = pyi_crypto.PyiBlockCipher(key="helloworldishard")
+block_cipher = None
 
 a = Analysis(
     ["main.py"],
     pathex=[p for p in sys.path if working in p and p.endswith("site-packages")],
     binaries=[],
     datas=[(".\\extensions\\*.*", "."), (".\\filled.ico", ".")],
-    hiddenimports=hiddenimports,
+    hiddenimports=[*imports["builtin"], *imports["external"], ],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
