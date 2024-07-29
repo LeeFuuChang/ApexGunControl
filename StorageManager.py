@@ -84,7 +84,7 @@ class LocalStorage:
             if(not os.path.exists(dirpath)): os.mkdir(dirpath)
 
             children = {"folder":set(), "file":set(["storage"])}
-            for child in node: children[child.tag].add(cls.walkUpdate(child, dirpath))
+            for child in node: children[child.tag].add(cls.walkUpdate(root, child, dirpath, progressCallback=progressCallback))
 
             for child in os.listdir(dirpath):
                 childPath = os.path.join(dirpath, child)
