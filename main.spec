@@ -4,6 +4,36 @@ import json
 import sys
 import os
 
+
+def extractImports(path):
+    with open(path) as f:
+        statements = [f"{line} as _" for line in f.readlines() if "import " in line]
+        imported = [
+            *[sm[sm.index("from"):sm.index("import")][4:].strip() for sm in statements if "from" in sm],
+            *[sm[sm.index("import"):sm.index(" as ")][6:].strip() for sm in statements if "from" not in sm],
+        ]
+    return [pack for pack in imported if not pack.startswith(".")]
+
+def filterLocal(name):
+    root = name.split(".")[0]
+    checking = [".", os.path.join("ApexGunControl-LS", "be")]
+    return not any([os.path.exists(p) for p in [
+        *[os.path.join(r, root) for r in checking],
+        *[os.path.join(r, f"{root}.py") for r in checking],
+    ]])
+
+def getPackages():
+    packages = set()
+    for root, dirs, files in os.walk(os.path.join("ApexGunControl-LS", "be")):
+        for file in files:
+            if(os.path.splitext(file)[1] != ".py"): continue
+            packages = packages.union(extractImports(os.path.join(root, file)))
+    packages = packages.union(extractImports("StorageManager.py"))
+    packages = packages.union(extractImports("environment.py"))
+    packages = packages.union(extractImports("main.py"))
+    return list(filter(filterLocal, list(packages)))
+
+
 name = "ApexGunControl"
 
 working = os.path.dirname(os.path.abspath(sys.modules["__main__"].__file__))
@@ -17,8 +47,8 @@ a = Analysis(
     ["main.py"],
     pathex=[p for p in sys.path if working in p and p.endswith("site-packages")],
     binaries=[],
-    datas=[(".\\extensions\\*.*", "."), (".\\filled.ico", ".")],
-    hiddenimports=[*imports["builtin"], *imports["external"], ],
+    datas=[(".\\filled.ico", "."), ],
+    hiddenimports=getPackages(),
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],

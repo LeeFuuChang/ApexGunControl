@@ -1,13 +1,9 @@
-import requests as rq
-
 import xml.etree.ElementTree as ET
-
+import requests as rq
 import logging
 import shutil
 import sys
 import os
-
-
 
 class LocalStorage:
     latest: int = 0
@@ -20,12 +16,8 @@ class LocalStorage:
     walkCount: int = 0
     walkTotal: int = 0
 
-
-
     def __new__(cls):
         return cls._instance
-
-
 
     def singletonmethod(func):
         @classmethod
@@ -35,8 +27,6 @@ class LocalStorage:
                 f"{cls.__name__} has not been setup, no available instance"
             )
         return ensureInstance
-
-
 
     @singletonmethod
     def path(cls, path:str) -> str:
@@ -48,8 +38,6 @@ class LocalStorage:
                            _name=_name,
                            _type=_type[1:])
         return (filepath if(os.path.exists(filepath))else "")
-
-
 
     @singletonmethod
     def updateFile(cls, _path, _name, _type):
@@ -68,8 +56,6 @@ class LocalStorage:
             logging.error(f"[{cls.__name__}] update failed: {relpath} {e}")
             if(os.path.exists(os.path.join(cls.directory, relpath))):
                 os.remove(os.path.join(cls.directory, relpath))
-
-
 
     @singletonmethod
     def walkUpdate(cls, root, node, dirpath, *, progressCallback=lambda text="",progress=0:0):
@@ -122,8 +108,6 @@ class LocalStorage:
 
         return node.attrib["name"]
 
-
-
     @classmethod
     def setup(cls, remoteURL, executableLOC, *, progressCallback=lambda text="",progress=0:0):
         structure = ET.fromstring(rq.get("/".join([remoteURL, "struct.xml"]), verify=False).text)
@@ -155,41 +139,3 @@ class LocalStorage:
         progressCallback(f"[{cls.__name__}] OK", 100)
 
         return cls.structure.attrib["name"]
-
-
-
-if __name__ == "__main__" and len(sys.argv) > 1:
-    import xml.dom.minidom
-
-    target = os.path.normpath(sys.argv[1])
-    if(not os.path.exists(target)): raise FileNotFoundError()
-
-    root = ET.Element("folder")
-    root.attrib["name"] = os.path.split(target)[1]
-
-    with open(os.path.join(target, "storage.version"), "r") as f:
-        root.attrib["version"] = f.read()
-
-    excluding = {
-        "__pycache__", ".py", ".DS_Store", ".version"
-    }
-
-    def walk(root, node, path):
-        for child in sorted(os.listdir(path), key=lambda c : os.path.isdir(os.path.join(path, c))):
-            if(child in excluding or os.path.splitext(child)[1] in excluding): continue
-            childPath = os.path.join(path, child)
-            if(os.path.isdir(childPath)):
-                childNode = ET.SubElement(node, "folder")
-                childNode.attrib["name"] = child
-                walk(root, childNode, childPath)
-            else:
-                fileName, fileType = os.path.splitext(child)
-                childNode = ET.SubElement(node, "file")
-                childNode.attrib["updated"] = root.attrib["version"]
-                childNode.attrib["name"] = fileName
-                childNode.attrib["type"] = fileType[1:]
-                childNode.attrib["path"] = os.path.split(os.path.relpath(childPath, target))[0]
-    walk(root, root, target)
-
-    with open("struct.xml", "w") as f:
-        f.write(xml.dom.minidom.parseString(ET.tostring(root, xml_declaration=False)).toprettyxml(indent="\t"))
