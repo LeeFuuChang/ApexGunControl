@@ -1,7 +1,8 @@
 # -*- mode: python ; coding: utf-8 -*-
 
-# pyinstaller --upx-dir "./upx" main.spec
+# pyinstaller --distpath . --upx-dir ./upx main.spec
 
+import environment
 import json
 import sys
 import os
@@ -18,15 +19,15 @@ def extractImports(path):
 
 def filterLocal(name):
     root = name.split(".")[0]
-    checking = [".", os.path.join("ApexGunControl-LS", "be")]
+    checking = [".", os.path.join(f"{os.environ['PROJECT_NAME']}-LS", "be")]
     return not any([os.path.exists(p) for p in [
         *[os.path.join(r, root) for r in checking],
         *[os.path.join(r, f"{root}.py") for r in checking],
     ]])
 
-def getPackages():
+def getPackages(bepath):
     packages = set()
-    for root, dirs, files in os.walk(os.path.join("ApexGunControl-LS", "be")):
+    for root, dirs, files in os.walk(bepath):
         for file in files:
             if(os.path.splitext(file)[1] != ".py"): continue
             packages = packages.union(extractImports(os.path.join(root, file)))
@@ -36,12 +37,7 @@ def getPackages():
     return list(filter(filterLocal, list(packages)))
 
 
-name = "ApexGunControl"
-
 working = os.path.dirname(os.path.abspath(sys.modules["__main__"].__file__))
-
-with open("packages.json", "r") as f:
-    imports = json.load(f)
 
 block_cipher = None
 
@@ -50,11 +46,11 @@ a = Analysis(
     pathex=[p for p in sys.path if working in p and p.endswith("site-packages")],
     binaries=[],
     datas=[(".\\filled.ico", "."), ],
-    hiddenimports=getPackages(),
+    hiddenimports=getPackages(os.path.join(f"{os.environ['PROJECT_NAME']}-LS", "be")),
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
-    excludes=["StorageManager.py", "StorageCompiler.py", f"{name}-LS"],
+    excludes=["StorageManager.py", "StorageCompiler.py", f"{os.environ['PROJECT_NAME']}-LS"],
     win_no_prefer_redirects=False,
     win_private_assemblies=False,
     cipher=block_cipher,
@@ -76,7 +72,7 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name=name,
+    name=os.environ["PROJECT_NAME"],
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
