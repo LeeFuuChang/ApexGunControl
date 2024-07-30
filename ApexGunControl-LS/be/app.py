@@ -1,26 +1,28 @@
-from datetime import datetime
-import threading
-import waitress
-import logging
-import sys
-import os
-
 from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEngineSettings
 from PyQt5.QtWidgets import QApplication, QDesktopWidget
-from PyQt5 import QtCore, QtGui
+from PyQt5.QtCore import QEvent, QUrl, Qt, pyqtSignal
+from PyQt5.QtGui import QIcon
+
+import threading
+import waitress
+import sys
+import os
 
 from Server.Flask import WebServer
 
 
 
 class WebRenderer(QWebEngineView):
-    closeSignal = QtCore.pyqtSignal()
+    closeSignal = pyqtSignal()
 
-    minimizeSignal = QtCore.pyqtSignal()
+    minimizeSignal = pyqtSignal()
 
-    resizeSignal = QtCore.pyqtSignal(int, int)
+    resizeSignal = pyqtSignal(int, int)
+
+    showSignal = pyqtSignal()
 
     dragging = False
+    draggableTop = 0.05
     mouseLastPosition = None
 
     def __init__(self, *args, **kwargs):
@@ -34,12 +36,12 @@ class WebRenderer(QWebEngineView):
         super(self.__class__, self).__init__(*args, **kwargs)
 
         self.setWindowTitle(os.environ["PROJECT_NAME"])
-        self.setWindowIcon(QtGui.QIcon(os.environ["ICON_PATH"]))
-        self.setWindowFlags(QtCore.Qt.Window|QtCore.Qt.FramelessWindowHint|QtCore.Qt.WindowMinMaxButtonsHint)
-        self.setAttribute(QtCore.Qt.WA_TranslucentBackground, True)
-        self.page().setBackgroundColor(QtCore.Qt.transparent)
+        self.setWindowIcon(QIcon(os.environ["ICON_PATH"]))
+        self.setWindowFlags(Qt.Window|Qt.FramelessWindowHint|Qt.WindowMinMaxButtonsHint)
+        self.setAttribute(Qt.WA_TranslucentBackground, True)
+        self.page().setBackgroundColor(Qt.transparent)
         self.setAutoFillBackground(True)
-        self.setContextMenuPolicy(QtCore.Qt.NoContextMenu)
+        self.setContextMenuPolicy(Qt.NoContextMenu)
 
         QApplication.instance().installEventFilter(self)
         self.setMouseTracking(True)
@@ -49,20 +51,21 @@ class WebRenderer(QWebEngineView):
         self.closeSignal.connect(self.close)
         self.minimizeSignal.connect(self.showMinimized)
         self.resizeSignal.connect(self.resize)
+        self.showSignal.connect(self.show)
 
 
     def eventFilter(self, object, event):
-        if(object.parent() == self and event.type() == QtCore.QEvent.MouseMove):
+        if(object.parent() == self and event.type() == QEvent.MouseMove):
             self.mouseMoveEvent(event)
-        if(object.parent() == self and event.type() == QtCore.QEvent.MouseButtonPress):
+        if(object.parent() == self and event.type() == QEvent.MouseButtonPress):
             self.mousePressEvent(event)
-        if(object.parent() == self and event.type() == QtCore.QEvent.MouseButtonRelease):
+        if(object.parent() == self and event.type() == QEvent.MouseButtonRelease):
             self.mouseReleaseEvent(event)
         return False
 
 
     def mousePressEvent(self, event):
-        self.dragging = ((event.buttons() == QtCore.Qt.LeftButton) and (event.y() < self.height()*0.05))
+        self.dragging = ((event.buttons() == Qt.LeftButton) and (event.y() < self.height()*self.draggableTop))
         return super().mousePressEvent(event)
 
 
@@ -72,7 +75,7 @@ class WebRenderer(QWebEngineView):
 
 
     def mouseMoveEvent(self, event):
-        if((event.buttons() == QtCore.Qt.LeftButton) and self.dragging and self.mouseLastPosition):
+        if((event.buttons() == Qt.LeftButton) and self.dragging and self.mouseLastPosition):
             self.move(self.pos() + event.globalPos() - self.mouseLastPosition)
         self.mouseLastPosition = event.globalPos()
         return super().mouseMoveEvent(event)
@@ -98,10 +101,18 @@ class WebRenderer(QWebEngineView):
 
     def resize(self, w, h):
         if((self.width(), self.height()) == (w, h)): return
-        logging.info(f"Browser Scaled to ({w}, {h})")
         super().resize(w, h)
         self.centralize()
         self.show()
+
+
+    def show(self):
+        if self.windowState() == Qt.WindowMinimized:
+            self.setWindowState(Qt.WindowNoState)
+        self.setWindowFlags(self.windowFlags() | Qt.WindowStaysOnTopHint)
+        super().show()
+        self.setWindowFlags(self.windowFlags() & ~Qt.WindowStaysOnTopHint)
+        super().show()
 
 
     def connect(self, server, host, port):
@@ -109,7 +120,8 @@ class WebRenderer(QWebEngineView):
         self.server.registerAppControl("app-control-close", self.closeSignal.emit)
         self.server.registerAppControl("app-control-minimize", self.minimizeSignal.emit)
         self.server.registerAppControl("app-control-resize", self.resizeSignal.emit)
-        self.load(QtCore.QUrl(f"http://{host}:{port}/ui"))
+        self.server.registerAppControl("app-control-show", self.showSignal.emit)
+        self.load(QUrl(f"http://{host}:{port}/ui"))
         self.centralize()
 
 
@@ -122,7 +134,7 @@ def run():
 
     os.environ["USERNAME"] = "" if("--debug" not in sys.argv)else "debug@gmail.com"
     os.environ["PASSWORD"] = "" if("--debug" not in sys.argv)else "debug"
-    os.environ["EXPIRE_AT"] = "" if("--debug" not in sys.argv)else datetime.max.strftime(r"%Y/%m/%d %H:%M:%S")
+    os.environ["EXPIRE_AT"] = "" if("--debug" not in sys.argv)else "9999/12/31 23:59:59"
 
     server = WebServer()
 
