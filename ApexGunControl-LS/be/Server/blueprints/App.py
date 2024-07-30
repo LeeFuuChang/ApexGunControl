@@ -1,13 +1,16 @@
+from flask import Blueprint, Response, send_from_directory, request
 from datetime import datetime
 from pytz import timezone
 import requests as rq
+import webbrowser
+import random
 import json
 import sys
 import os
 
-from flask import Blueprint, send_from_directory, request, Response
 
 App = Blueprint("App", __name__)
+
 
 @App.route("/login", methods=["POST"])
 def App_Login():
@@ -33,7 +36,6 @@ def App_Login():
         "password": os.environ["PASSWORD"],
         "expireAt": os.environ["EXPIRE_AT"],
     }, res.status_code
-
 
 
 @App.route("/activate", methods=["POST"])
@@ -63,7 +65,6 @@ def App_Activate():
     }, res.status_code
 
 
-
 @App.route("/logout", methods=["POST"])
 def App_Logout():
     os.environ["USERNAME"] = ""
@@ -76,13 +77,11 @@ def App_Logout():
     }, 200
 
 
-
 @App.route("/auth-state", methods=["POST"])
 def App_AuthState():
     now = datetime.now(tz=timezone("Asia/Taipei"))
     authorized = os.environ["EXPIRE_AT"] > now.strftime(r"%Y/%m/%d %H:%M:%S")
     return os.environ["EXPIRE_AT"] if(authorized)else ""
-
 
 
 @App.route("/version", methods=["GET"])
@@ -101,22 +100,23 @@ def App_Version():
     }
 
 
-
-App.control_functions = {}
-@App.route("/controls/<string:name>", methods=["POST"])
-def App_Controls(**kwargs):
-    name = kwargs["name"]
-    if(name not in App.control_functions): return Response(status=404)
-    try: data = request.get_json(force=True)
+@App.route("/ad", methods=["GET"])
+def App_Ad():
+    try: data = rq.get(f"{os.environ['SERVER_URL']}/Ads").json()
     except: data = []
-    App.control_functions[name](*data)
-    return Response(status=200)
+    return {} if(not data)else random.choice(data)
 
+
+@App.route("/external", methods=["POST"])
+def App_External():
+    if("url" not in request.form): return Response(status=404)
+    webbrowser.open(str(request.form["url"]))
+    return Response(status=202)
 
 
 @App.route("/config/<path:filepath>", methods=["GET", "POST"])
 def App_Config(**kwargs):
-    kwargs['filepath'] = kwargs['filepath'] or "app.json"
+    kwargs["filepath"] = kwargs["filepath"] or "app.json"
 
     configPath = sys.modules["StorageManager"].LocalStorage.path(os.path.join("cfg", kwargs["filepath"]))
 
@@ -135,3 +135,14 @@ def App_Config(**kwargs):
             f.truncate(0)
             json.dump(config, f, indent=4, ensure_ascii=False)
         return Response(status=202)
+
+
+App.control_functions = {}
+@App.route("/controls/<string:name>", methods=["POST"])
+def App_Controls(**kwargs):
+    name = kwargs["name"]
+    if(name not in App.control_functions): return Response(status=404)
+    try: data = request.get_json(force=True)
+    except: data = []
+    App.control_functions[name](*data)
+    return Response(status=200)

@@ -2,11 +2,12 @@ from flask import Flask, Response, redirect, request
 import traceback
 import logging
 import socket
-import os
 
 from .blueprints.Ui import Ui
 from .blueprints.App import App
 from .blueprints.Apex import Apex
+
+BLUEPRINTS = [Ui, App, Apex, ]
 
 
 def getRandomPort():
@@ -31,7 +32,7 @@ class WebServer(Flask):
         self.appControls = {}
 
         self.add_url_rule("/", endpoint="ui", view_func=lambda:redirect("/ui"))
-        for bp in [Ui, App, Apex, ]:
+        for bp in BLUEPRINTS:
             name = bp.name.lower() 
             self.blueprints[name] = bp
             self.register_blueprint(bp, url_prefix=f"/{name}")
