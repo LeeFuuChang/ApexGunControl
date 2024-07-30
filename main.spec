@@ -1,5 +1,7 @@
 # -*- mode: python ; coding: utf-8 -*-
 
+# pyinstaller --upx-dir "./upx" main.spec
+
 import json
 import sys
 import os
@@ -52,7 +54,7 @@ a = Analysis(
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
-    excludes=["StorageManager.py", "CLI", f"{name}-LS"],
+    excludes=["StorageManager.py", "StorageCompiler.py", f"{name}-LS"],
     win_no_prefer_redirects=False,
     win_private_assemblies=False,
     cipher=block_cipher,
