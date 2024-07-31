@@ -64,13 +64,21 @@
 
 
     /*
+    Load Info
+    */
+    $.get("/app/version", {})
+        .then((data)=>{
+            $("span[name='current-version']").text(data["current-version"] || "0");
+            $("span[name='latest-version']").text(data["latest-version"] || "0");
+            $("span[name='release-date']").text(data["release-date"] || "0000-00-00");
+        });
+
+
+    /*
     Load Config
     */
     $.get("/app/config/app.json", {})
         .then((config)=>{
-            $("span[name='current-version']").text(config["current-version"]);
-            $("span[name='latest-version']").text(config["latest-version"]);
-            $("span[name='release-date']").text(config["release-date"]);
             $("input[name='crash-report']").prop("checked", config["crash-report"]);
             $(`input[type='radio'][name='language'][lang='${config["language"]}']`).prop("checked", true);
             changeScaling(scales.indexOf(parseFloat(config["window-scale"])) - scales.indexOf(parseFloat($(":root").css("--scale"))));
