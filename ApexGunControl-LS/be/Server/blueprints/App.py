@@ -116,7 +116,7 @@ def App_External():
 
 @App.route("/config/<path:filepath>", methods=["GET", "POST"])
 def App_Config(**kwargs):
-    kwargs["filepath"] = kwargs["filepath"] or "app.json"
+    if(not kwargs.get("filepath", None)): return Response(status=404)
 
     configPath = sys.modules["StorageManager"].LocalStorage.path(os.path.join("cfg", kwargs["filepath"]))
 

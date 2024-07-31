@@ -10,7 +10,7 @@ setTimeout(function(){
             }
             return resolve(data);
         }).then((data)=>{
-            return $.post(`/app/config/${$(input).attr("path")}.json`, JSON.stringify(data));
+            return $.post(`/app/config/${$(input).attr("path")}`, JSON.stringify(data));
         });
     };
     function Bind(parent) {
@@ -91,7 +91,7 @@ setTimeout(function(){
                 });
 
                 return Promise.all(p).then(()=>{
-                    return Save($("input[path='settings']"));
+                    return Save($("input[path='settings.json']"));
                 });
             }),
         $.get("/app/config/weapons", {})
@@ -136,8 +136,8 @@ setTimeout(function(){
                                     <div class="adjustment">
                                         <h5 class="name lang" lang="page-settings-mult">${window.GetLangText("page-settings-mult")}</h5>
                                         <form action="javascript:void(0);">
-                                            <input class="slider" type="range" min="0" max="2" step="0.1" value="${weapon.multiplier}" path="weapons/${weapon.name}" name="multiplier">
-                                            <input class="slider-input" type="text" value="${weapon.multiplier}" decimals="1" path="weapons/${weapon.name}" name="multiplier">
+                                            <input class="slider" type="range" min="0" max="2" step="0.1" value="${weapon.multiplier}" path="weapons/${weapon.name}.json" name="multiplier">
+                                            <input class="slider-input" type="text" value="${weapon.multiplier}" decimals="1" path="weapons/${weapon.name}.json" name="multiplier">
                                         </form>
                                     </div>
                                 </div>
