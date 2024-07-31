@@ -1,5 +1,5 @@
 {
-    "crash-report": "true",
+    "crash-report": true,
     "language": "en",
-    "window-scale": "1"
+    "window-scale": 1
 }

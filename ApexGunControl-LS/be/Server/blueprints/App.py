@@ -131,9 +131,13 @@ def App_Config(**kwargs):
         with open(configPath, "a+") as f:
             f.seek(0)
             config = json.load(f)
-            config.update(request.form)
-            f.truncate(0)
-            json.dump(config, f, indent=4, ensure_ascii=False)
+            try:
+                data = request.get_json(force=True)
+                config.update(data)
+                f.truncate(0)
+                json.dump(config, f, indent=4, ensure_ascii=False)
+            except:
+                return Response(status=422)
         return Response(status=202)
 
 

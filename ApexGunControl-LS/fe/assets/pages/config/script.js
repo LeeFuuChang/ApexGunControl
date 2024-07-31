@@ -25,7 +25,7 @@ setTimeout(function(){
                 }
                 return resolve(data);
             }).then((data)=>{
-                return $.post("/apex/config", data);
+                return $.post("/apex/config", JSON.stringify(data));
             }).then(()=>{
                 return window.Notify("success", window.GetLangText("page-config-save-success"));
             }).catch((e)=>{
@@ -42,7 +42,7 @@ setTimeout(function(){
     */
     $.get("/apex/config", {})
         .then((data)=>{
-            $(".directory input").val(data.path);
+            $(".directory input").val(data.path||"");
             for(let inp of $("input[type='checkbox']")) {
                 $(inp).prop("checked", data[$(inp).attr("name")]);
             }

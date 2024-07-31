@@ -1,16 +1,18 @@
+from flask import Blueprint, Response, send_from_directory, request
 import json
 import sys
 import os
 
-from flask import Blueprint, send_from_directory, request, Response
 
 Apex = Blueprint("Apex", __name__)
+
 
 @Apex.route("assets/<path:filepath>")
 def Apex_Assets(**kwargs):
     filepath = kwargs["filepath"]
     fullpath = sys.modules["StorageManager"].LocalStorage.path(os.path.join("apex", "assets", filepath))
     return send_from_directory(*os.path.split(fullpath))
+
 
 @Apex.route("config", methods=["GET", "POST"])
 def Apex_Config():
@@ -23,7 +25,8 @@ def Apex_Config():
 
     if(request.method == "POST"):
         try:
-            data = request.form
+            try: data = request.get_json(force=True)
+            except: return Response(status=422)
 
             # make sure the apex cfg path is correct
             if(not os.path.exists(data.get("path", ""))): return Response(status=404)

@@ -1,10 +1,10 @@
 (function(){
     function SaveAppConfig(){
-        return $.post("/app/config/app.json", {
+        return $.post("/app/config/app.json", JSON.stringify({
             "crash-report": $("input[name='crash-report']").is(":checked"),
             "language": $("input[type='radio'][name='language']:checked").attr("lang"),
             "window-scale": parseFloat($(":root").css("--scale"))
-        });
+        }));
     }
 
 
