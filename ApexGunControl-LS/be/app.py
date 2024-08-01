@@ -5,6 +5,7 @@ from PyQt5.QtGui import QIcon
 
 import threading
 import waitress
+import ctypes
 import sys
 import os
 
@@ -155,6 +156,8 @@ def run():
             "threads": 8,
         }
     ).start()
+
+    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(os.environ["APP_USER_MODEL_ID"])
 
     qapp = QApplication([*sys.argv, "--ignore-gpu-blocklist"])
 

@@ -21,6 +21,8 @@ os.environ["TIMEZONE"] = "Asia/Taipei"
 
 os.environ["PROJECT_NAME"] = "ApexGunControl"
 
+os.environ["APP_USER_MODEL_ID"] = f"{os.environ['PROJECT_NAME']}.App.User.Model.Id"
+
 os.environ["SERVER_URL"] = f"https://www.leefuuchang.in/projects/{os.environ['PROJECT_NAME']}"
 os.environ["STORAGE_URL"] = f"https://www.leefuuchang.in/projects/{os.environ['PROJECT_NAME']}/Storage"
 os.environ["MODULES_URL"] = f"https://www.leefuuchang.in/projects/{os.environ['PROJECT_NAME']}/Modules"
