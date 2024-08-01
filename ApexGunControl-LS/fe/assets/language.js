@@ -226,6 +226,11 @@ window.translation = {
         "tw": "槍枝偵測區域",
         "cn": "枪枝侦测区域",
     },
+    "page-settings-region-tooltip": {
+        "en": "Right click to reset default region",
+        "tw": "右鍵恢復預設區域",
+        "cn": "右键恢复预设区域",
+    },
     "page-settings-mult": {
         "en": "Control Scale",
         "tw": "壓槍幅度",
