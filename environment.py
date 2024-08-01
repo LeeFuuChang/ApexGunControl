@@ -17,6 +17,8 @@ import os
 """
 Environment Variables
 """
+os.environ["TIMEZONE"] = "Asia/Taipei"
+
 os.environ["PROJECT_NAME"] = "ApexGunControl"
 
 os.environ["SERVER_URL"] = f"https://www.leefuuchang.in/projects/{os.environ['PROJECT_NAME']}"

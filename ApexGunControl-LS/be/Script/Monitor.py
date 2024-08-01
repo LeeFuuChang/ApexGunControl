@@ -37,12 +37,13 @@ class GameMonitor:
     def update(cls, _AGC):
         cls.mss = mss()
         while(not time.sleep(.5)):
-            now = datetime.now(tz=timezone("Asia/Taipei"))
-
-            cls.authorized = os.environ["EXPIRE_AT"] > now.strftime(r"%Y/%m/%d %H:%M:%S")
-
             with contextlib.suppress(RuntimeError):
                 _AGC.toggleStatusWindowSignal.emit(cls.authorized and cls.isFocused)
+
+            authorized = os.environ["EXPIRE_AT"] > datetime.now(tz=timezone(os.environ["TIMEZONE"])).strftime(r"%Y/%m/%d %H:%M:%S")
+            if(cls.authorized != authorized):
+                cls.log(f"Authorize state changed ({cls.authorized} -> {authorized})")
+                cls.authorized = authorized
 
             if(not cls.authorized): continue
 
