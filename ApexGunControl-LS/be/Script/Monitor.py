@@ -54,7 +54,7 @@ class GameMonitor:
                 focusPID = win32process.GetWindowThreadProcessId(focus)[1]
                 focusProc = psutil.Process(focusPID)
                 focusName = focusProc.name().strip().lower()
-                isFocused = focusName.startswith("r5apex")
+                isFocused = focusName.startswith("r5apex") or focusPID == os.getpid()
             except:
                 pass
             if(cls.isFocused != isFocused):
@@ -66,11 +66,21 @@ class GameMonitor:
 
             # Weapon Detection
             result = WeaponDetector.detect(screenshot)
-            if(result[1] > (float(_AGC.config.get("confidence", "80"))/100) and result[0] != cls.weapon[0]):
-                logging.info(f"[{cls.__name__}] Weapon changed ({cls.weapon} -> {result})")
+            if(result[0] != cls.weapon[0] and result[1] > (float(_AGC.config.get("confidence", "80"))/100)): # != / >
+                logging.info(f"[{cls.__name__}] Weapon changed ({cls.weapon} -> {result}) [{round(result[1]*100)}%]")
                 cls.weapon = result
                 cls.weaponConfig = {}
                 weaponConfigPath = sys.modules["StorageManager"].LocalStorage.path(os.path.join("cfg", "weapons", f"{cls.weapon[0]}.json"))
                 if(os.path.exists(weaponConfigPath)):
                     with open(weaponConfigPath, "r") as f:
                         cls.weaponConfig = json.load(f)
+            if(result[0] != cls.weapon[0] and result[1] < (float(_AGC.config.get("confidence", "80"))/100)): # != / <
+                logging.info(f"[{cls.__name__}] Weapon 'maybe' changed ({cls.weapon} -> {result}) [{round(result[1]*100)}%]")
+                cls.weapon = result
+                cls.weaponConfig = {}
+            if(result[0] == cls.weapon[0] and result[1] > (float(_AGC.config.get("confidence", "80"))/100)): # == / >
+                cls.weapon = result
+            if(result[0] == cls.weapon[0] and result[1] > (float(_AGC.config.get("confidence", "80"))/100)): # == / <
+                cls.weapon = result
+
+

@@ -227,9 +227,9 @@ window.translation = {
         "cn": "枪枝侦测区域",
     },
     "page-settings-region-tooltip": {
-        "en": "Right click to reset default region",
-        "tw": "右鍵恢復預設區域",
-        "cn": "右键恢复预设区域",
+        "en": "Right click to reset default region<br>Remember to press [ESC] to close the region first",
+        "tw": "右鍵恢復預設區域<br>記得先按 [ESC] 關閉選框",
+        "cn": "右键恢复预设区域<br>记得先按 [ESC] 关闭选框",
     },
     "page-settings-mult": {
         "en": "Control Scale",

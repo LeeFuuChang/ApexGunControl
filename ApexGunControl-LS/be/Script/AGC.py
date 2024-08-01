@@ -68,14 +68,12 @@ class ApexGunControl(QWidget):
         self.weaponLabel = QLabel(self)
         self.weaponLabel.setAlignment(Qt.AlignVCenter|Qt.AlignLeft)
         self.weaponLabel.setGeometry(self.padding, self.padding + self.sizeUnit, stretch, self.sizeUnit)
-        self.weaponLabel.setStyleSheet(f"font-size: {int(self.sizeUnit/2)}px; font-weight: 600; color: #FFFFFF")
         self.weaponLabel.setText("None")
         self.weaponLabel.show()
 
         self.confidenceLabel = QLabel(self)
         self.confidenceLabel.setAlignment(Qt.AlignVCenter|Qt.AlignRight)
         self.confidenceLabel.setGeometry(self.padding + stretch, self.padding + self.sizeUnit, stretch, self.sizeUnit)
-        self.confidenceLabel.setStyleSheet(f"font-size: {int(self.sizeUnit/2)}px; font-weight: 600; color: #FFFFFF")
         self.confidenceLabel.setText("0%")
         self.confidenceLabel.show()
 
@@ -107,9 +105,12 @@ class ApexGunControl(QWidget):
         with open(configAbsPath, "r") as f: self.config = json.load(f)
 
     def setWeapon(self, data):
+        color = "#E7C975" if(round(data[1]*100)>=int(self.config.get("confidence", "80")))else "#FF0253"
         with contextlib.suppress(RuntimeError):
             self.weaponLabel.setText(str(data[0]))
+            self.weaponLabel.setStyleSheet(f"font-size: {int(self.sizeUnit/2)}px; font-weight: 600; color: {color}")
             self.confidenceLabel.setText(f"{round(data[1]*100)}%")
+            self.confidenceLabel.setStyleSheet(f"font-size: {int(self.sizeUnit/2)}px; font-weight: 600; color: {color}")
 
 
     def showEvent(self, event):

@@ -14,7 +14,6 @@ class RegionSelector(QWidget):
 
     showSignal = pyqtSignal()
 
-    region = (0, 0, 0, 0)
 
     def __init__(self, *args, **kwargs):
         super(self.__class__, self).__init__(*args, **kwargs)
@@ -54,8 +53,7 @@ class RegionSelector(QWidget):
     def showEvent(self, event):
         if(Detector is not None):
             Detector.load()
-            self.region = Detector.region
-            self.setGeometry(*self.region2geometry(self.region))
+            self.setGeometry(*self.region2geometry(Detector.region))
             self.updateRegion()
         return super().showEvent(event)
 
@@ -63,7 +61,6 @@ class RegionSelector(QWidget):
     def closeEvent(self, event):
         if(Detector is not None):
             self.updateRegion()
-            Detector.region = self.region
             self.setGeometry(*self.region2geometry(Detector.region))
             Detector.save()
         return super().closeEvent(event)
@@ -103,21 +100,21 @@ class RegionSelector(QWidget):
         new_h = int(min(w/3, h))
 
         if(self.grips[0] == self.farestGrip):
-            new_x = self.region[0]
-            new_y = self.region[1]
+            new_x = Detector.region[0]
+            new_y = Detector.region[1]
         if(self.grips[1] == self.farestGrip):
-            new_x = self.region[2]-new_w
-            new_y = self.region[1]
+            new_x = Detector.region[2]-new_w
+            new_y = Detector.region[1]
         if(self.grips[2] == self.farestGrip):
-            new_x = self.region[2]-new_w
-            new_y = self.region[3]-new_h
+            new_x = Detector.region[2]-new_w
+            new_y = Detector.region[3]-new_h
         if(self.grips[3] == self.farestGrip):
-            new_x = self.region[0]
-            new_y = self.region[3]-new_h
+            new_x = Detector.region[0]
+            new_y = Detector.region[3]-new_h
 
-        self.region = self.geometry2region((new_x, new_y, new_w, new_h))
+        Detector.region = self.geometry2region((new_x, new_y, new_w, new_h))
 
-        self.setGeometry(*self.region2geometry(self.region))
+        self.setGeometry(*self.region2geometry(Detector.region))
 
 
     def resizeEvent(self, event):
