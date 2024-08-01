@@ -85,6 +85,12 @@ $(window).on("focus", window.RefreshPage);
 
 $(document).ready(function(){
     /*
+    Disable F keys
+    */
+    $(document).on("keydown", function(e){ if((e.which || e.keyCode) == 116) e.preventDefault(); });
+
+
+    /*
     Initialization
     */
     $.get("/app/config/app.json", {})
