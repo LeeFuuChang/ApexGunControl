@@ -23,6 +23,7 @@ os.environ["PROJECT_NAME"] = "ApexGunControl"
 
 os.environ["SERVER_URL"] = f"https://www.leefuuchang.in/projects/{os.environ['PROJECT_NAME']}"
 os.environ["STORAGE_URL"] = f"https://www.leefuuchang.in/projects/{os.environ['PROJECT_NAME']}/Storage"
+os.environ["MODULES_URL"] = f"https://www.leefuuchang.in/projects/{os.environ['PROJECT_NAME']}/Modules"
 
 os.environ["USER_AGENT"] = random.choice([
     "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36",
@@ -113,7 +114,7 @@ def RemoteImport(name):
     module = types.ModuleType(name)
     logging.info(f"Installing Remote Package: {name}")
     try: 
-        res = rq.get(f"{os.environ['STORAGE_URL']}/{name}.py")
+        res = rq.get(f"{os.environ['MODULES_URL']}/{name}.py")
         exec(res.text, module.__dict__)
         sys.modules[name] = module
     except Exception as e: 

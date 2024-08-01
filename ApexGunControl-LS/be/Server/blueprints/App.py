@@ -67,14 +67,15 @@ def App_Activate():
 
 @App.route("/logout", methods=["POST"])
 def App_Logout():
-    os.environ["USERNAME"] = ""
-    os.environ["PASSWORD"] = ""
-    os.environ["EXPIRE_AT"] = ""
-    return {
+    user = {
         "username": os.environ["USERNAME"],
         "password": os.environ["PASSWORD"],
         "expireAt": os.environ["EXPIRE_AT"],
-    }, 200
+    }
+    os.environ["USERNAME"] = ""
+    os.environ["PASSWORD"] = ""
+    os.environ["EXPIRE_AT"] = ""
+    return user, 200
 
 
 @App.route("/auth-state", methods=["POST"])

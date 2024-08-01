@@ -1,15 +1,16 @@
 import time
 import os
 
-from .Monitor import GameMonitor
-
 import keyboard
-
 import win32con
 import win32api
 
 import ctypes
 ctypes.windll.shcore.SetProcessDpiAwareness(2)
+
+from .Monitor import GameMonitor
+
+
 
 class GameController:
     thread = None
@@ -21,8 +22,7 @@ class GameController:
 
         controlRunning = lambda : (
             GameMonitor.authorized and 
-            GameMonitor.isFocused and 
-            GameMonitor.inGame
+            GameMonitor.isFocused
         )
 
         while(not time.sleep(.5)):

@@ -4,6 +4,11 @@ window.translation = {
         "tw": "尚未授權",
         "cn": "尚未授权",
     },
+    "app-feature-developing": {
+        "en": "This feature is still in development",
+        "tw": "此功能尚在開發中",
+        "cn": "此功能尚在开发中",
+    },
 
 
 

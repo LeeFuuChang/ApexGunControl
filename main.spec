@@ -1,11 +1,12 @@
 # -*- mode: python ; coding: utf-8 -*-
 
-# pyinstaller --distpath . --upx-dir ./upx main.spec
+# pyinstaller --upx-dir ./upx main.spec
 
-import environment
-import json
 import sys
 import os
+
+
+PROJECT_NAME = os.path.split(os.getcwd())[1]
 
 
 def extractImports(path):
@@ -19,7 +20,7 @@ def extractImports(path):
 
 def filterLocal(name):
     root = name.split(".")[0]
-    checking = [".", os.path.join(f"{os.environ['PROJECT_NAME']}-LS", "be")]
+    checking = [".", os.path.join(f"{PROJECT_NAME}-LS", "be")]
     return not any([os.path.exists(p) for p in [
         *[os.path.join(r, root) for r in checking],
         *[os.path.join(r, f"{root}.py") for r in checking],
@@ -36,25 +37,18 @@ def getPackages(bepath):
     packages = packages.union(extractImports("main.py"))
     return list(filter(filterLocal, list(packages)))
 
-
-working = os.path.dirname(os.path.abspath(sys.modules["__main__"].__file__))
-
-block_cipher = None
-
 a = Analysis(
     ["main.py"],
-    pathex=[p for p in sys.path if working in p and p.endswith("site-packages")],
+    pathex=[os.path.join(r, d) for r, ds, fs in os.walk(os.getcwd()) for d in ds if(d == "site-packages")],
     binaries=[],
-    datas=[(".\\filled.ico", "."), ],
-    hiddenimports=getPackages(os.path.join(f"{os.environ['PROJECT_NAME']}-LS", "be")),
+    datas=[(".\\extensions\\*.*", "."), (".\\filled.ico", "."), ],
+    hiddenimports=getPackages(os.path.join(f"{PROJECT_NAME}-LS", "be")),
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
-    excludes=["StorageManager.py", "StorageCompiler.py", f"{os.environ['PROJECT_NAME']}-LS"],
-    win_no_prefer_redirects=False,
-    win_private_assemblies=False,
-    cipher=block_cipher,
+    excludes=["StorageManager.py", "StorageCompiler.py", f"{PROJECT_NAME}-LS"],
     noarchive=False,
+    optimize=0,
 )
 
 for d in list(a.datas):
@@ -63,28 +57,33 @@ for d in list(a.datas):
     if "_C.cp38-win_amd64.pyd" in d[0]:
         a.datas.remove(d)
 
-pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
+pyz = PYZ(a.pure)
 
 exe = EXE(
     pyz,
     a.scripts,
-    a.binaries,
-    a.zipfiles,
-    a.datas,
     [],
-    name=os.environ["PROJECT_NAME"],
+    exclude_binaries=True,
+    name=PROJECT_NAME,
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
-    upx_exclude=[],
     uac_admin=True,
-    runtime_tmpdir=None,
     console=False,
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=["filled.ico"],
+    icon="filled.ico",
+)
+coll = COLLECT(
+    exe,
+    a.binaries,
+    a.datas,
+    strip=False,
+    upx=True,
+    upx_exclude=[],
+    name=PROJECT_NAME,
 )

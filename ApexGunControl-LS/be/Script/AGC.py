@@ -1,12 +1,12 @@
+from PyQt5.QtWidgets import QWidget, QDesktopWidget, QLabel
+from PyQt5.QtCore import Qt, pyqtSignal
+from PyQt5.QtGui import QIcon, QPixmap
+
 import contextlib
 import threading
 import json
 import sys
 import os
-
-from PyQt5.QtWidgets import QWidget, QDesktopWidget, QLabel
-from PyQt5.QtCore import Qt, pyqtSignal
-from PyQt5.QtGui import QIcon, QPixmap
 
 from .Controller import GameController
 from .Monitor import GameMonitor
@@ -48,11 +48,11 @@ class ApexGunControl(QWidget):
         self.movingLabel = QLabel(self)
         self.iconLabels.append(self.movingLabel)
 
-        self.matchingLabel = QLabel(self)
-        self.iconLabels.append(self.matchingLabel)
-
         self.focusingLabel = QLabel(self)
         self.iconLabels.append(self.focusingLabel)
+
+        self.authorizedLabel = QLabel(self)
+        self.iconLabels.append(self.authorizedLabel)
 
         self.resize(
             self.padding + self.sizeUnit*len(self.iconLabels) + self.padding*len(self.iconLabels),
@@ -96,8 +96,8 @@ class ApexGunControl(QWidget):
     def setMoving(self, boolean):
         self.setStateIcon(self.movingLabel, "Moving", boolean)
 
-    def setMatching(self, boolean):
-        self.setStateIcon(self.matchingLabel, "Matching", boolean)
+    def setAuthorized(self, boolean):
+        self.setStateIcon(self.authorizedLabel, "Authorized", boolean)
 
     def setFocusing(self, boolean):
         self.setStateIcon(self.focusingLabel, "Focusing", boolean)

@@ -1,8 +1,8 @@
-import os
-
-from PyQt5.QtWidgets import QApplication, QDesktopWidget, QWidget, QLabel, QShortcut, QSizeGrip
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QShortcut, QSizeGrip
 from PyQt5.QtCore import Qt, QPoint, QEvent, pyqtSignal
 from PyQt5.QtGui import QKeySequence, QIcon
+
+import os
 
 from .Detector import Detector
 
@@ -14,6 +14,8 @@ class RegionSelector(QWidget):
 
     showSignal = pyqtSignal()
 
+    region = (0, 0, 0, 0)
+
     def __init__(self, *args, **kwargs):
         super(self.__class__, self).__init__(*args, **kwargs)
 
@@ -24,6 +26,8 @@ class RegionSelector(QWidget):
         self.setAttribute(Qt.WA_TranslucentBackground, True)
         self.setAttribute(Qt.WA_TransparentForMouseEvents, True)
         self.setAutoFillBackground(True)
+
+        self.setMinimumSize(48*3, 48)
 
         QShortcut(QKeySequence("ESC"), self).activated.connect(self.close)
         self.closeHint = QLabel(self)
@@ -50,14 +54,16 @@ class RegionSelector(QWidget):
     def showEvent(self, event):
         if(Detector is not None):
             Detector.load()
+            self.region = Detector.region
+            self.setGeometry(*self.region2geometry(self.region))
             self.updateRegion()
-            self.setGeometry(*self.region2geometry(Detector.region))
         return super().showEvent(event)
 
 
     def closeEvent(self, event):
         if(Detector is not None):
             self.updateRegion()
+            Detector.region = self.region
             self.setGeometry(*self.region2geometry(Detector.region))
             Detector.save()
         return super().closeEvent(event)
@@ -87,39 +93,35 @@ class RegionSelector(QWidget):
 
 
     def updateRegion(self):
-        sg = QDesktopWidget().screenGeometry()
+        if(self.farestGrip not in self.grips): return
+
         wg = self.geometry()
 
-        x = max(wg.x(), sg.x(), 0)
-        y = max(wg.y(), sg.y(), 0)
-        w = min(wg.width(), sg.width()-x)
-        h = min(wg.height(), sg.height()-y)
-
-        nw = min(h*3, w, sg.width())
-        nh = min(w/3, h, sg.height())
-        nx = min(max(Detector.region[0], sg.x()), sg.x()+sg.width()-nw)
-        ny = min(max(Detector.region[1], sg.y()), sg.y()+sg.height()-nh)
+        w = wg.width()
+        h = wg.height()
+        new_w = int(min(h*3, w))
+        new_h = int(min(w/3, h))
 
         if(self.grips[0] == self.farestGrip):
-            nx = Detector.region[0]
-            ny = Detector.region[1]
+            new_x = self.region[0]
+            new_y = self.region[1]
         if(self.grips[1] == self.farestGrip):
-            nx = Detector.region[2] - nw
-            ny = Detector.region[1]
+            new_x = self.region[2]-new_w
+            new_y = self.region[1]
         if(self.grips[2] == self.farestGrip):
-            nx = Detector.region[2] - nw
-            ny = Detector.region[3] - nh
+            new_x = self.region[2]-new_w
+            new_y = self.region[3]-new_h
         if(self.grips[3] == self.farestGrip):
-            nx = Detector.region[0]
-            ny = Detector.region[3] - nh
+            new_x = self.region[0]
+            new_y = self.region[3]-new_h
 
-        Detector.region = self.geometry2region((nx, ny, nw, nh))
+        self.region = self.geometry2region((new_x, new_y, new_w, new_h))
+
+        self.setGeometry(*self.region2geometry(self.region))
 
 
     def resizeEvent(self, event):
-        if(self.farestGrip): self.updateRegion()
-
-        self.setGeometry(*self.region2geometry(Detector.region))
+        self.updateRegion()
 
         w = self.width()
         h = self.height()
@@ -137,5 +139,3 @@ class RegionSelector(QWidget):
         self.closeHint.move(int((w-self.closeHint.width())/2), 0)
 
         return super().resizeEvent(event)
-
-

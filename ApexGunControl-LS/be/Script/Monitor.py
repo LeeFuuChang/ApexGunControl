@@ -13,7 +13,9 @@ import win32process
 import win32gui
 import psutil
 
-from .Detector import Detector, InGameDetector, WeaponDetector
+from .Detector import Detector, WeaponDetector
+
+
 
 class GameMonitor:
     mss = None
@@ -24,14 +26,8 @@ class GameMonitor:
 
     isFocused = False
 
-    inGame = False
-
     weapon = [ None, 0 ]
     weaponConfig = {}
-
-    @classmethod
-    def log(cls, message):
-        logging.info(f"[{cls.__name__}] {message}")
 
     @classmethod
     def update(cls, _AGC):
@@ -42,14 +38,14 @@ class GameMonitor:
 
             authorized = os.environ["EXPIRE_AT"] > datetime.now(tz=timezone(os.environ["TIMEZONE"])).strftime(r"%Y/%m/%d %H:%M:%S")
             if(cls.authorized != authorized):
-                cls.log(f"Authorize state changed ({cls.authorized} -> {authorized})")
+                logging.info(f"[{cls.__name__}] Authorize state changed ({cls.authorized} -> {authorized})")
                 cls.authorized = authorized
 
-            if(not cls.authorized): continue
-
             _AGC.setFocusing(cls.isFocused)
-            _AGC.setMatching(cls.isFocused and cls.inGame)
+            _AGC.setAuthorized(cls.authorized)
             _AGC.setWeapon(cls.weapon)
+
+            if(not cls.authorized): continue
 
             # Focus Check
             isFocused = False
@@ -58,29 +54,20 @@ class GameMonitor:
                 focusPID = win32process.GetWindowThreadProcessId(focus)[1]
                 focusProc = psutil.Process(focusPID)
                 focusName = focusProc.name().strip().lower()
-                isFocused = focusName.startswith("r5apex") or focusPID == os.getpid()
+                isFocused = focusName.startswith("r5apex")
             except:
                 pass
             if(cls.isFocused != isFocused):
-                cls.log(f"Focus state changed ({cls.isFocused} -> {isFocused})")
+                logging.info(f"[{cls.__name__}] Focus state changed ({cls.isFocused} -> {isFocused})")
                 cls.isFocused = isFocused
             if(not cls.isFocused): continue
 
             screenshot = np.array(cls.mss.grab(Detector.region))
 
-            # InGame Detection
-            result = InGameDetector.detect(screenshot)
-            foundClue = (result[1] > 0.1 and result[1] > (float(_AGC.config.get("confidence", "80"))/250))
-            newGameCof = 3 if(foundClue)else max(0, cls.inGame - 1)
-            if(bool(cls.inGame) != bool(newGameCof)):
-                cls.log(f"InGame state changed ({bool(cls.inGame)} -> {bool(newGameCof)})")
-            cls.inGame = newGameCof
-            if(not cls.inGame): continue
-
             # Weapon Detection
             result = WeaponDetector.detect(screenshot)
             if(result[1] > (float(_AGC.config.get("confidence", "80"))/100) and result[0] != cls.weapon[0]):
-                cls.log(f"Weapon changed ({cls.weapon} -> {result})")
+                logging.info(f"[{cls.__name__}] Weapon changed ({cls.weapon} -> {result})")
                 cls.weapon = result
                 cls.weaponConfig = {}
                 weaponConfigPath = sys.modules["StorageManager"].LocalStorage.path(os.path.join("cfg", "weapons", f"{cls.weapon[0]}.json"))

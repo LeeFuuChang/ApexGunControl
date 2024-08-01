@@ -14,6 +14,6 @@ Focusing-F.png
 Focusing-T.png
     https://icons8.com/icon/540/tv
 
-Matching-F.png
-Matching-T.png
-    https://icons8.com/icon/59335/battle
+Authorized-F.png
+Authorized-T.png
+    https://icons8.com/icon/36725/verified-account

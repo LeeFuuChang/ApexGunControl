@@ -12,7 +12,27 @@ setTimeout(function(){
         }).then((data)=>{
             return $.post(`/app/config/${$(input).attr("path")}`, JSON.stringify(data));
         });
-    };
+    }
+    function SetRegion(data) {
+        let w = window.screen.width;
+        let h = window.screen.height;
+        let o = Math.round(h/6);
+        let p = Object.entries({
+            "region-l": w - o*3,
+            "region-t": h - o,
+            "region-r": w,
+            "region-b": h,
+        }).map(([key, value])=>{
+            let saved = parseInt(data[key]);
+            let coord = (isNaN(saved) || saved < 0) ? value : saved;
+            $(`input[name="${key}"]`).val(coord);
+            return Promise.resolve(coord);
+        });
+
+        return Promise.all(p).then(()=>{
+            return Save($("input[path='settings.json']"));
+        });
+    }
     function Bind(parent) {
         $(parent)
             .find(".slider-input")
@@ -54,8 +74,16 @@ setTimeout(function(){
                 });
         $(parent)
             .find(".region-button")
-                .on("click", function(){
-                    $.post("/app/controls/app-control-region");
+                .on("mousedown", function(e){
+                    // window.Notify("error", window.GetLangText("app-feature-developing"));
+                    switch(e.which) {
+                        case 1:
+                            $.post("/app/controls/app-control-region");
+                            break;
+                        default:
+                            SetRegion({});
+                            break;
+                    }
                 });
         return $(parent);
     }
@@ -74,25 +102,7 @@ setTimeout(function(){
                 for(key in data) {
                     $(`input[name="${key}"]`).val(data[key]);
                 }
-
-                let w = window.screen.width;
-                let h = window.screen.height;
-                let o = Math.round(h/6);
-                let p = Object.entries({
-                    "region-l": w - o*3,
-                    "region-t": h - o,
-                    "region-r": w,
-                    "region-b": h,
-                }).map(([key, value])=>{
-                    let saved = parseInt(data[key]);
-                    let coord = (isNaN(saved) || saved < 0) ? value : saved;
-                    $(`input[name="${key}"]`).val(coord);
-                    return Promise.resolve(coord);
-                });
-
-                return Promise.all(p).then(()=>{
-                    return Save($("input[path='settings.json']"));
-                });
+                return SetRegion(data);
             }),
         $.get("/app/config/weapons", {})
             .then((list)=>{
