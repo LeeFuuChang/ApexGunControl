@@ -124,7 +124,7 @@ class LocalStorage:
         if(not os.path.exists(versionFile)): open(versionFile, "w").close()
         with open(versionFile, "r") as f: cls.version = int(f"0{f.read()}", 16)
 
-        cls.latest = int(f"0{cls.structure.attrib['version']}", 16)
+        cls.latest = max(int(f"0{cls.structure.attrib['version']}", 16), cls.version)
 
         cls.walkCount = 0
         cls.walkTotal = len(cls.structure.findall(".//file")) + len(cls.structure.findall(".//folder")) + 1
