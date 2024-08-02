@@ -44,12 +44,13 @@ class GameController:
                     keyboard.send(os.environ["KEY_SHOOTING"], do_press=True, do_release=False)
                     if(GameMonitor.weaponConfig and GameMonitor.weaponConfig.get("tap", False)):
                         keyboard.send(os.environ["KEY_SHOOTING"], do_press=False, do_release=True)
+                    gunMul = float(GameMonitor.weaponConfig.get("multiplier", "1.0"))
                     recoil = GameMonitor.weaponConfig.get("recoil", [[0, 0], [0, 0]])
                     if(win32api.GetAsyncKeyState(0x2) & 0x8000 > 0):
                         win32api.mouse_event(
                             win32con.MOUSEEVENTF_MOVE,
-                            round(recoil[recoilIndex%len(recoil)][0]*recoilMultiplier),
-                            round(recoil[recoilIndex%len(recoil)][1]*recoilMultiplier),
+                            round(recoil[recoilIndex%len(recoil)][0]*recoilMultiplier*gunMul),
+                            round(recoil[recoilIndex%len(recoil)][1]*recoilMultiplier*gunMul),
                         )
                     recoilIndex = (recoilIndex+1) % len(recoil)
                 else:
