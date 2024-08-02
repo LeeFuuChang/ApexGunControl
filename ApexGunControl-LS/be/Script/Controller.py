@@ -22,7 +22,8 @@ class GameController:
 
         controlRunning = lambda : (
             GameMonitor.authorized and 
-            GameMonitor.isFocused
+            GameMonitor.isFocused and 
+            GameMonitor.inGame
         )
 
         while(not time.sleep(.5)):

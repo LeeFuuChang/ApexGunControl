@@ -87,5 +87,10 @@ class Detector:
 
 
 
+class InGameDetector(Detector):
+    silhouettesPath = sys.modules["StorageManager"].LocalStorage.path(os.path.join("apex", "silhouettes", "ingame"))
+
+
+
 class WeaponDetector(Detector):
     silhouettesPath = sys.modules["StorageManager"].LocalStorage.path(os.path.join("apex", "silhouettes", "weapons"))

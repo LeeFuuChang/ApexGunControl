@@ -48,11 +48,11 @@ class ApexGunControl(QWidget):
         self.movingLabel = QLabel(self)
         self.iconLabels.append(self.movingLabel)
 
+        self.inGameLabel = QLabel(self)
+        self.iconLabels.append(self.inGameLabel)
+
         self.focusingLabel = QLabel(self)
         self.iconLabels.append(self.focusingLabel)
-
-        self.authorizedLabel = QLabel(self)
-        self.iconLabels.append(self.authorizedLabel)
 
         self.resize(
             self.padding + self.sizeUnit*len(self.iconLabels) + self.padding*len(self.iconLabels),
@@ -94,8 +94,8 @@ class ApexGunControl(QWidget):
     def setMoving(self, boolean):
         self.setStateIcon(self.movingLabel, "Moving", boolean)
 
-    def setAuthorized(self, boolean):
-        self.setStateIcon(self.authorizedLabel, "Authorized", boolean)
+    def setInGame(self, boolean):
+        self.setStateIcon(self.inGameLabel, "InGame", boolean)
 
     def setFocusing(self, boolean):
         self.setStateIcon(self.focusingLabel, "Focusing", boolean)

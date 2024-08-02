@@ -13,7 +13,7 @@ import win32process
 import win32gui
 import psutil
 
-from .Detector import Detector, WeaponDetector
+from .Detector import Detector, InGameDetector, WeaponDetector
 
 
 
@@ -25,6 +25,8 @@ class GameMonitor:
     authorized = False
 
     isFocused = False
+
+    inGame = False
 
     weapon = [ None, 0 ]
     weaponConfig = {}
@@ -41,11 +43,11 @@ class GameMonitor:
                 logging.info(f"[{cls.__name__}] Authorize state changed ({cls.authorized} -> {authorized})")
                 cls.authorized = authorized
 
-            _AGC.setFocusing(cls.isFocused)
-            _AGC.setAuthorized(cls.authorized)
-            _AGC.setWeapon(cls.weapon)
-
             if(not cls.authorized): continue
+
+            _AGC.setFocusing(cls.isFocused)
+            _AGC.setInGame(cls.isFocused and cls.inGame)
+            _AGC.setWeapon(cls.weapon)
 
             # Focus Check
             isFocused = False
@@ -63,6 +65,18 @@ class GameMonitor:
             if(not cls.isFocused): continue
 
             screenshot = np.array(cls.mss.grab(Detector.region))
+
+            # InGame Detection
+            result = InGameDetector.detect(screenshot)
+            foundClue = (result[1] > 0.1 and result[1] > (float(_AGC.config.get("confidence", "80"))/125))
+            newGameCof = 3 if(foundClue)else max(0, cls.inGame - 1)
+            if(bool(cls.inGame) != bool(newGameCof)):
+                logging.info(f"[{cls.__name__}] InGame cof changed ({bool(cls.inGame)} -> {bool(newGameCof)}) [{round(result[1]*100)}%]")
+            cls.inGame = newGameCof
+            if(not cls.inGame):
+                cls.weapon = [ "InGame", result[1] ]
+                cls.weaponConfig = {}
+                continue
 
             # Weapon Detection
             result = WeaponDetector.detect(screenshot)
