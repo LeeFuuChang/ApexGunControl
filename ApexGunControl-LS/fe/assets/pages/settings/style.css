@@ -123,6 +123,14 @@
 #page[name="settings"] .category .adjustment input.switch {
     --switch-size: calc(1.5*var(--size));
 }
+#page[name="settings"] .category .adjustment input.color {
+    padding: calc(.25*var(--size)) calc(.5*var(--size));
+    width: 100%;
+    height: 100%;
+}
+#page[name="settings"] .category .adjustment input.color:hover {
+    cursor: pointer;
+}
 
 #page[name="settings"] .category .adjustment button {
     display: flex;

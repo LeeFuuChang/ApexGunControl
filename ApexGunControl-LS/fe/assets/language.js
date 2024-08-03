@@ -231,15 +231,30 @@ window.translation = {
         "tw": "右鍵恢復預設區域<br>記得先按 [ESC] 關閉選框",
         "cn": "右键恢复预设区域<br>记得先按 [ESC] 关闭选框",
     },
+    "page-settings-floating-title": {
+        "en": "Floating Status Window",
+        "tw": "浮動狀態視窗",
+        "cn": "浮动状态视窗",
+    },
     "page-settings-floating": {
-        "en": "Show Floating Status Window",
-        "tw": "顯示浮動狀態視窗",
-        "cn": "显示浮动状态视窗",
+        "en": "Show Status Window",
+        "tw": "顯示狀態視窗",
+        "cn": "显示状态视窗",
     },
     "page-settings-floating-tooltip": {
         "en": "Enabling this allows you to see if the Script is functioning",
         "tw": "開啟這個選項能讓您實時看到輔助是否正常運作",
         "cn": "开启这个选项能让您实时看到辅助是否正常运作",
+    },
+    "page-settings-floating-color-1": {
+        "en": "Status Color 1",
+        "tw": "狀態顏色１",
+        "cn": "状态颜色１",
+    },
+    "page-settings-floating-color-2": {
+        "en": "Status Color 2",
+        "tw": "狀態顏色２",
+        "cn": "状态颜色２",
     },
     "page-settings-mult": {
         "en": "Control Scale",

@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import QWidget, QDesktopWidget, QLabel
+from PyQt5.QtWidgets import QWidget, QDesktopWidget, QLabel, QGraphicsColorizeEffect
 from PyQt5.QtCore import Qt, pyqtSignal
-from PyQt5.QtGui import QIcon, QPixmap
+from PyQt5.QtGui import QIcon, QPixmap, QColor
 
 import contextlib
 import threading
@@ -39,19 +39,27 @@ class ApexGunControl(QWidget):
     def setupUI(self):
         self.iconLabels = []
 
+        self.state_T_Color = QColor("#E7C975")
+        self.state_F_Color = QColor("#FF0253")
+
         self.firingLabel = QLabel(self)
+        self.firingLabel.setGraphicsEffect(QGraphicsColorizeEffect())
         self.iconLabels.append(self.firingLabel)
 
         self.aimingLabel = QLabel(self)
+        self.aimingLabel.setGraphicsEffect(QGraphicsColorizeEffect())
         self.iconLabels.append(self.aimingLabel)
 
         self.movingLabel = QLabel(self)
+        self.movingLabel.setGraphicsEffect(QGraphicsColorizeEffect())
         self.iconLabels.append(self.movingLabel)
 
         self.inGameLabel = QLabel(self)
+        self.inGameLabel.setGraphicsEffect(QGraphicsColorizeEffect())
         self.iconLabels.append(self.inGameLabel)
 
         self.focusingLabel = QLabel(self)
+        self.focusingLabel.setGraphicsEffect(QGraphicsColorizeEffect())
         self.iconLabels.append(self.focusingLabel)
 
         self.resize(
@@ -78,12 +86,13 @@ class ApexGunControl(QWidget):
         self.confidenceLabel.show()
 
 
-    @staticmethod
-    def setStateIcon(label: QLabel, name: str, state: bool):
+    def setStateIcon(self, label: QLabel, name: str, state: bool):
         path = os.path.join("assets", f"{name.capitalize()}-{str(bool(state))[0]}.png")
         icon = QPixmap(sys.modules["StorageManager"].LocalStorage.path(path))
+        color = self.state_T_Color if(bool(state))else self.state_F_Color
         with contextlib.suppress(RuntimeError):
             label.setPixmap(icon.scaled(label.width(), label.height()))
+            label.graphicsEffect().setColor(color)
 
     def setFiring(self, boolean):
         self.setStateIcon(self.firingLabel, "Firing", boolean)
@@ -102,15 +111,20 @@ class ApexGunControl(QWidget):
         if(not boolean): return
         configRelPath = os.path.join("cfg", "settings.json")
         configAbsPath = sys.modules["StorageManager"].LocalStorage.path(configRelPath)
-        with open(configAbsPath, "r") as f: self.config = json.load(f)
+        with open(configAbsPath, "r") as f: 
+            try: self.config = json.load(f)
+            except: self.config = {}
+        self.state_T_Color = QColor(self.config.get("floating-color-1", "#E7C975"))
+        self.state_F_Color = QColor(self.config.get("floating-color-2", "#FF0253"))
 
     def setWeapon(self, data):
-        color = "#E7C975" if(round(data[1]*100)>=int(self.config.get("confidence", "80")))else "#FF0253"
+        color = self.state_T_Color if(round(data[1]*100)>int(self.config.get("confidence", "80")))else self.state_F_Color
+        style = f"font-size: {int(self.sizeUnit/2)}px; font-weight: 600; color: rgba{color.getRgb()}"
         with contextlib.suppress(RuntimeError):
             self.weaponLabel.setText(str(data[0]))
-            self.weaponLabel.setStyleSheet(f"font-size: {int(self.sizeUnit/2)}px; font-weight: 600; color: {color}")
+            self.weaponLabel.setStyleSheet(style)
             self.confidenceLabel.setText(f"{round(data[1]*100)}%")
-            self.confidenceLabel.setStyleSheet(f"font-size: {int(self.sizeUnit/2)}px; font-weight: 600; color: {color}")
+            self.confidenceLabel.setStyleSheet(style)
 
 
     def setVisibility(self, boolean):

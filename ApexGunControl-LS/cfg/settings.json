@@ -6,5 +6,7 @@
     "region-t": "-1",
     "region-r": "-1",
     "region-b": "-1",
-    "floating": true
+    "floating": true,
+    "floating-color-1": "#E7C975",
+    "floating-color-2": "#FF0253"
 }

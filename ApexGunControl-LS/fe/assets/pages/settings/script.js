@@ -85,6 +85,11 @@ setTimeout(function(){
                     Save(this);
                 });
         $(parent)
+            .find(".color")
+                .on("change", function(){
+                    Save(this);
+                });
+        $(parent)
             .find(".region-button")
                 .on("mousedown", function(e){
                     // window.Notify("error", window.GetLangText("app-feature-developing"));
