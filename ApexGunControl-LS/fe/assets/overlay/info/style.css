@@ -55,7 +55,7 @@
 #overlay-container[name="info"] .block .options .item input.checkbox {
     --checkbox-size: calc(1.5*var(--size));
 }
-#overlay-container[name="info"] .block .options .item input.switch[type="checkbox"] {
+#overlay-container[name="info"] .block .options .item input.switch {
     --switch-size: calc(1.5*var(--size));
 }
 #overlay-container[name="info"] .block .options .item .option-button {

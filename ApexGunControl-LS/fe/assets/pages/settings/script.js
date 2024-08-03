@@ -6,7 +6,14 @@ setTimeout(function(){
         return new Promise((resolve, reject)=>{
             let data = {};
             for(let inp of $(`input[path="${$(input).attr("path")}"]`)) {
-                data[$(inp).attr("name")] = $(inp).val();
+                switch($(inp).attr("type")) {
+                    case "checkbox":
+                        data[$(inp).attr("name")] = $(inp).is(":checked");
+                        break;
+                    default:
+                        data[$(inp).attr("name")] = $(inp).val();
+                        break;
+                }
             }
             return resolve(data);
         }).then((data)=>{
@@ -73,6 +80,11 @@ setTimeout(function(){
                     Save(this);
                 });
         $(parent)
+            .find(".switch")
+                .on("change", function(){
+                    Save(this);
+                });
+        $(parent)
             .find(".region-button")
                 .on("mousedown", function(e){
                     // window.Notify("error", window.GetLangText("app-feature-developing"));
@@ -100,7 +112,15 @@ setTimeout(function(){
         $.get("/app/config/settings.json", {})
             .then((data)=>{
                 for(key in data) {
-                    $(`input[name="${key}"]`).val(data[key]);
+                    let inp = $(`input[name="${key}"]`);
+                    switch($(inp).attr("type")) {
+                        case "checkbox":
+                            $(inp).prop("checked", data[key]);
+                            break;
+                        default:
+                            $(inp).val(data[key]);
+                            break;
+                    }
                 }
                 return SetRegion(data);
             }),

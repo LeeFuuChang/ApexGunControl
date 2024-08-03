@@ -116,17 +116,20 @@
     text-align: center;
 }
 
-#page[name="settings"] .category .adjustment form .slider {
+#page[name="settings"] .category .adjustment input.slider {
     --slider-width: 100%;
     --slider-height: calc(1*var(--size));
 }
+#page[name="settings"] .category .adjustment input.switch {
+    --switch-size: calc(1.5*var(--size));
+}
 
-#page[name="settings"] .category .adjustment form button {
+#page[name="settings"] .category .adjustment button {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-#page[name="settings"] .category .adjustment form button img {
+#page[name="settings"] .category .adjustment button img {
     height: 75%;
     filter: var(--theme-color-white-filter);
 }

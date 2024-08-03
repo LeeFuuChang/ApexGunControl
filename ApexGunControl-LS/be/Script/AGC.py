@@ -31,7 +31,7 @@ class ApexGunControl(QWidget):
         self.setAttribute(Qt.WA_TranslucentBackground, True)
         self.setAttribute(Qt.WA_TransparentForMouseEvents, True)
 
-        self.toggleStatusWindowSignal.connect(self.setVisible)
+        self.toggleStatusWindowSignal.connect(self.setVisibility)
 
         self.setupUI()
 
@@ -111,6 +111,10 @@ class ApexGunControl(QWidget):
             self.weaponLabel.setStyleSheet(f"font-size: {int(self.sizeUnit/2)}px; font-weight: 600; color: {color}")
             self.confidenceLabel.setText(f"{round(data[1]*100)}%")
             self.confidenceLabel.setStyleSheet(f"font-size: {int(self.sizeUnit/2)}px; font-weight: 600; color: {color}")
+
+
+    def setVisibility(self, boolean):
+        self.setVisible(boolean and self.config.get("floating", True))
 
 
     def showEvent(self, event):
