@@ -8,5 +8,6 @@
     "region-b": "-1",
     "floating": true,
     "floating-color-1": "#E7C975",
-    "floating-color-2": "#FF0253"
+    "floating-color-2": "#FF0253",
+    "movement-keybind": "VK_XBUTTON1"
 }

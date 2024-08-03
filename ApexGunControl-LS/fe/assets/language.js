@@ -231,6 +231,16 @@ window.translation = {
         "tw": "右鍵恢復預設區域<br>記得先按 [ESC] 關閉選框",
         "cn": "右键恢复预设区域<br>记得先按 [ESC] 关闭选框",
     },
+    "page-settings-movement-title": {
+        "en": "Movement Script",
+        "tw": "身法輔助",
+        "cn": "身法辅助",
+    },
+    "page-settings-movement-keybind": {
+        "en": "Movement KeyBind",
+        "tw": "身法熱鍵",
+        "cn": "身法热键",
+    },
     "page-settings-floating-title": {
         "en": "Floating Status Window",
         "tw": "浮動狀態視窗",

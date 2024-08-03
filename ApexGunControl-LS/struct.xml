@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<folder name="ApexGunControl-LS" version="395">
+<folder name="ApexGunControl-LS" version="398">
 	<folder name="apex">
 		<folder name="assets">
 			<folder name="bullets">
@@ -95,25 +95,25 @@
 		</folder>
 	</folder>
 	<folder name="assets">
-		<file updated="391" name="Aiming-F" type="png" path="assets"/>
-		<file updated="391" name="Aiming-T" type="png" path="assets"/>
-		<file updated="391" name="Firing-F" type="png" path="assets"/>
-		<file updated="391" name="Firing-T" type="png" path="assets"/>
-		<file updated="391" name="Focusing-F" type="png" path="assets"/>
-		<file updated="391" name="Focusing-T" type="png" path="assets"/>
-		<file updated="393" name="InGame-F" type="png" path="assets"/>
-		<file updated="393" name="InGame-T" type="png" path="assets"/>
-		<file updated="391" name="Moving-F" type="png" path="assets"/>
-		<file updated="391" name="Moving-T" type="png" path="assets"/>
-		<file updated="393" name="urls" type="txt" path="assets"/>
+		<file updated="396" name="Aiming-F" type="png" path="assets"/>
+		<file updated="396" name="Aiming-T" type="png" path="assets"/>
+		<file updated="396" name="Firing-F" type="png" path="assets"/>
+		<file updated="396" name="Firing-T" type="png" path="assets"/>
+		<file updated="396" name="InGame-F" type="png" path="assets"/>
+		<file updated="396" name="InGame-T" type="png" path="assets"/>
+		<file updated="396" name="Moving-F" type="png" path="assets"/>
+		<file updated="396" name="Moving-T" type="png" path="assets"/>
+		<file updated="397" name="Nading-F" type="png" path="assets"/>
+		<file updated="397" name="Nading-T" type="png" path="assets"/>
+		<file updated="397" name="urls" type="txt" path="assets"/>
 	</folder>
 	<folder name="be">
 		<file updated="395" name="app" type="pyc" path="be"/>
 		<folder name="Script">
-			<file updated="395" name="AGC" type="pyc" path="be\Script"/>
-			<file updated="394" name="Controller" type="pyc" path="be\Script"/>
+			<file updated="397" name="AGC" type="pyc" path="be\Script"/>
+			<file updated="398" name="Controller" type="pyc" path="be\Script"/>
 			<file updated="395" name="Detector" type="pyc" path="be\Script"/>
-			<file updated="394" name="Monitor" type="pyc" path="be\Script"/>
+			<file updated="398" name="Monitor" type="pyc" path="be\Script"/>
 			<file updated="395" name="Selector" type="pyc" path="be\Script"/>
 		</folder>
 		<folder name="Server">
@@ -128,7 +128,7 @@
 	<folder name="cfg">
 		<file updated="393" name="app" type="json" path="cfg"/>
 		<file updated="391" name="cfg" type="json" path="cfg"/>
-		<file updated="395" name="settings" type="json" path="cfg"/>
+		<file updated="398" name="settings" type="json" path="cfg"/>
 		<folder name="weapons">
 			<file updated="391" name="30-30-Repeater" type="json" path="cfg\weapons"/>
 			<file updated="391" name="Alternator" type="json" path="cfg\weapons"/>
@@ -163,11 +163,12 @@
 		</folder>
 	</folder>
 	<folder name="fe">
-		<file updated="391" name="index" type="html" path="fe"/>
+		<file updated="398" name="index" type="html" path="fe"/>
 		<folder name="assets">
 			<file updated="391" name="auth" type="js" path="fe\assets"/>
+			<file updated="398" name="constant" type="js" path="fe\assets"/>
 			<file updated="391" name="index" type="js" path="fe\assets"/>
-			<file updated="395" name="language" type="js" path="fe\assets"/>
+			<file updated="398" name="language" type="js" path="fe\assets"/>
 			<file updated="391" name="style" type="css" path="fe\assets"/>
 			<folder name="logo">
 				<file updated="391" name="filled" type="png" path="fe\assets\logo"/>
@@ -242,9 +243,9 @@
 					<file updated="391" name="style" type="css" path="fe\assets\pages\guide"/>
 				</folder>
 				<folder name="settings">
-					<file updated="395" name="page" type="html" path="fe\assets\pages\settings"/>
-					<file updated="395" name="script" type="js" path="fe\assets\pages\settings"/>
-					<file updated="395" name="style" type="css" path="fe\assets\pages\settings"/>
+					<file updated="398" name="page" type="html" path="fe\assets\pages\settings"/>
+					<file updated="398" name="script" type="js" path="fe\assets\pages\settings"/>
+					<file updated="398" name="style" type="css" path="fe\assets\pages\settings"/>
 				</folder>
 			</folder>
 			<folder name="widgets">

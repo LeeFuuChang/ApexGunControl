@@ -90,6 +90,24 @@ setTimeout(function(){
                     Save(this);
                 });
         $(parent)
+            .find(".keybind")
+                .on("mousedown", function(e){
+                    if(!$(this).is(":focus")) return;
+                    else if(e.button == 0) return;
+                    else if(e.button == 2) $(this).val(MBUTTON2KEY[3]);
+                    else if(e.button in MBUTTON2KEY) $(this).val(MBUTTON2KEY[e.button]);
+                    $(this).blur();
+                    e.preventDefault();
+                    Save(this);
+                })
+                .on("keydown", function(e){
+                    if(!$(this).is(":focus")) return;
+                    if(e.keyCode in KEYCODE2KEY) $(this).val(KEYCODE2KEY[e.keyCode]);
+                    $(this).blur();
+                    e.preventDefault();
+                    Save(this);
+                });
+        $(parent)
             .find(".region-button")
                 .on("mousedown", function(e){
                     // window.Notify("error", window.GetLangText("app-feature-developing"));

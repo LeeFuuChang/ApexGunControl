@@ -33,8 +33,11 @@ class GameMonitor:
     def update(cls, _AGC):
         with mss.mss() as screen:
             while(not time.sleep(.5)):
+                focus = win32gui.GetForegroundWindow()
+                focusPID = win32process.GetWindowThreadProcessId(focus)[1]
+
                 with contextlib.suppress(RuntimeError):
-                    _AGC.toggleStatusWindowSignal.emit(cls.authorized and cls.isFocused)
+                    _AGC.toggleStatusWindowSignal.emit(cls.authorized and (cls.isFocused or focusPID == os.getpid()))
 
                 authorized = os.environ["EXPIRE_AT"] > datetime.now(tz=timezone(os.environ["TIMEZONE"])).strftime(r"%Y/%m/%d %H:%M:%S")
                 if(cls.authorized != authorized):
@@ -50,11 +53,8 @@ class GameMonitor:
                 # Focus Check
                 isFocused = False
                 try:
-                    focus = win32gui.GetForegroundWindow()
-                    focusPID = win32process.GetWindowThreadProcessId(focus)[1]
                     focusProc = psutil.Process(focusPID)
-                    focusName = focusProc.name().strip().lower()
-                    isFocused = focusName.startswith("r5apex") or focusPID == os.getpid()
+                    isFocused = os.path.split(focusProc.exe())[1] == "r5apex"
                 except:
                     pass
                 if(cls.isFocused != isFocused):
