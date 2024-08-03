@@ -26,10 +26,17 @@ class GameController:
             GameMonitor.inGame
         )
 
+        grenadeMode = False
+        def setGrenadeMode():
+            nonlocal grenadeMode
+            grenadeMode = controlRunning()
+        keyboard.on_press_key("g", lambda e : setGrenadeMode(), suppress=False)
+
         while(not time.sleep(.5)):
             _AGC.setFiring(False)
             _AGC.setAiming(False)
             _AGC.setMoving(False)
+            _AGC.setNading(False)
 
             keyboard.send(os.environ["KEY_MOVEMENT"], do_press=False, do_release=True)
             keyboard.send(os.environ["KEY_SHOOTING"], do_press=False, do_release=True)
@@ -42,10 +49,11 @@ class GameController:
                 _AGC.setFiring(win32api.GetAsyncKeyState(0x1) & 0x8000 > 0)
                 _AGC.setAiming(win32api.GetAsyncKeyState(0x2) & 0x8000 > 0)
                 _AGC.setMoving(win32api.GetAsyncKeyState(0x5) & 0x8000 > 0)
+                _AGC.setNading(grenadeMode)
 
                 if(win32api.GetAsyncKeyState(0x1) & 0x8000 > 0):
                     keyboard.send(os.environ["KEY_SHOOTING"], do_press=True, do_release=False)
-                    if(GameMonitor.weaponConfig and GameMonitor.weaponConfig.get("tap", False)):
+                    if(GameMonitor.weaponConfig and GameMonitor.weaponConfig.get("tap", False) and not grenadeMode):
                         keyboard.send(os.environ["KEY_SHOOTING"], do_press=False, do_release=True)
                     gunMul = float(GameMonitor.weaponConfig.get("multiplier", "1.0"))
                     recoil = GameMonitor.weaponConfig.get("recoil", [[0, 0], [0, 0]])
@@ -60,7 +68,15 @@ class GameController:
                     recoilIndex = 0
                     keyboard.send(os.environ["KEY_SHOOTING"], do_press=False, do_release=True)
 
+                if(win32api.GetAsyncKeyState(0x2) & 0x8000 > 0):
+                    grenadeMode = False
+
                 if(win32api.GetAsyncKeyState(0x5) & 0x8000 > 0):
                     keyboard.send(os.environ["KEY_MOVEMENT"], do_press=True, do_release=True)
 
                 time.sleep(1/float(_AGC.config.get("frequency", "120")))
+
+            else:
+                grenadeMode = False
+                keyboard.send(os.environ["KEY_MOVEMENT"], do_press=False, do_release=True)
+                keyboard.send(os.environ["KEY_SHOOTING"], do_press=False, do_release=True)

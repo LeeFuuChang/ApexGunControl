@@ -10,10 +10,10 @@ Moving-F.png
 Moving-T.png
     https://icons8.com/icon/916/running
 
+Nading-F.png
+Nading-T.png
+    https://icons8.com/icon/1142/grenade
+
 InGame-F.png
 InGame-T.png
     https://icons8.com/icon/59335/battle
-
-Focusing-F.png
-Focusing-T.png
-    https://icons8.com/icon/540/tv

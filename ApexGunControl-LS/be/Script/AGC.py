@@ -54,13 +54,13 @@ class ApexGunControl(QWidget):
         self.movingLabel.setGraphicsEffect(QGraphicsColorizeEffect())
         self.iconLabels.append(self.movingLabel)
 
+        self.nadingLabel = QLabel(self)
+        self.nadingLabel.setGraphicsEffect(QGraphicsColorizeEffect())
+        self.iconLabels.append(self.nadingLabel)
+
         self.inGameLabel = QLabel(self)
         self.inGameLabel.setGraphicsEffect(QGraphicsColorizeEffect())
         self.iconLabels.append(self.inGameLabel)
-
-        self.focusingLabel = QLabel(self)
-        self.focusingLabel.setGraphicsEffect(QGraphicsColorizeEffect())
-        self.iconLabels.append(self.focusingLabel)
 
         self.resize(
             self.padding + self.sizeUnit*len(self.iconLabels) + self.padding*len(self.iconLabels),
@@ -103,11 +103,13 @@ class ApexGunControl(QWidget):
     def setMoving(self, boolean):
         self.setStateIcon(self.movingLabel, "Moving", boolean)
 
+    def setNading(self, boolean):
+        self.setStateIcon(self.nadingLabel, "Nading", boolean)
+
     def setInGame(self, boolean):
         self.setStateIcon(self.inGameLabel, "InGame", boolean)
 
     def setFocusing(self, boolean):
-        self.setStateIcon(self.focusingLabel, "Focusing", boolean)
         if(not boolean): return
         configRelPath = os.path.join("cfg", "settings.json")
         configAbsPath = sys.modules["StorageManager"].LocalStorage.path(configRelPath)
