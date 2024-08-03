@@ -31,6 +31,9 @@ class GameController:
             _AGC.setAiming(False)
             _AGC.setMoving(False)
 
+            keyboard.send(os.environ["KEY_MOVEMENT"], do_press=False, do_release=True)
+            keyboard.send(os.environ["KEY_SHOOTING"], do_press=False, do_release=True)
+
             if(controlRunning()):
                 recoilIndex = 0
                 recoilMultiplier = 5.0 / float(_AGC.config.get("sensitivity", "5.0"))
@@ -61,5 +64,3 @@ class GameController:
                     keyboard.send(os.environ["KEY_MOVEMENT"], do_press=True, do_release=True)
 
                 time.sleep(1/float(_AGC.config.get("frequency", "120")))
-
-            keyboard.send(os.environ["KEY_SHOOTING"], do_press=False, do_release=True)

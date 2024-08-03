@@ -1,47 +1,10 @@
-import xml.etree.ElementTree as ET
 import distutils.file_util
 import distutils.dir_util
-import xml.dom.minidom
 import requests as rq
 import compileall
 import sys
 import re
 import os
-
-
-
-def extractStruct(src, dst):
-    if(not os.path.exists(src)): raise FileNotFoundError()
-
-    root = ET.Element("folder")
-    root.attrib["name"] = os.path.split(src)[1]
-
-    with open(os.path.join(src, "storage.version"), "r") as f:
-        root.attrib["version"] = f.read()
-
-    excluding = {
-        "__pycache__", ".cli", ".DS_Store", ".version"
-    }
-
-    def walk(root, node, path):
-        for child in sorted(os.listdir(path), key=lambda c : os.path.isdir(os.path.join(path, c))):
-            if(any([x in child for x in list(excluding)])): continue
-            childPath = os.path.normpath(os.path.join(path, child))
-            if(os.path.isdir(childPath)):
-                childNode = ET.SubElement(node, "folder")
-                childNode.attrib["name"] = child
-                walk(root, childNode, childPath)
-            elif(os.path.split(os.path.dirname(childPath))[1] != src):
-                fileName, fileType = os.path.splitext(child)
-                childNode = ET.SubElement(node, "file")
-                childNode.attrib["updated"] = root.attrib["version"]
-                childNode.attrib["name"] = fileName
-                childNode.attrib["type"] = fileType[1:] if(fileType[1:] != "py")else "pyc"
-                childNode.attrib["path"] = os.path.split(os.path.relpath(childPath, src))[0]
-    walk(root, root, src)
-
-    with open(os.path.join(dst, "struct.xml"), "w") as f:
-        f.write(xml.dom.minidom.parseString(ET.tostring(root, xml_declaration=False)).toprettyxml(indent="\t"))
 
 
 
@@ -111,10 +74,6 @@ if __name__ == "__main__" and len(sys.argv) == 3:
         if(os.path.exists(sys.argv[2])):
             distutils.dir_util.remove_tree(sys.argv[2])
         os.mkdir(sys.argv[2])
-        extractStruct(
-            os.path.normpath(sys.argv[1]), 
-            os.path.normpath(sys.argv[2]),
-        )
         compileBE(
             os.path.normpath(os.path.join(sys.argv[1], "be")),
             os.path.normpath(os.path.join(sys.argv[2], "be")),

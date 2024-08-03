@@ -5,6 +5,5 @@ build
 dist
 *.pyd
 *.pyc
-*.xml
 *.log
 system.json

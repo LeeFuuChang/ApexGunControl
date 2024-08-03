@@ -1,0 +1,264 @@
+<?xml version="1.0" ?>
+<folder name="ApexGunControl-LS" version="394">
+	<folder name="apex">
+		<folder name="assets">
+			<folder name="bullets">
+				<file updated="391" name="Energy" type="png" path="apex\assets\bullets"/>
+				<file updated="391" name="Heavy" type="png" path="apex\assets\bullets"/>
+				<file updated="391" name="Light" type="png" path="apex\assets\bullets"/>
+				<file updated="391" name="Shotgun" type="png" path="apex\assets\bullets"/>
+				<file updated="391" name="Sniper" type="png" path="apex\assets\bullets"/>
+				<file updated="391" name="SupplyArrow" type="png" path="apex\assets\bullets"/>
+				<file updated="391" name="SupplyEnergy" type="png" path="apex\assets\bullets"/>
+				<file updated="391" name="SupplyHeavy" type="png" path="apex\assets\bullets"/>
+				<file updated="391" name="SupplyKnife" type="png" path="apex\assets\bullets"/>
+				<file updated="391" name="SupplyLight" type="png" path="apex\assets\bullets"/>
+				<file updated="391" name="SupplyShotgun" type="png" path="apex\assets\bullets"/>
+				<file updated="391" name="SupplySniper" type="png" path="apex\assets\bullets"/>
+			</folder>
+			<folder name="weapons">
+				<file updated="391" name="30-30-Repeater" type="png" path="apex\assets\weapons"/>
+				<file updated="391" name="Alternator" type="png" path="apex\assets\weapons"/>
+				<file updated="391" name="Bocek" type="png" path="apex\assets\weapons"/>
+				<file updated="391" name="CAR" type="png" path="apex\assets\weapons"/>
+				<file updated="391" name="Charge-Rifle" type="png" path="apex\assets\weapons"/>
+				<file updated="391" name="Devotion" type="png" path="apex\assets\weapons"/>
+				<file updated="391" name="EVA-8" type="png" path="apex\assets\weapons"/>
+				<file updated="391" name="Flatline" type="png" path="apex\assets\weapons"/>
+				<file updated="391" name="G7-Scout" type="png" path="apex\assets\weapons"/>
+				<file updated="391" name="HAVOC" type="png" path="apex\assets\weapons"/>
+				<file updated="391" name="Hemlok" type="png" path="apex\assets\weapons"/>
+				<file updated="391" name="Kraber" type="png" path="apex\assets\weapons"/>
+				<file updated="391" name="L-STAR" type="png" path="apex\assets\weapons"/>
+				<file updated="391" name="Longbow" type="png" path="apex\assets\weapons"/>
+				<file updated="391" name="Mastiff" type="png" path="apex\assets\weapons"/>
+				<file updated="391" name="Mozambique" type="png" path="apex\assets\weapons"/>
+				<file updated="391" name="Nemesis" type="png" path="apex\assets\weapons"/>
+				<file updated="391" name="P2020" type="png" path="apex\assets\weapons"/>
+				<file updated="391" name="Peacekeeper" type="png" path="apex\assets\weapons"/>
+				<file updated="391" name="Prowler" type="png" path="apex\assets\weapons"/>
+				<file updated="391" name="R-301" type="png" path="apex\assets\weapons"/>
+				<file updated="391" name="R-99" type="png" path="apex\assets\weapons"/>
+				<file updated="391" name="Rampage" type="png" path="apex\assets\weapons"/>
+				<file updated="391" name="RE-45" type="png" path="apex\assets\weapons"/>
+				<file updated="391" name="Sentinel" type="png" path="apex\assets\weapons"/>
+				<file updated="391" name="Spitfire" type="png" path="apex\assets\weapons"/>
+				<file updated="391" name="Throwing-Knife" type="png" path="apex\assets\weapons"/>
+				<file updated="391" name="Triple-Take" type="png" path="apex\assets\weapons"/>
+				<file updated="391" name="Volt" type="png" path="apex\assets\weapons"/>
+				<file updated="391" name="Wingman" type="png" path="apex\assets\weapons"/>
+			</folder>
+		</folder>
+		<folder name="cfg">
+			<file updated="391" name="config_default_pc" type="cfg" path="apex\cfg"/>
+			<file updated="391" name="video_settings_changed_quit" type="cfg" path="apex\cfg"/>
+		</folder>
+		<folder name="silhouettes">
+			<folder name="ingame">
+				<file updated="391" name="grenade" type="jpg" path="apex\silhouettes\ingame"/>
+				<file updated="394" name="health" type="jpg" path="apex\silhouettes\ingame"/>
+				<file updated="393" name="hint" type="jpg" path="apex\silhouettes\ingame"/>
+				<file updated="394" name="speaker" type="jpg" path="apex\silhouettes\ingame"/>
+			</folder>
+			<folder name="weapons">
+				<file updated="391" name="30-30-Repeater" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="391" name="Alternator" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="391" name="Bocek" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="391" name="CAR" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="391" name="Charge-Rifle" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="391" name="Devotion" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="391" name="EVA-8" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="391" name="Flatline" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="391" name="G7-Scout" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="391" name="HAVOC" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="391" name="Hemlok" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="391" name="Kraber" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="391" name="L-STAR" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="391" name="Longbow" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="391" name="Mastiff" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="391" name="Mozambique" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="391" name="Nemesis" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="391" name="P2020" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="391" name="Peacekeeper" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="391" name="Prowler" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="391" name="R-301" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="391" name="R-99" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="391" name="Rampage" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="391" name="RE-45" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="391" name="Sentinel" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="391" name="Spitfire" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="391" name="Throwing-Knife" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="391" name="Triple-Take" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="391" name="Volt" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="391" name="Wingman" type="jpg" path="apex\silhouettes\weapons"/>
+			</folder>
+		</folder>
+	</folder>
+	<folder name="assets">
+		<file updated="391" name="Aiming-F" type="png" path="assets"/>
+		<file updated="391" name="Aiming-T" type="png" path="assets"/>
+		<file updated="391" name="Firing-F" type="png" path="assets"/>
+		<file updated="391" name="Firing-T" type="png" path="assets"/>
+		<file updated="391" name="Focusing-F" type="png" path="assets"/>
+		<file updated="391" name="Focusing-T" type="png" path="assets"/>
+		<file updated="393" name="InGame-F" type="png" path="assets"/>
+		<file updated="393" name="InGame-T" type="png" path="assets"/>
+		<file updated="391" name="Moving-F" type="png" path="assets"/>
+		<file updated="391" name="Moving-T" type="png" path="assets"/>
+		<file updated="393" name="urls" type="txt" path="assets"/>
+	</folder>
+	<folder name="be">
+		<file updated="391" name="app" type="pyc" path="be"/>
+		<folder name="Script">
+			<file updated="393" name="AGC" type="pyc" path="be\Script"/>
+			<file updated="394" name="Controller" type="pyc" path="be\Script"/>
+			<file updated="393" name="Detector" type="pyc" path="be\Script"/>
+			<file updated="394" name="Monitor" type="pyc" path="be\Script"/>
+			<file updated="393" name="Selector" type="pyc" path="be\Script"/>
+		</folder>
+		<folder name="Server">
+			<file updated="391" name="Flask" type="pyc" path="be\Server"/>
+			<folder name="blueprints">
+				<file updated="391" name="Apex" type="pyc" path="be\Server\blueprints"/>
+				<file updated="391" name="App" type="pyc" path="be\Server\blueprints"/>
+				<file updated="391" name="Ui" type="pyc" path="be\Server\blueprints"/>
+			</folder>
+		</folder>
+	</folder>
+	<folder name="cfg">
+		<file updated="393" name="app" type="json" path="cfg"/>
+		<file updated="391" name="cfg" type="json" path="cfg"/>
+		<file updated="394" name="settings" type="json" path="cfg"/>
+		<folder name="weapons">
+			<file updated="391" name="30-30-Repeater" type="json" path="cfg\weapons"/>
+			<file updated="391" name="Alternator" type="json" path="cfg\weapons"/>
+			<file updated="391" name="Bocek" type="json" path="cfg\weapons"/>
+			<file updated="391" name="CAR" type="json" path="cfg\weapons"/>
+			<file updated="391" name="Charge-Rifle" type="json" path="cfg\weapons"/>
+			<file updated="391" name="Devotion" type="json" path="cfg\weapons"/>
+			<file updated="391" name="EVA-8" type="json" path="cfg\weapons"/>
+			<file updated="391" name="Flatline" type="json" path="cfg\weapons"/>
+			<file updated="391" name="G7-Scout" type="json" path="cfg\weapons"/>
+			<file updated="391" name="HAVOC" type="json" path="cfg\weapons"/>
+			<file updated="391" name="Hemlok" type="json" path="cfg\weapons"/>
+			<file updated="391" name="Kraber" type="json" path="cfg\weapons"/>
+			<file updated="391" name="L-STAR" type="json" path="cfg\weapons"/>
+			<file updated="391" name="Longbow" type="json" path="cfg\weapons"/>
+			<file updated="391" name="Mastiff" type="json" path="cfg\weapons"/>
+			<file updated="391" name="Mozambique" type="json" path="cfg\weapons"/>
+			<file updated="391" name="Nemesis" type="json" path="cfg\weapons"/>
+			<file updated="391" name="P2020" type="json" path="cfg\weapons"/>
+			<file updated="391" name="Peacekeeper" type="json" path="cfg\weapons"/>
+			<file updated="391" name="Prowler" type="json" path="cfg\weapons"/>
+			<file updated="391" name="R-301" type="json" path="cfg\weapons"/>
+			<file updated="391" name="R-99" type="json" path="cfg\weapons"/>
+			<file updated="391" name="Rampage" type="json" path="cfg\weapons"/>
+			<file updated="391" name="RE-45" type="json" path="cfg\weapons"/>
+			<file updated="391" name="Sentinel" type="json" path="cfg\weapons"/>
+			<file updated="391" name="Spitfire" type="json" path="cfg\weapons"/>
+			<file updated="391" name="Throwing-Knife" type="json" path="cfg\weapons"/>
+			<file updated="391" name="Triple-Take" type="json" path="cfg\weapons"/>
+			<file updated="391" name="Volt" type="json" path="cfg\weapons"/>
+			<file updated="391" name="Wingman" type="json" path="cfg\weapons"/>
+		</folder>
+	</folder>
+	<folder name="fe">
+		<file updated="391" name="index" type="html" path="fe"/>
+		<folder name="assets">
+			<file updated="391" name="auth" type="js" path="fe\assets"/>
+			<file updated="391" name="index" type="js" path="fe\assets"/>
+			<file updated="391" name="language" type="js" path="fe\assets"/>
+			<file updated="391" name="style" type="css" path="fe\assets"/>
+			<folder name="logo">
+				<file updated="391" name="filled" type="png" path="fe\assets\logo"/>
+				<file updated="391" name="firebase" type="png" path="fe\assets\logo"/>
+				<file updated="391" name="nofill" type="png" path="fe\assets\logo"/>
+			</folder>
+			<folder name="media">
+				<file updated="391" name="Banner" type="png" path="fe\assets\media"/>
+				<file updated="391" name="Header" type="png" path="fe\assets\media"/>
+				<file updated="391" name="Purchase" type="png" path="fe\assets\media"/>
+				<folder name="controls">
+					<file updated="391" name="Close" type="svg" path="fe\assets\media\controls"/>
+					<file updated="391" name="Minimize" type="svg" path="fe\assets\media\controls"/>
+					<file updated="391" name="Settings" type="svg" path="fe\assets\media\controls"/>
+				</folder>
+				<folder name="illustration">
+					<file updated="391" name="Addition" type="svg" path="fe\assets\media\illustration"/>
+					<file updated="391" name="Check" type="svg" path="fe\assets\media\illustration"/>
+					<file updated="391" name="Directory" type="svg" path="fe\assets\media\illustration"/>
+					<file updated="391" name="Down" type="svg" path="fe\assets\media\illustration"/>
+					<file updated="391" name="Download" type="svg" path="fe\assets\media\illustration"/>
+					<file updated="391" name="Minus" type="svg" path="fe\assets\media\illustration"/>
+					<file updated="391" name="Region" type="svg" path="fe\assets\media\illustration"/>
+					<file updated="391" name="Search" type="svg" path="fe\assets\media\illustration"/>
+				</folder>
+				<folder name="installation">
+					<file updated="391" name="Step1" type="png" path="fe\assets\media\installation"/>
+					<file updated="391" name="Step2" type="png" path="fe\assets\media\installation"/>
+					<file updated="391" name="Step3" type="png" path="fe\assets\media\installation"/>
+					<file updated="391" name="Step4" type="png" path="fe\assets\media\installation"/>
+					<file updated="391" name="Step5" type="png" path="fe\assets\media\installation"/>
+					<file updated="391" name="Step6" type="png" path="fe\assets\media\installation"/>
+				</folder>
+				<folder name="navigations">
+					<file updated="391" name="Config" type="svg" path="fe\assets\media\navigations"/>
+					<file updated="391" name="Dashboard" type="svg" path="fe\assets\media\navigations"/>
+					<file updated="391" name="Guide" type="svg" path="fe\assets\media\navigations"/>
+					<file updated="391" name="Left" type="svg" path="fe\assets\media\navigations"/>
+					<file updated="391" name="Login" type="svg" path="fe\assets\media\navigations"/>
+					<file updated="391" name="Logout" type="svg" path="fe\assets\media\navigations"/>
+					<file updated="391" name="Right" type="svg" path="fe\assets\media\navigations"/>
+					<file updated="391" name="Settings" type="svg" path="fe\assets\media\navigations"/>
+				</folder>
+			</folder>
+			<folder name="overlay">
+				<folder name="info">
+					<file updated="391" name="overlay" type="html" path="fe\assets\overlay\info"/>
+					<file updated="391" name="script" type="js" path="fe\assets\overlay\info"/>
+					<file updated="391" name="style" type="css" path="fe\assets\overlay\info"/>
+				</folder>
+				<folder name="login">
+					<file updated="391" name="overlay" type="html" path="fe\assets\overlay\login"/>
+					<file updated="391" name="script" type="js" path="fe\assets\overlay\login"/>
+					<file updated="391" name="style" type="css" path="fe\assets\overlay\login"/>
+				</folder>
+			</folder>
+			<folder name="pages">
+				<file updated="391" name="style" type="css" path="fe\assets\pages"/>
+				<folder name="config">
+					<file updated="391" name="page" type="html" path="fe\assets\pages\config"/>
+					<file updated="391" name="script" type="js" path="fe\assets\pages\config"/>
+					<file updated="391" name="style" type="css" path="fe\assets\pages\config"/>
+				</folder>
+				<folder name="dashboard">
+					<file updated="391" name="page" type="html" path="fe\assets\pages\dashboard"/>
+					<file updated="391" name="script" type="js" path="fe\assets\pages\dashboard"/>
+					<file updated="391" name="style" type="css" path="fe\assets\pages\dashboard"/>
+				</folder>
+				<folder name="guide">
+					<file updated="391" name="page" type="html" path="fe\assets\pages\guide"/>
+					<file updated="391" name="script" type="js" path="fe\assets\pages\guide"/>
+					<file updated="391" name="style" type="css" path="fe\assets\pages\guide"/>
+				</folder>
+				<folder name="settings">
+					<file updated="391" name="page" type="html" path="fe\assets\pages\settings"/>
+					<file updated="391" name="script" type="js" path="fe\assets\pages\settings"/>
+					<file updated="391" name="style" type="css" path="fe\assets\pages\settings"/>
+				</folder>
+			</folder>
+			<folder name="widgets">
+				<file updated="391" name="style" type="css" path="fe\assets\widgets"/>
+				<folder name="checkbox">
+					<file updated="391" name="style" type="css" path="fe\assets\widgets\checkbox"/>
+				</folder>
+				<folder name="slider">
+					<file updated="391" name="style" type="css" path="fe\assets\widgets\slider"/>
+				</folder>
+				<folder name="switch">
+					<file updated="391" name="style" type="css" path="fe\assets\widgets\switch"/>
+				</folder>
+			</folder>
+		</folder>
+	</folder>
+</folder>
