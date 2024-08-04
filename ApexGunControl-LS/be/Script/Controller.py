@@ -39,8 +39,10 @@ class GameController:
             _AGC.setMoving(False)
             _AGC.setNading(False)
 
-            keyboard.send(os.environ["KEY_MOVEMENT"], do_press=False, do_release=True)
-            keyboard.send(os.environ["KEY_SHOOTING"], do_press=False, do_release=True)
+            if(not (win32api.GetAsyncKeyState(win32con.VK_LBUTTON) & 0x8000 > 0)):
+                grenadeMode = False
+                keyboard.send(os.environ["KEY_SHOOTING"], do_press=False, do_release=True)
+                keyboard.send(os.environ["KEY_MOVEMENT"], do_press=False, do_release=True)
 
             if(controlRunning()):
                 recoilIndex = 0
@@ -83,8 +85,3 @@ class GameController:
                 if(moving): keyboard.send(os.environ["KEY_MOVEMENT"], do_press=True, do_release=True)
 
                 time.sleep(1/float(_AGC.config.get("frequency", "120")))
-
-            else:
-                grenadeMode = False
-                keyboard.send(os.environ["KEY_MOVEMENT"], do_press=False, do_release=True)
-                keyboard.send(os.environ["KEY_SHOOTING"], do_press=False, do_release=True)

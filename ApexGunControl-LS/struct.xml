@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<folder name="ApexGunControl-LS" version="399">
+<folder name="ApexGunControl-LS" version="39B">
 	<folder name="apex">
 		<folder name="assets">
 			<folder name="bullets">
@@ -111,7 +111,7 @@
 		<file updated="395" name="app" type="pyc" path="be"/>
 		<folder name="Script">
 			<file updated="397" name="AGC" type="pyc" path="be\Script"/>
-			<file updated="399" name="Controller" type="pyc" path="be\Script"/>
+			<file updated="39B" name="Controller" type="pyc" path="be\Script"/>
 			<file updated="395" name="Detector" type="pyc" path="be\Script"/>
 			<file updated="399" name="Monitor" type="pyc" path="be\Script"/>
 			<file updated="395" name="Selector" type="pyc" path="be\Script"/>
@@ -120,7 +120,7 @@
 			<file updated="391" name="Flask" type="pyc" path="be\Server"/>
 			<folder name="blueprints">
 				<file updated="391" name="Apex" type="pyc" path="be\Server\blueprints"/>
-				<file updated="391" name="App" type="pyc" path="be\Server\blueprints"/>
+				<file updated="39A" name="App" type="pyc" path="be\Server\blueprints"/>
 				<file updated="391" name="Ui" type="pyc" path="be\Server\blueprints"/>
 			</folder>
 		</folder>
@@ -129,6 +129,7 @@
 		<file updated="393" name="app" type="json" path="cfg"/>
 		<file updated="391" name="cfg" type="json" path="cfg"/>
 		<file updated="398" name="settings" type="json" path="cfg"/>
+		<file updated="39A" name="user" type="json" path="cfg"/>
 		<folder name="weapons">
 			<file updated="391" name="30-30-Repeater" type="json" path="cfg\weapons"/>
 			<file updated="391" name="Alternator" type="json" path="cfg\weapons"/>
@@ -165,7 +166,7 @@
 	<folder name="fe">
 		<file updated="398" name="index" type="html" path="fe"/>
 		<folder name="assets">
-			<file updated="391" name="auth" type="js" path="fe\assets"/>
+			<file updated="39A" name="auth" type="js" path="fe\assets"/>
 			<file updated="398" name="constant" type="js" path="fe\assets"/>
 			<file updated="391" name="index" type="js" path="fe\assets"/>
 			<file updated="398" name="language" type="js" path="fe\assets"/>
@@ -221,7 +222,7 @@
 				</folder>
 				<folder name="login">
 					<file updated="391" name="overlay" type="html" path="fe\assets\overlay\login"/>
-					<file updated="391" name="script" type="js" path="fe\assets\overlay\login"/>
+					<file updated="39A" name="script" type="js" path="fe\assets\overlay\login"/>
 					<file updated="391" name="style" type="css" path="fe\assets\overlay\login"/>
 				</folder>
 			</folder>
