@@ -31,11 +31,11 @@ window.auth = function() {
         if(this.user && this.authorized) window.RefreshPage();
     };
 
-    this.post = (endpoint, data) => {
+    this.post = (endpoint, data, success) => {
         return $.post(endpoint, data)
                     .done((response)=>{
                         if(response["username"] && response["password"]) {
-                            this.user = response;
+                            success(response)
                             window.Notify("success", "OK");
                         }
                         else {
@@ -50,15 +50,15 @@ window.auth = function() {
     };
 
     this.login = (username, password) => {
-        return this.post("/app/login", {"username": username, "password": password});
+        return this.post("/app/login", {"username": username, "password": password}, (r)=>{this.user=r});
     };
 
     this.activate = (pin) => {
-        return this.post("/app/activate", {"pin": pin});
+        return this.post("/app/activate", {"pin": pin}, (r)=>{this.user=r});
     };
 
     this.logout = () => {
-        return this.post("/app/logout", {});
+        return this.post("/app/logout", {}, (r)=>{this.user=null});
     };
 
     window.auth._i = this;

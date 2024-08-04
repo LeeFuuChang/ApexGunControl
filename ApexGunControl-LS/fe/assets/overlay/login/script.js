@@ -1,8 +1,13 @@
 (function(){
+    $.get("/app/config/user.json")
+        .then((data)=>{
+            $("#login-input").val(data["username"] || "");
+        });
     $("#login-submit")
         .on("click", function(){
             let email = $("#login-input").val();
             if((/^\S+(\.\S+)*@\S+(\.\S+)+$/).test(email)) {
+                $.post("/app/config/user.json", JSON.stringify({"username": email}));
                 window.auth().login(email, email.split("@")[0])
                     .then(()=>{
                         if(window.auth().user) {

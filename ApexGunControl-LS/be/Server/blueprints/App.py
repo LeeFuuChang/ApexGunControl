@@ -80,6 +80,7 @@ def App_Logout():
 
 @App.route("/auth-state", methods=["POST"])
 def App_AuthState():
+    if(not os.environ["EXPIRE_AT"]): return ""
     now = datetime.now(tz=timezone(os.environ["TIMEZONE"]))
     authorized = os.environ["EXPIRE_AT"] > now.strftime(r"%Y/%m/%d %H:%M:%S")
     return os.environ["EXPIRE_AT"] if(authorized)else ""
@@ -123,21 +124,23 @@ def App_Config(**kwargs):
 
     if(not configPath): return Response(status=404)
 
-    if(os.path.isdir(configPath)): return os.listdir(configPath)
-
     if(request.method == "GET"):
+        if(os.path.isdir(configPath)): return os.listdir(configPath)
         return send_from_directory(*os.path.split(configPath))
 
     if(request.method == "POST"):
         with open(configPath, "a+") as f:
             f.seek(0)
-            config = json.load(f)
+            try: config = json.load(f)
+            except: config = {}
             try:
                 data = request.get_json(force=True)
                 config.update(data)
                 f.truncate(0)
                 json.dump(config, f, indent=4, ensure_ascii=False)
             except:
+                f.truncate(0)
+                json.dump(config, f, indent=4, ensure_ascii=False)
                 return Response(status=422)
         return Response(status=202)
 
