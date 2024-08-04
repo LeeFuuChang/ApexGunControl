@@ -54,7 +54,7 @@ class GameMonitor:
                 isFocused = False
                 try:
                     focusProc = psutil.Process(focusPID)
-                    isFocused = os.path.split(focusProc.exe())[1] == "r5apex"
+                    isFocused = os.path.split(focusProc.exe())[1].startswith("r5apex")
                 except:
                     pass
                 if(cls.isFocused != isFocused):

@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<folder name="ApexGunControl-LS" version="398">
+<folder name="ApexGunControl-LS" version="399">
 	<folder name="apex">
 		<folder name="assets">
 			<folder name="bullets">
@@ -111,9 +111,9 @@
 		<file updated="395" name="app" type="pyc" path="be"/>
 		<folder name="Script">
 			<file updated="397" name="AGC" type="pyc" path="be\Script"/>
-			<file updated="398" name="Controller" type="pyc" path="be\Script"/>
+			<file updated="399" name="Controller" type="pyc" path="be\Script"/>
 			<file updated="395" name="Detector" type="pyc" path="be\Script"/>
-			<file updated="398" name="Monitor" type="pyc" path="be\Script"/>
+			<file updated="399" name="Monitor" type="pyc" path="be\Script"/>
 			<file updated="395" name="Selector" type="pyc" path="be\Script"/>
 		</folder>
 		<folder name="Server">

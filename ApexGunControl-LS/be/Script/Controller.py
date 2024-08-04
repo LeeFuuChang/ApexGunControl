@@ -27,10 +27,11 @@ class GameController:
         )
 
         grenadeMode = False
-        def setGrenadeMode():
+        def setGrenadeMode(state):
             nonlocal grenadeMode
-            grenadeMode = controlRunning()
-        keyboard.on_press_key("g", lambda e : setGrenadeMode(), suppress=False)
+            grenadeMode = state and controlRunning()
+        keyboard.on_press_key("g", lambda e : setGrenadeMode(1), suppress=False)
+        keyboard.on_press_key(("1", "2", "3", "4", "5", "6", "7", "8", "9"), lambda e : setGrenadeMode(0), suppress=False)
 
         while(not time.sleep(.5)):
             _AGC.setFiring(False)
