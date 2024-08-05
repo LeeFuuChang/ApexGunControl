@@ -1,6 +1,4 @@
-from flask import Blueprint, Response, send_from_directory, request
-from datetime import datetime
-from pytz import timezone
+from flask import Blueprint, Response, send_file, request
 import requests as rq
 import webbrowser
 import random
@@ -10,80 +8,6 @@ import os
 
 
 App = Blueprint("App", __name__)
-
-
-@App.route("/login", methods=["POST"])
-def App_Login():
-    res = rq.post(
-        f"{os.environ['SERVER_URL']}/Login",
-        data={
-            "username": request.form.get("username", ""),
-            "password": request.form.get("password", ""),
-        })
-
-    try: 
-        data = res.json()
-        if( "username" in data and
-            "password" in data and
-            "expireAt" in data):
-            os.environ["USERNAME"]  = data["username"]
-            os.environ["PASSWORD"]  = data["password"]
-            os.environ["EXPIRE_AT"] = data["expireAt"]
-    except: pass
-
-    return {
-        "username": os.environ["USERNAME"],
-        "password": os.environ["PASSWORD"],
-        "expireAt": os.environ["EXPIRE_AT"],
-    }, res.status_code
-
-
-@App.route("/activate", methods=["POST"])
-def App_Activate():
-    res = rq.post(
-        f"{os.environ['SERVER_URL']}/Activate",
-        data={
-            "username": os.environ["USERNAME"],
-            "password": os.environ["PASSWORD"],
-            "pin"     : request.form.get("pin", ""),
-        })
-
-    try: 
-        data = res.json()
-        if( "username" in data and
-            "password" in data and
-            "expireAt" in data):
-            os.environ["USERNAME"]  = data["username"]
-            os.environ["PASSWORD"]  = data["password"]
-            os.environ["EXPIRE_AT"] = data["expireAt"]
-    except: pass
-
-    return {
-        "username": os.environ["USERNAME"],
-        "password": os.environ["PASSWORD"],
-        "expireAt": os.environ["EXPIRE_AT"],
-    }, res.status_code
-
-
-@App.route("/logout", methods=["POST"])
-def App_Logout():
-    user = {
-        "username": os.environ["USERNAME"],
-        "password": os.environ["PASSWORD"],
-        "expireAt": os.environ["EXPIRE_AT"],
-    }
-    os.environ["USERNAME"] = ""
-    os.environ["PASSWORD"] = ""
-    os.environ["EXPIRE_AT"] = ""
-    return user, 200
-
-
-@App.route("/auth-state", methods=["POST"])
-def App_AuthState():
-    if(not os.environ["EXPIRE_AT"]): return ""
-    now = datetime.now(tz=timezone(os.environ["TIMEZONE"]))
-    authorized = os.environ["EXPIRE_AT"] > now.strftime(r"%Y/%m/%d %H:%M:%S")
-    return os.environ["EXPIRE_AT"] if(authorized)else ""
 
 
 @App.route("/version", methods=["GET"])
@@ -122,11 +46,11 @@ def App_Config(**kwargs):
 
     configPath = sys.modules["StorageManager"].LocalStorage.path("cfg", kwargs["filepath"])
 
-    if(not configPath): return Response(status=404)
+    if(not (configPath and os.path.exists(configPath))): return Response(status=404)
 
     if(request.method == "GET"):
         if(os.path.isdir(configPath)): return os.listdir(configPath)
-        return send_from_directory(*os.path.split(configPath))
+        return send_file(configPath)
 
     if(request.method == "POST"):
         with open(configPath, "a+") as f:

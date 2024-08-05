@@ -5,9 +5,11 @@ import socket
 
 from .blueprints.Ui import Ui
 from .blueprints.App import App
+from .blueprints.Auth import Auth
+
 from .blueprints.Apex import Apex
 
-BLUEPRINTS = [Ui, App, Apex, ]
+BLUEPRINTS = [Ui, App, Auth, Apex, ]
 
 
 def getRandomPort():

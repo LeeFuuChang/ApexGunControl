@@ -4,7 +4,9 @@ from PyQt5.QtCore import QEvent, QUrl, Qt, pyqtSignal
 from PyQt5.QtGui import QIcon
 
 import threading
+import traceback
 import waitress
+import logging
 import ctypes
 import sys
 import os
@@ -157,12 +159,16 @@ def run():
         }
     ).start()
 
-    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(os.environ["APP_USER_MODEL_ID"])
+    try:
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(os.environ["APP_USER_MODEL_ID"])
+    except Exception as e:
+        logging.error(f"Failed to set AppUserID:\n{''.join(traceback.format_exception(e.__class__, e, e.__traceback__))}")
 
     qapp = QApplication([*sys.argv, "--ignore-gpu-blocklist"])
 
     browserWindow = WebRenderer()
     browserWindow.connect(server, server.host, server.port)
+    browserWindow.show()
 
     from Script.Selector import RegionSelector
     regionSelector = RegionSelector(browserWindow)

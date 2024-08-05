@@ -6,7 +6,7 @@ window.auth = function() {
     this.expireAt = null;
 
     this.authStateUpdate = () => {
-        $.post("/app/auth-state")
+        $.post("/auth/expiration")
             .done((expireAt)=>{
                 if(this.authorized == !!expireAt) return;
                 this.authorized = !!expireAt;
@@ -50,15 +50,15 @@ window.auth = function() {
     };
 
     this.login = (username, password) => {
-        return this.post("/app/login", {"username": username, "password": password}, (r)=>{this.user=r});
+        return this.post("/auth/login", {"username": username, "password": password}, (r)=>{this.user=r});
     };
 
     this.activate = (pin) => {
-        return this.post("/app/activate", {"pin": pin}, (r)=>{this.user=r});
+        return this.post("/auth/activate", {"pin": pin}, (r)=>{this.user=r});
     };
 
     this.logout = () => {
-        return this.post("/app/logout", {}, (r)=>{this.user=null});
+        return this.post("/auth/logout", {}, (r)=>{this.user=null});
     };
 
     window.auth._i = this;
