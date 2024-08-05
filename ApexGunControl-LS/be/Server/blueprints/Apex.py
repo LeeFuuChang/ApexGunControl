@@ -10,13 +10,13 @@ Apex = Blueprint("Apex", __name__)
 @Apex.route("assets/<path:filepath>")
 def Apex_Assets(**kwargs):
     filepath = kwargs["filepath"]
-    fullpath = sys.modules["StorageManager"].LocalStorage.path(os.path.join("apex", "assets", filepath))
+    fullpath = sys.modules["StorageManager"].LocalStorage.path("apex", "assets", filepath)
     return send_from_directory(*os.path.split(fullpath))
 
 
 @Apex.route("config", methods=["GET", "POST"])
 def Apex_Config():
-    configPath = sys.modules["StorageManager"].LocalStorage.path(os.path.join("cfg", "cfg.json"))
+    configPath = sys.modules["StorageManager"].LocalStorage.path("cfg", "cfg.json")
 
     if(not configPath or not os.path.exists(configPath)): return Response(status=404)
 
@@ -50,7 +50,7 @@ def Apex_Config():
 
             # create missing default .cfg
             if(data["missing"]):
-                defaultCFGs = sys.modules["StorageManager"].LocalStorage.path(os.path.join("apex", "cfg"))
+                defaultCFGs = sys.modules["StorageManager"].LocalStorage.path("apex", "cfg")
                 for file in os.listdir(defaultCFGs):
                     with open(os.path.join(defaultCFGs, file), "r") as org,\
                          open(os.path.join(data["path"], file), "w") as new:

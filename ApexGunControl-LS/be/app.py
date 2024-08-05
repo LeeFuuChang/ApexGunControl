@@ -128,7 +128,7 @@ class WebRenderer(QWebEngineView):
 
 
 def run():
-    os.environ["ICON_PATH"] = sys.modules["StorageManager"].LocalStorage.path(os.path.join("fe", "assets", "logo", "filled.png"))
+    os.environ["ICON_PATH"] = sys.modules["StorageManager"].LocalStorage.path("fe", "assets", "logo", "filled.png")
 
     os.environ["KEY_SHOOTING"] = "f5"
     os.environ["KEY_MOVEMENT"] = "f6"

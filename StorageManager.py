@@ -3,6 +3,7 @@ import requests as rq
 import logging
 import shutil
 import sys
+import re
 import os
 
 class LocalStorage:
@@ -29,10 +30,14 @@ class LocalStorage:
         return ensureInstance
 
     @singletonmethod
-    def path(cls, path:str) -> str:
-        filepath = os.path.join(cls.directory, path)
+    def join(cls, *paths:str) -> str:
+        return re.sub(r"[\\\/]", os.sep, os.path.normpath(os.path.join(*paths)))
+
+    @singletonmethod
+    def path(cls, *paths:str) -> str:
+        filepath = cls.join(cls.directory, *paths)
         if(not os.path.exists(filepath)):
-            _path, _file = os.path.split(path)
+            _path, _file = os.path.split(filepath)
             _name, _type = os.path.splitext(_file)
             cls.updateFile(_path=_path,
                            _name=_name,
@@ -40,9 +45,9 @@ class LocalStorage:
         return (filepath if(os.path.exists(filepath))else "")
 
     @singletonmethod
-    def updateFile(cls, _path, _name, _type):
-        relpath = os.path.join(_path, f"{_name}.{_type}")
-        fulpath = os.path.join(cls.directory, relpath)
+    def updateFile(cls, _path:str, _name:str, _type:str) -> None:
+        relpath = cls.join(_path, f"{_name}.{_type}")
+        fulpath = cls.join(cls.directory, relpath)
         urlpath = "/".join([cls.remoteURL, relpath.replace("\\", "/")])
         logging.info(f"[{cls.__name__}] updating: {relpath}")
         try:
@@ -54,17 +59,16 @@ class LocalStorage:
                 raise rq.RequestException(f"Failed {response.status_code}")
         except Exception as e:
             logging.error(f"[{cls.__name__}] update failed: {relpath} {e}")
-            if(os.path.exists(os.path.join(cls.directory, relpath))):
-                os.remove(os.path.join(cls.directory, relpath))
+            if(os.path.exists(fulpath)): os.remove(fulpath)
 
     @singletonmethod
-    def walkUpdate(cls, root, node, dirpath, *, progressCallback=lambda text="",progress=0:0):
+    def walkUpdate(cls, root:ET.Element, node:ET.Element, dirpath:str, *, progressCallback=lambda text="",progress=0:0) -> str:
         if("--debug" in sys.argv): return node.attrib["name"]
 
         cls.walkCount += 1
 
         if(node.tag == "folder"):
-            dirpath = os.path.join(dirpath, node.attrib["name"])
+            dirpath = cls.join(dirpath, node.attrib["name"])
 
             if(not os.path.exists(dirpath)): os.mkdir(dirpath)
 
@@ -72,14 +76,14 @@ class LocalStorage:
             for child in node: children[child.tag].add(cls.walkUpdate(root, child, dirpath, progressCallback=progressCallback))
 
             for child in os.listdir(dirpath):
-                childPath = os.path.join(dirpath, child)
+                childPath = cls.join(dirpath, child)
                 childName = os.path.splitext(child)[0]
                 if(childName in children["file"] or childName in children["folder"]): continue
                 if(os.path.isfile(childPath)): os.remove(childPath)
                 if(os.path.isdir(childPath)): shutil.rmtree(childPath, ignore_errors=True)
 
         if(node.tag == "file"):
-            filepath = os.path.join(dirpath, f"{node.attrib['name']}.{node.attrib['type']}")
+            filepath = cls.join(dirpath, f"{node.attrib['name']}.{node.attrib['type']}")
 
             alreadyExist = os.path.exists(filepath)
 
@@ -103,16 +107,16 @@ class LocalStorage:
                            _name=node.attrib["name"],
                            _type=node.attrib["type"])
 
-            relpath = os.path.join(node.attrib["path"], f"{node.attrib['name']}.{node.attrib['type']}")
+            relpath = cls.join(node.attrib["path"], f"{node.attrib['name']}.{node.attrib['type']}")
             progressCallback(relpath, round(100*cls.walkCount/cls.walkTotal))
 
         return node.attrib["name"]
 
     @classmethod
-    def setup(cls, remoteURL, executableLOC, *, progressCallback=lambda text="",progress=0:0):
+    def setup(cls, remoteURL:str, executableLOC:str, *, progressCallback=lambda text="",progress=0:0) -> str:
         structure = ET.fromstring(rq.get("/".join([remoteURL, "struct.xml"]), verify=False).text)
 
-        cls.directory = os.path.join(executableLOC, structure.attrib["name"])
+        cls.directory = cls.join(executableLOC, structure.attrib["name"])
         cls.remoteURL = remoteURL
         cls.structure = structure
 
@@ -120,7 +124,7 @@ class LocalStorage:
 
         if(not os.path.exists(cls.directory)): os.mkdir(cls.directory)
 
-        versionFile = os.path.join(cls.directory, "storage.version")
+        versionFile = cls.join(cls.directory, "storage.version")
         if(not os.path.exists(versionFile)): open(versionFile, "w").close()
         with open(versionFile, "r") as f: cls.version = int(f"0{f.read()}", 16)
 
@@ -130,7 +134,7 @@ class LocalStorage:
         cls.walkTotal = len(cls.structure.findall(".//file")) + len(cls.structure.findall(".//folder")) + 1
         cls.walkUpdate(cls.structure, cls.structure, executableLOC, progressCallback=progressCallback)
 
-        with open(versionFile, "w") as f: f.write(cls.structure.attrib["version"])
+        with open(versionFile, "w") as f: f.write(hex(cls.latest)[2:])
 
         if(cls.latest > cls.version): logging.info(f"[{cls.__name__}] Updated: {cls.version} -> {cls.latest}")
 

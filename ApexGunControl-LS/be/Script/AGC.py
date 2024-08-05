@@ -87,8 +87,7 @@ class ApexGunControl(QWidget):
 
 
     def setStateIcon(self, label: QLabel, name: str, state: bool):
-        path = os.path.join("assets", f"{name.capitalize()}-{str(bool(state))[0]}.png")
-        icon = QPixmap(sys.modules["StorageManager"].LocalStorage.path(path))
+        icon = QPixmap(sys.modules["StorageManager"].LocalStorage.path("assets", f"{name}-{str(bool(state))[0]}.png"))
         color = self.state_T_Color if(bool(state))else self.state_F_Color
         with contextlib.suppress(RuntimeError):
             label.setPixmap(icon.scaled(label.width(), label.height()))
@@ -111,9 +110,8 @@ class ApexGunControl(QWidget):
 
     def setFocusing(self, boolean):
         if(not boolean): return
-        configRelPath = os.path.join("cfg", "settings.json")
-        configAbsPath = sys.modules["StorageManager"].LocalStorage.path(configRelPath)
-        with open(configAbsPath, "r") as f: 
+        configPath = sys.modules["StorageManager"].LocalStorage.path("cfg", "settings.json")
+        with open(configPath, "r") as f: 
             try: self.config = json.load(f)
             except: self.config = {}
         self.state_T_Color = QColor(self.config.get("floating-color-1", "#E7C975"))

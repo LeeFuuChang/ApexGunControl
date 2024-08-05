@@ -120,7 +120,7 @@ def App_External():
 def App_Config(**kwargs):
     if(not kwargs.get("filepath", None)): return Response(status=404)
 
-    configPath = sys.modules["StorageManager"].LocalStorage.path(os.path.join("cfg", kwargs["filepath"]))
+    configPath = sys.modules["StorageManager"].LocalStorage.path("cfg", kwargs["filepath"])
 
     if(not configPath): return Response(status=404)
 

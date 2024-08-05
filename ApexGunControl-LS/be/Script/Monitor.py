@@ -84,7 +84,7 @@ class GameMonitor:
                     logging.info(f"[{cls.__name__}] Weapon changed ({cls.weapon} -> {result}) [{round(result[1]*100)}%]")
                     cls.weapon = result
                     cls.weaponConfig = {}
-                    weaponConfigPath = sys.modules["StorageManager"].LocalStorage.path(os.path.join("cfg", "weapons", f"{cls.weapon[0]}.json"))
+                    weaponConfigPath = sys.modules["StorageManager"].LocalStorage.path("cfg", "weapons", f"{cls.weapon[0]}.json")
                     if(os.path.exists(weaponConfigPath)):
                         with open(weaponConfigPath, "r") as f:
                             cls.weaponConfig = json.load(f)
