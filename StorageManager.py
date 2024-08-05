@@ -3,7 +3,6 @@ import requests as rq
 import logging
 import shutil
 import sys
-import re
 import os
 
 class LocalStorage:
@@ -29,9 +28,9 @@ class LocalStorage:
             )
         return ensureInstance
 
-    @singletonmethod
-    def join(cls, *paths:str) -> str:
-        return re.sub(r"[\\\/]", os.sep, os.path.normpath(os.path.join(*paths)))
+    @staticmethod
+    def join(*paths:str) -> str:
+        return os.path.normpath(os.path.join(*paths)).replace("\/", os.sep).replace("\\", os.sep)
 
     @singletonmethod
     def path(cls, *paths:str) -> str:
