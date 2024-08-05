@@ -133,7 +133,7 @@ class LocalStorage:
         cls.walkTotal = len(cls.structure.findall(".//file")) + len(cls.structure.findall(".//folder")) + 1
         cls.walkUpdate(cls.structure, cls.structure, executableLOC, progressCallback=progressCallback)
 
-        with open(versionFile, "w") as f: f.write(hex(cls.latest)[2:])
+        with open(versionFile, "w") as f: f.write(hex(cls.latest)[2:].upper())
 
         if(cls.latest > cls.version): logging.info(f"[{cls.__name__}] Updated: {cls.version} -> {cls.latest}")
 

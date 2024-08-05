@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<folder name="ApexGunControl-LS" version="39B">
+<folder name="ApexGunControl-LS" version="39C">
 	<folder name="apex">
 		<folder name="assets">
 			<folder name="bullets">
@@ -33,7 +33,7 @@
 				<file updated="391" name="Longbow" type="png" path="apex\assets\weapons"/>
 				<file updated="391" name="Mastiff" type="png" path="apex\assets\weapons"/>
 				<file updated="391" name="Mozambique" type="png" path="apex\assets\weapons"/>
-				<file updated="391" name="Nemesis" type="png" path="apex\assets\weapons"/>
+				<file updated="39C" name="Nemesis" type="png" path="apex\assets\weapons"/>
 				<file updated="391" name="P2020" type="png" path="apex\assets\weapons"/>
 				<file updated="391" name="Peacekeeper" type="png" path="apex\assets\weapons"/>
 				<file updated="391" name="Prowler" type="png" path="apex\assets\weapons"/>
@@ -45,7 +45,7 @@
 				<file updated="391" name="Spitfire" type="png" path="apex\assets\weapons"/>
 				<file updated="391" name="Throwing-Knife" type="png" path="apex\assets\weapons"/>
 				<file updated="391" name="Triple-Take" type="png" path="apex\assets\weapons"/>
-				<file updated="391" name="Volt" type="png" path="apex\assets\weapons"/>
+				<file updated="39C" name="Volt" type="png" path="apex\assets\weapons"/>
 				<file updated="391" name="Wingman" type="png" path="apex\assets\weapons"/>
 			</folder>
 		</folder>
@@ -108,20 +108,21 @@
 		<file updated="397" name="urls" type="txt" path="assets"/>
 	</folder>
 	<folder name="be">
-		<file updated="395" name="app" type="pyc" path="be"/>
+		<file updated="39C" name="app" type="pyc" path="be"/>
 		<folder name="Script">
-			<file updated="397" name="AGC" type="pyc" path="be\Script"/>
+			<file updated="39C" name="AGC" type="pyc" path="be\Script"/>
 			<file updated="39B" name="Controller" type="pyc" path="be\Script"/>
-			<file updated="395" name="Detector" type="pyc" path="be\Script"/>
-			<file updated="399" name="Monitor" type="pyc" path="be\Script"/>
+			<file updated="39C" name="Detector" type="pyc" path="be\Script"/>
+			<file updated="39C" name="Monitor" type="pyc" path="be\Script"/>
 			<file updated="395" name="Selector" type="pyc" path="be\Script"/>
 		</folder>
 		<folder name="Server">
-			<file updated="391" name="Flask" type="pyc" path="be\Server"/>
+			<file updated="39C" name="Flask" type="pyc" path="be\Server"/>
 			<folder name="blueprints">
-				<file updated="391" name="Apex" type="pyc" path="be\Server\blueprints"/>
-				<file updated="39A" name="App" type="pyc" path="be\Server\blueprints"/>
-				<file updated="391" name="Ui" type="pyc" path="be\Server\blueprints"/>
+				<file updated="39C" name="Apex" type="pyc" path="be\Server\blueprints"/>
+				<file updated="39C" name="App" type="pyc" path="be\Server\blueprints"/>
+				<file updated="39C" name="Auth" type="pyc" path="be\Server\blueprints"/>
+				<file updated="39C" name="Ui" type="pyc" path="be\Server\blueprints"/>
 			</folder>
 		</folder>
 	</folder>
@@ -166,7 +167,7 @@
 	<folder name="fe">
 		<file updated="398" name="index" type="html" path="fe"/>
 		<folder name="assets">
-			<file updated="39A" name="auth" type="js" path="fe\assets"/>
+			<file updated="39C" name="auth" type="js" path="fe\assets"/>
 			<file updated="398" name="constant" type="js" path="fe\assets"/>
 			<file updated="391" name="index" type="js" path="fe\assets"/>
 			<file updated="398" name="language" type="js" path="fe\assets"/>
