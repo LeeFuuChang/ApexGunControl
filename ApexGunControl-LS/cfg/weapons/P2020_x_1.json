@@ -1,0 +1,14 @@
+{
+    "name": "P2020_x_1",
+    "ammo": "Light",
+    "supply": false,
+    "tap": true,
+    "multiplier": "1.0",
+    "recoil": [
+        [ 4, 6],
+        [-3,-3],
+        [ 3, 5],
+        [-3,-3]
+    ],
+    "image": "/apex/assets/weapons/P2020_x_1.png"
+}
