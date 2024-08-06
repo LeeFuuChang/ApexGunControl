@@ -175,7 +175,7 @@ setTimeout(function(){
                                         });
                 let weaponSettingsHtml = (sortedAmmoOrder.map(group=>{
                     weaponsGrouped[group].sort(function(a, b){
-                        return a.tap - b.tap || a.name.localeCompare(b.name);
+                        return a.name.localeCompare(b.name);
                     });
                     let ammoWeaponsOptions = weaponsGrouped[group].reduce((html, weapon)=>{
                         return html + `

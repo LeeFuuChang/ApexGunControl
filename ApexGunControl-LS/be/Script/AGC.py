@@ -71,17 +71,17 @@ class ApexGunControl(QWidget):
             self.iconLabels[i].setGeometry(self.padding + self.sizeUnit*i + self.padding*i, self.padding, self.sizeUnit, self.sizeUnit)
             self.iconLabels[i].show()
 
-        stretch = int((self.width() - self.padding - self.padding) / 2)
+        available = self.width() - self.padding*2
 
         self.weaponLabel = QLabel(self)
         self.weaponLabel.setAlignment(Qt.AlignVCenter|Qt.AlignLeft)
-        self.weaponLabel.setGeometry(self.padding, self.padding + self.sizeUnit, stretch, self.sizeUnit)
+        self.weaponLabel.setGeometry(self.padding, self.padding + self.sizeUnit, available - self.sizeUnit*2, self.sizeUnit)
         self.weaponLabel.setText("None")
         self.weaponLabel.show()
 
         self.confidenceLabel = QLabel(self)
         self.confidenceLabel.setAlignment(Qt.AlignVCenter|Qt.AlignRight)
-        self.confidenceLabel.setGeometry(self.padding + stretch, self.padding + self.sizeUnit, stretch, self.sizeUnit)
+        self.confidenceLabel.setGeometry(self.weaponLabel.x()+self.weaponLabel.width(), self.padding + self.sizeUnit, self.sizeUnit*2, self.sizeUnit)
         self.confidenceLabel.setText("0%")
         self.confidenceLabel.show()
 

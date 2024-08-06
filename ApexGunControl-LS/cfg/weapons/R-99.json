@@ -1,7 +1,7 @@
 {
     "name": "R-99",
     "ammo": "Light",
-    "supply": false,
+    "supply": true,
     "tap": false,
     "multiplier": "1.0",
     "recoil": [

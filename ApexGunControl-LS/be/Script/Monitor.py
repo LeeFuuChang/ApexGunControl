@@ -69,7 +69,7 @@ class GameMonitor:
                 # InGame Detection
                 result = InGameDetector.detect(screenshot)
                 foundClue = (result[1] > 0.1 and result[1] > (float(_AGC.config.get("confidence", "80"))/100))
-                newGameCof = 3 if(foundClue)else max(0, cls.inGame - 1)
+                newGameCof = 5 if(foundClue)else max(0, cls.inGame - 1)
                 if(bool(cls.inGame) != bool(newGameCof)):
                     logging.info(f"[{cls.__name__}] InGame cof changed ({bool(cls.inGame)} -> {bool(newGameCof)}) [{round(result[1]*100)}%]")
                 cls.inGame = newGameCof
