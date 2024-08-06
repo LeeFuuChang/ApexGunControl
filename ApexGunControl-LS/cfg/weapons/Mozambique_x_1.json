@@ -1,0 +1,11 @@
+{
+    "name": "Mozambique_x_1",
+    "ammo": "Shotgun",
+    "supply": false,
+    "tap": false,
+    "multiplier": "1.0",
+    "recoil": [
+        [ 0, 0]
+    ],
+    "image": "/apex/assets/weapons/Mozambique_x_1.png"
+}
