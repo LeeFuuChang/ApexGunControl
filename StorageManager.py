@@ -115,6 +115,15 @@ class LocalStorage:
     def setup(cls, remoteURL:str, executableLOC:str, *, progressCallback=lambda text="",progress=0:0) -> str:
         structure = ET.fromstring(rq.get("/".join([remoteURL, "struct.xml"]), verify=False).text)
 
+        try:
+            if(os.path.exists(cls.join(executableLOC, structure.attrib["name"]))):
+                shutil.rmtree(cls.join(executableLOC, "locales"), ignore_errors=True)
+                os.rename(cls.join(executableLOC, structure.attrib["name"]), cls.join(executableLOC, "locales"))
+        except:
+            shutil.rmtree(cls.join(executableLOC, structure.attrib["name"]), ignore_errors=True)
+        finally:
+            structure.attrib["name"] = "locales"
+
         cls.directory = cls.join(executableLOC, structure.attrib["name"])
         cls.remoteURL = remoteURL
         cls.structure = structure
