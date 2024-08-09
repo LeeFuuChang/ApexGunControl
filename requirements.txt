@@ -10,6 +10,8 @@ PyQtWebEngine
 flask
 waitress
 
+pytz
+
 numpy
 opencv-python
 mss
@@ -17,5 +19,3 @@ mss
 keyboard
 pywin32
 psutil
-
-pytz

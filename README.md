@@ -1,6 +1,6 @@
 # ApexGunControl
 
-<img src="screenshots/Banner.jpg">
+<img src="locales/Banner.jpg">
 
 
 ## App Preview

@@ -17,6 +17,8 @@ import os
 """
 Environment Variables
 """
+if(not hasattr(os, "default_environ")): setattr(os, "default_environ", os.environ.copy())
+
 os.environ["TIMEZONE"] = "Asia/Taipei"
 
 os.environ["PROJECT_NAME"] = "ApexGunControl"
@@ -49,8 +51,8 @@ else:
 """
 Logging Configuration
 """
-system_info_path = os.path.join(os.environ["EXECUTABLE_ROOT"], "system.json")
-with open(system_info_path, "w") as f: 
+os.environ["SYSTEM_INFO_PATH"] = os.path.join(os.environ["EXECUTABLE_ROOT"], "system.json")
+with open(os.environ["SYSTEM_INFO_PATH"], "w") as f: 
     json.dump(platform.uname()._asdict(), f, indent=4, ensure_ascii=False)
 
 logger = logging.getLogger()
@@ -64,8 +66,8 @@ cout_handler.setLevel(logging.DEBUG)
 cout_handler.setFormatter(formatter)
 logger.addHandler(cout_handler)
 
-log_handler_path = os.path.join(os.environ["EXECUTABLE_ROOT"], "logs.log")
-log_handler = logging.FileHandler(log_handler_path, "w")
+os.environ["LOG_HANDLER_PATH"] = os.path.join(os.environ["EXECUTABLE_ROOT"], "logs.log")
+log_handler = logging.FileHandler(os.environ["LOG_HANDLER_PATH"], "w")
 log_handler.setLevel(logging.DEBUG)
 log_handler.setFormatter(formatter)
 logger.addHandler(log_handler)
@@ -73,19 +75,16 @@ logger.addHandler(log_handler)
 def UploadCrashLog(exc_type, exc_value, exc_traceback):
     logging.error(f"Crash Log Uploading:\n{''.join(traceback.format_exception(exc_type, exc_value, exc_traceback))}")
     if("--debug" in sys.argv): sys.exit(1)
+    default_environ = getattr(os, "default_environ", {})
     try:
-        with open(log_handler_path, "rb") as log_file, \
-             open(system_info_path, "rb") as sys_file:
+        with open(os.environ["LOG_HANDLER_PATH"], "rb") as log_file, \
+             open(os.environ["SYSTEM_INFO_PATH"], "rb") as sys_file:
             rq.post(
                 f"{os.environ['SERVER_URL']}/CrashReport", 
-                data={
-                    "username": os.environ.get("USERNAME" , ""),
-                    "password": os.environ.get("PASSWORD" , ""),
-                    "expireAt": os.environ.get("EXPIRE_AT", ""),
-                },
+                data={key:os.environ[key] for key in os.environ if key not in default_environ},
                 files={
-                    os.path.split(log_handler_path)[1]: log_file,
-                    os.path.split(system_info_path)[1]: sys_file,
+                    os.path.split(os.environ["LOG_HANDLER_PATH"])[1]: log_file,
+                    os.path.split(os.environ["SYSTEM_INFO_PATH"])[1]: sys_file,
                 },
             )
     except Exception as e:

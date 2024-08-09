@@ -1,6 +1,6 @@
 # -*- mode: python ; coding: utf-8 -*-
 
-# pyinstaller --upx-dir ./upx main.spec
+# pyinstaller main.spec
 
 import sys
 import os
@@ -20,7 +20,7 @@ def extractImports(path):
 
 def filterLocal(name):
     root = name.split(".")[0]
-    checking = [".", os.path.join(f"{PROJECT_NAME}-LS", "be")]
+    checking = [".", os.path.join("locales", "be")]
     return not any([os.path.exists(p) for p in [
         *[os.path.join(r, root) for r in checking],
         *[os.path.join(r, f"{root}.py") for r in checking],
@@ -41,12 +41,12 @@ a = Analysis(
     ["main.py"],
     pathex=[os.path.join(r, d) for r, ds, fs in os.walk(os.getcwd()) for d in ds if(d == "site-packages")],
     binaries=[],
-    datas=[(".\\extensions\\*.*", "."), (".\\filled.ico", "."), ],
-    hiddenimports=getPackages(os.path.join(f"{PROJECT_NAME}-LS", "be")),
+    datas=[(".\\filled.ico", "."), ],
+    hiddenimports=getPackages(os.path.join("locales", "be")),
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
-    excludes=["StorageManager.py", "StorageCompiler.py", f"{PROJECT_NAME}-LS"],
+    excludes=["StorageManager.py", "StorageCompiler.py", "locales"],
     noarchive=False,
     optimize=0,
 )
