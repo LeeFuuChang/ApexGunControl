@@ -44,4 +44,4 @@ if __name__ == "__main__":
         img = silhouettilize(img)
 
         # saving
-        cv2.imwrite(os.path.join("ApexGunControl-LS", "apex", "silhouettes", "weapons", os.path.splitext(sys.argv[1])[0]+".jpg"), img)
+        cv2.imwrite(os.path.join(os.path.dirname(__file__), "weapons", os.path.splitext(sys.argv[1])[0]+".jpg"), img)

@@ -87,7 +87,7 @@ class ApexGunControl(QWidget):
 
 
     def setStateIcon(self, label: QLabel, name: str, state: bool):
-        icon = QPixmap(sys.modules["StorageManager"].LocalStorage.path("assets", f"{name}-{str(bool(state))[0]}.png"))
+        icon = QPixmap(sys.modules["StorageManager"].LocalStorage.path("static", "status", f"{name}-{str(bool(state))[0]}.png"))
         color = self.state_T_Color if(bool(state))else self.state_F_Color
         with contextlib.suppress(RuntimeError):
             label.setPixmap(icon.scaled(label.width(), label.height()))
