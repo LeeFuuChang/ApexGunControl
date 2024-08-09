@@ -10,7 +10,7 @@ Apex = Blueprint("Apex", __name__)
 @Apex.route("assets/<path:filepath>")
 def Apex_Assets(**kwargs):
     filepath = kwargs["filepath"]
-    fullpath = sys.modules["StorageManager"].LocalStorage.path("apex", "assets", filepath)
+    fullpath = sys.modules["StorageManager"].LocalStorage.path("static", "apex", "assets", filepath)
     return send_from_directory(*os.path.split(fullpath))
 
 
@@ -50,7 +50,7 @@ def Apex_Config():
 
             # create missing default .cfg
             if(data["missing"]):
-                defaultCFGs = sys.modules["StorageManager"].LocalStorage.path("apex", "cfg")
+                defaultCFGs = sys.modules["StorageManager"].LocalStorage.path("static", "apex", "cfg")
                 for file in os.listdir(defaultCFGs):
                     with open(os.path.join(defaultCFGs, file), "r") as org,\
                          open(os.path.join(data["path"], file), "w") as new:
