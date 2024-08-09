@@ -20,8 +20,8 @@ Global
     --theme-color-gray: #999999;
     --theme-color-gray-filter: invert(63%) sepia(0%) saturate(1179%) hue-rotate(195deg) brightness(96%) contrast(95%);
 
-    --theme-color-green: #E86F86;
-    --theme-color-green-filter: invert(63%) sepia(22%) saturate(3616%) hue-rotate(307deg) brightness(97%) contrast(87%);
+    --theme-color-green: #62C554;
+    --theme-color-green-filter: invert(71%) sepia(33%) saturate(705%) hue-rotate(66deg) brightness(87%) contrast(95%);
 
     --theme-color-red: #E86F86;
     --theme-color-red-filter: invert(63%) sepia(22%) saturate(3616%) hue-rotate(307deg) brightness(97%) contrast(87%);

@@ -10,19 +10,7 @@ main #page {
     flex: 1;
     max-height: calc(44.75*var(--size));
     overflow: hidden;
-    padding-right: calc(.75*var(--size));
 }
 main #page img {
     width: 100%;
-}
-main #page::-webkit-scrollbar {
-    width: calc(.75*var(--size));
-}
-main #page::-webkit-scrollbar-track {
-    border-radius: calc(.75*var(--size));
-    background-color: var(--theme-color-2);
-}
-main #page::-webkit-scrollbar-thumb {
-    border-radius: calc(.75*var(--size));
-    background-color: var(--theme-color-3);
 }

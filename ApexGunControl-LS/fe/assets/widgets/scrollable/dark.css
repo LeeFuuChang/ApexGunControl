@@ -1,0 +1,12 @@
+#app[theme="dark"] .x-scrollable::-webkit-scrollbar-track,
+#app[theme="dark"] .y-scrollable::-webkit-scrollbar-track {
+    background-color: var(--theme-color-2);
+}
+#app[theme="dark"] .x-scrollable::-webkit-scrollbar-thumb,
+#app[theme="dark"] .y-scrollable::-webkit-scrollbar-thumb {
+    background-color: var(--theme-color-3);
+}
+#app[theme="dark"] .x-scrollable::-webkit-scrollbar-thumb:hover,
+#app[theme="dark"] .y-scrollable::-webkit-scrollbar-thumb:hover {
+    background-color: var(--theme-color-3);
+}

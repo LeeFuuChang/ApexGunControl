@@ -1,3 +1,6 @@
+@import url("./dark.css");
+@import url("./light.css");
+
 .checkbox[type="radio"],
 .checkbox[type="checkbox"] {
     position: relative;
@@ -20,10 +23,8 @@
     transform: translate(-50%, -50%);
     width: var(--checkbox-size);
     height: var(--checkbox-size);
-    border-width: calc(0.15*var(--checkbox-size));
+    border-width: calc(.15*var(--checkbox-size));
     border-style: solid;
-    border-color: var(--theme-color-gray);
-    background-color: var(--theme-color-white);
 }
 .checkbox[type="radio"]::before {
     border-radius: 50%;
@@ -37,8 +38,8 @@
     transform: translate(-50%, -50%);
     width: var(--checkbox-size);
     height: var(--checkbox-size);
-    transition: background-color 0.3s;
-    -webkit-transition: background-color 0.3s;
+    transition: background-color .3s;
+    -webkit-transition: background-color .3s;
 }
 .checkbox[type="radio"]::after {
     border-radius: 50%;
@@ -46,9 +47,4 @@
 .checkbox[type="radio"]:checked::before,
 .checkbox[type="checkbox"]:checked::before {
     border: 0;
-    background-color: var(--theme-color-white);
-}
-.checkbox[type="radio"]:checked::after,
-.checkbox[type="checkbox"]:checked::after {
-    background-color: #44cc66;
 }

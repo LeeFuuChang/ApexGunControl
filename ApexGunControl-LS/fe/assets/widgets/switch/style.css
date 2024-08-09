@@ -1,9 +1,12 @@
+@import url("./dark.css");
+@import url("./light.css");
+
 .switch[type="checkbox"] {
     position: relative;
     cursor: pointer;
     outline: none;
     appearance: none;
-    width: calc(var(--switch-size) * 2);
+    width: calc(2*var(--switch-size));
     height: var(--switch-size);
 }
 .switch[type="checkbox"]::before {
@@ -11,27 +14,22 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: calc(var(--switch-size) * 2);
+    width: calc(2*var(--switch-size));
     height: var(--switch-size);
     border-radius: var(--switch-size);
-    transition: background-color 0.3s;
-    -webkit-transition: background-color 0.3s;
-    background-color: var(--theme-color-gray);
-}
-.switch[type="checkbox"]:checked::before {
-    background-color: #61c554;
+    transition: background-color .3s;
+    -webkit-transition: background-color .3s;
 }
 .switch[type="checkbox"]::after {
     content: "";
-    height: calc(var(--switch-size) * 0.65);
-    width: calc(var(--switch-size) * 0.65);
-    background-color: var(--theme-color-white);
+    height: calc(.65*var(--switch-size));
+    width: calc(.65*var(--switch-size));
     position: absolute;
     left: 0;
-    margin: calc(var(--switch-size) * 0.175);
+    margin: calc(.175*var(--switch-size));
     border-radius: 50%;
-    transition: left 0.3s;
-    -webkit-transition: left 0.3s;
+    transition: left .3s;
+    -webkit-transition: left .3s;
 }
 .switch[type="checkbox"]:checked::after {
     left: 50%;

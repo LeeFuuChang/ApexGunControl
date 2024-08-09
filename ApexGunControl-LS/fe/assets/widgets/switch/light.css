@@ -1,0 +1,9 @@
+#app[theme="light"] .switch[type="checkbox"]::before {
+    background-color: var(--theme-color-gray);
+}
+#app[theme="light"] .switch[type="checkbox"]::after {
+    background-color: var(--theme-color-white);
+}
+#app[theme="light"] .switch[type="checkbox"]:checked::before {
+    background-color: var(--theme-color-green);
+}

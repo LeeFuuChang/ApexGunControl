@@ -34,6 +34,8 @@ window.LoadPage = function(name) {
                     .hide()
                     .html(html)
                     .attr("name", name)
+                    .removeClass()
+                    .addClass($("#page > .container").attr("page-class"))
                     .fadeIn(250);
                 window.LoadLang();
             });
