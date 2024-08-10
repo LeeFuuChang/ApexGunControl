@@ -1,17 +1,16 @@
 from datetime import datetime
 from pytz import timezone
+import win32process
 import numpy as np
 import contextlib
+import win32gui
 import logging
+import psutil
 import time
 import json
 import mss
 import sys
 import os
-
-import win32process
-import win32gui
-import psutil
 
 from .Detector import Detector, InGameDetector, WeaponDetector
 

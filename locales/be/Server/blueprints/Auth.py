@@ -2,10 +2,16 @@ from flask import Blueprint, request
 from datetime import datetime
 from pytz import timezone
 import requests as rq
+import sys
 import os
 
 
 Auth = Blueprint("Auth", __name__)
+
+
+os.environ["USERNAME"] = "" if("--debug" not in sys.argv)else "debug@gmail.com"
+os.environ["PASSWORD"] = "" if("--debug" not in sys.argv)else "debug"
+os.environ["EXPIRE_AT"] = "" if("--debug" not in sys.argv)else "9999/12/31 23:59:59"
 
 
 @Auth.route("/login", methods=["POST"])

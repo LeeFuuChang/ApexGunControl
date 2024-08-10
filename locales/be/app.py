@@ -132,13 +132,6 @@ class WebRenderer(QWebEngineView):
 def run():
     os.environ["ICON_PATH"] = sys.modules["StorageManager"].LocalStorage.path("fe", "assets", "logo", "filled.png")
 
-    os.environ["KEY_SHOOTING"] = "f5"
-    os.environ["KEY_MOVEMENT"] = "f6"
-
-    os.environ["USERNAME"] = "" if("--debug" not in sys.argv)else "debug@gmail.com"
-    os.environ["PASSWORD"] = "" if("--debug" not in sys.argv)else "debug"
-    os.environ["EXPIRE_AT"] = "" if("--debug" not in sys.argv)else "9999/12/31 23:59:59"
-
     server = WebServer()
 
     if("--server" in sys.argv):

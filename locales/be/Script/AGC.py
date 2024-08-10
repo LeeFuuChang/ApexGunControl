@@ -13,6 +13,11 @@ from .Monitor import GameMonitor
 
 
 
+os.environ["KEY_SHOOTING"] = "f5"
+os.environ["KEY_MOVEMENT"] = "f6"
+
+
+
 class ApexGunControl(QWidget):
     padding = 16
     sizeUnit = 32

@@ -1,9 +1,8 @@
-import time
-import os
-
 import keyboard
 import win32con
 import win32api
+import time
+import os
 
 import ctypes
 ctypes.windll.shcore.SetProcessDpiAwareness(2)
