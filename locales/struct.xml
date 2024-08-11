@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<folder name="ApexGunControl-LS" version="39C">
+<folder name="ApexGunControl-LS" version="3A0">
 	<folder name="apex">
 		<folder name="assets">
 			<folder name="bullets">
@@ -32,9 +32,11 @@
 				<file updated="391" name="L-STAR" type="png" path="apex\assets\weapons"/>
 				<file updated="391" name="Longbow" type="png" path="apex\assets\weapons"/>
 				<file updated="391" name="Mastiff" type="png" path="apex\assets\weapons"/>
-				<file updated="391" name="Mozambique" type="png" path="apex\assets\weapons"/>
+				<file updated="39D" name="Mozambique_x_1" type="png" path="apex\assets\weapons"/>
+				<file updated="39D" name="Mozambique_x_2" type="png" path="apex\assets\weapons"/>
 				<file updated="39C" name="Nemesis" type="png" path="apex\assets\weapons"/>
-				<file updated="391" name="P2020" type="png" path="apex\assets\weapons"/>
+				<file updated="39E" name="P2020_x_1" type="png" path="apex\assets\weapons"/>
+				<file updated="39E" name="P2020_x_2" type="png" path="apex\assets\weapons"/>
 				<file updated="391" name="Peacekeeper" type="png" path="apex\assets\weapons"/>
 				<file updated="391" name="Prowler" type="png" path="apex\assets\weapons"/>
 				<file updated="391" name="R-301" type="png" path="apex\assets\weapons"/>
@@ -76,9 +78,11 @@
 				<file updated="391" name="L-STAR" type="jpg" path="apex\silhouettes\weapons"/>
 				<file updated="391" name="Longbow" type="jpg" path="apex\silhouettes\weapons"/>
 				<file updated="391" name="Mastiff" type="jpg" path="apex\silhouettes\weapons"/>
-				<file updated="391" name="Mozambique" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="39D" name="Mozambique_x_1" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="39D" name="Mozambique_x_2" type="jpg" path="apex\silhouettes\weapons"/>
 				<file updated="391" name="Nemesis" type="jpg" path="apex\silhouettes\weapons"/>
-				<file updated="391" name="P2020" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="39E" name="P2020_x_1" type="jpg" path="apex\silhouettes\weapons"/>
+				<file updated="39E" name="P2020_x_2" type="jpg" path="apex\silhouettes\weapons"/>
 				<file updated="391" name="Peacekeeper" type="jpg" path="apex\silhouettes\weapons"/>
 				<file updated="391" name="Prowler" type="jpg" path="apex\silhouettes\weapons"/>
 				<file updated="391" name="R-301" type="jpg" path="apex\silhouettes\weapons"/>
@@ -110,10 +114,10 @@
 	<folder name="be">
 		<file updated="39C" name="app" type="pyc" path="be"/>
 		<folder name="Script">
-			<file updated="39C" name="AGC" type="pyc" path="be\Script"/>
+			<file updated="39F" name="AGC" type="pyc" path="be\Script"/>
 			<file updated="39B" name="Controller" type="pyc" path="be\Script"/>
 			<file updated="39C" name="Detector" type="pyc" path="be\Script"/>
-			<file updated="39C" name="Monitor" type="pyc" path="be\Script"/>
+			<file updated="39F" name="Monitor" type="pyc" path="be\Script"/>
 			<file updated="395" name="Selector" type="pyc" path="be\Script"/>
 		</folder>
 		<folder name="Server">
@@ -134,11 +138,11 @@
 		<folder name="weapons">
 			<file updated="391" name="30-30-Repeater" type="json" path="cfg\weapons"/>
 			<file updated="391" name="Alternator" type="json" path="cfg\weapons"/>
-			<file updated="391" name="Bocek" type="json" path="cfg\weapons"/>
+			<file updated="3A0" name="Bocek" type="json" path="cfg\weapons"/>
 			<file updated="391" name="CAR" type="json" path="cfg\weapons"/>
 			<file updated="391" name="Charge-Rifle" type="json" path="cfg\weapons"/>
 			<file updated="391" name="Devotion" type="json" path="cfg\weapons"/>
-			<file updated="391" name="EVA-8" type="json" path="cfg\weapons"/>
+			<file updated="39F" name="EVA-8" type="json" path="cfg\weapons"/>
 			<file updated="391" name="Flatline" type="json" path="cfg\weapons"/>
 			<file updated="391" name="G7-Scout" type="json" path="cfg\weapons"/>
 			<file updated="391" name="HAVOC" type="json" path="cfg\weapons"/>
@@ -147,13 +151,15 @@
 			<file updated="391" name="L-STAR" type="json" path="cfg\weapons"/>
 			<file updated="391" name="Longbow" type="json" path="cfg\weapons"/>
 			<file updated="391" name="Mastiff" type="json" path="cfg\weapons"/>
-			<file updated="391" name="Mozambique" type="json" path="cfg\weapons"/>
+			<file updated="39D" name="Mozambique_x_1" type="json" path="cfg\weapons"/>
+			<file updated="39D" name="Mozambique_x_2" type="json" path="cfg\weapons"/>
 			<file updated="391" name="Nemesis" type="json" path="cfg\weapons"/>
-			<file updated="391" name="P2020" type="json" path="cfg\weapons"/>
+			<file updated="39E" name="P2020_x_1" type="json" path="cfg\weapons"/>
+			<file updated="39E" name="P2020_x_2" type="json" path="cfg\weapons"/>
 			<file updated="391" name="Peacekeeper" type="json" path="cfg\weapons"/>
 			<file updated="391" name="Prowler" type="json" path="cfg\weapons"/>
 			<file updated="391" name="R-301" type="json" path="cfg\weapons"/>
-			<file updated="391" name="R-99" type="json" path="cfg\weapons"/>
+			<file updated="39F" name="R-99" type="json" path="cfg\weapons"/>
 			<file updated="391" name="Rampage" type="json" path="cfg\weapons"/>
 			<file updated="391" name="RE-45" type="json" path="cfg\weapons"/>
 			<file updated="391" name="Sentinel" type="json" path="cfg\weapons"/>
@@ -246,7 +252,7 @@
 				</folder>
 				<folder name="settings">
 					<file updated="398" name="page" type="html" path="fe\assets\pages\settings"/>
-					<file updated="398" name="script" type="js" path="fe\assets\pages\settings"/>
+					<file updated="39F" name="script" type="js" path="fe\assets\pages\settings"/>
 					<file updated="398" name="style" type="css" path="fe\assets\pages\settings"/>
 				</folder>
 			</folder>

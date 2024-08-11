@@ -2,7 +2,7 @@
     "name": "Bocek",
     "ammo": "Arrow",
     "supply": true,
-    "tap": true,
+    "tap": false,
     "multiplier": "1.0",
     "recoil": [
         [ 0, 0]
