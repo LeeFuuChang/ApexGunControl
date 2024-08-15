@@ -27,8 +27,12 @@ class WebServer(Flask):
     def registerAppControl(self, name, func):
         self.blueprints["app"].control_functions[name] = func
 
-    def __init__(self):
-        super(self.__class__, self).__init__(__name__)
+    def __new__(cls):
+        if(hasattr(cls, "instance")): return cls.instance
+
+        self = super(cls.__class__, cls).__new__(cls)
+        super(Flask, self).__init__(__name__)
+
         self.config["TRAP_HTTP_EXCEPTIONS"] = True
 
         self.appControls = {}
@@ -46,4 +50,12 @@ class WebServer(Flask):
                 return Response(repr(error), 500)
             return Response.force_type(error, request.environ)
 
-        logging.info(f"Server Initlized on ({self.host}, {self.port})")
+        logging.info(f"Server Instance created on ({self.host}, {self.port})")
+
+        cls.instance = self
+
+        return cls.instance
+
+    def __init__(self):
+        if(hasattr(self.__class__, "instance")): return
+        super(self.__class__, self).__init__(__name__)
