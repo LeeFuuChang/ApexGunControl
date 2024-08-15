@@ -31,7 +31,8 @@ class Detector:
     @classmethod
     def load(cls):
         with open(cls.configPath, "r") as f:
-            config = json.load(f)
+            try: config = json.load(f)
+            except: config = {}
             l = int(float(config.get("region-l", cls.region[0])))
             t = int(float(config.get("region-t", cls.region[1])))
             r = int(float(config.get("region-r", cls.region[2])))
@@ -49,7 +50,8 @@ class Detector:
     def save(cls):
         with open(cls.configPath, "a+") as f:
             f.seek(0)
-            config = json.load(f)
+            try: config = json.load(f)
+            except: config = {}
             config.update({
                 "region-l": f"{cls.region[0]}",
                 "region-t": f"{cls.region[1]}",
