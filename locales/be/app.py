@@ -49,8 +49,6 @@ class WebRenderer(QWebEngineView):
         QApplication.instance().installEventFilter(self)
         self.setMouseTracking(True)
 
-        self.server = None
-
         self.closeSignal.connect(self.close)
         self.minimizeSignal.connect(self.showMinimized)
         self.resizeSignal.connect(self.resize)
@@ -119,11 +117,10 @@ class WebRenderer(QWebEngineView):
 
 
     def connect(self, server, host, port):
-        self.server = server
-        self.server.registerAppControl("app-control-close", self.closeSignal.emit)
-        self.server.registerAppControl("app-control-minimize", self.minimizeSignal.emit)
-        self.server.registerAppControl("app-control-resize", self.resizeSignal.emit)
-        self.server.registerAppControl("app-control-show", self.showSignal.emit)
+        server.registerAppControl("app-control-close", self.closeSignal.emit)
+        server.registerAppControl("app-control-minimize", self.minimizeSignal.emit)
+        server.registerAppControl("app-control-resize", self.resizeSignal.emit)
+        server.registerAppControl("app-control-show", self.showSignal.emit)
         self.load(QUrl(f"http://{host}:{port}/ui"))
         self.centralize()
 
@@ -153,6 +150,7 @@ def run():
     ).start()
 
     try:
+        logging.info(f"Setting AppUserID to: '{os.environ['APP_USER_MODEL_ID']}'")
         ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(os.environ["APP_USER_MODEL_ID"])
     except Exception as e:
         logging.error(f"Failed to set AppUserID:\n{''.join(traceback.format_exception(e.__class__, e, e.__traceback__))}")

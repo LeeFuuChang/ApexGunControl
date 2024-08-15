@@ -30,7 +30,7 @@ class Detector:
 
     @classmethod
     def load(cls):
-        with open(cls.configPath, "r") as f:
+        with open(cls.configPath, "r", encoding="UTF-8") as f:
             try: config = json.load(f)
             except: config = {}
             l = int(float(config.get("region-l", cls.region[0])))
@@ -48,7 +48,7 @@ class Detector:
 
     @classmethod
     def save(cls):
-        with open(cls.configPath, "a+") as f:
+        with open(cls.configPath, "a+", encoding="UTF-8") as f:
             f.seek(0)
             try: config = json.load(f)
             except: config = {}

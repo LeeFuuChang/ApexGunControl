@@ -10,7 +10,7 @@ PROJECT_NAME = os.path.split(os.getcwd())[1]
 
 
 def extractImports(path):
-    with open(path) as f:
+    with open(path, "r", encoding="UTF-8") as f:
         statements = [f"{line} as _" for line in f.readlines() if "import " in line]
         imported = [
             *[sm[sm.index("from"):sm.index("import")][4:].strip() for sm in statements if "from" in sm],

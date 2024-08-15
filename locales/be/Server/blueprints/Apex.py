@@ -36,7 +36,7 @@ def Apex_Config():
             for key in entries: data[key] = data.get(key, True)
 
             # create the .cfg file
-            with open(os.path.join(data["path"], "ApexGunControl.cfg"), "w") as f:
+            with open(os.path.join(data["path"], "ApexGunControl.cfg"), "w", encoding="UTF-8") as f:
                 if(data["tap"]):
                     f.write(f"bind_US_standard \"{os.environ['KEY_SHOOTING']}\" \"+fixed;+hidden;+attack\"\n")
                 if(data["walk"] or data["jump"] or data["rope"]):
@@ -52,14 +52,15 @@ def Apex_Config():
             if(data["missing"]):
                 defaultCFGs = sys.modules["StorageManager"].LocalStorage.path("static", "apex", "cfg")
                 for file in os.listdir(defaultCFGs):
-                    with open(os.path.join(defaultCFGs, file), "r") as org,\
-                         open(os.path.join(data["path"], file), "w") as new:
+                    with open(os.path.join(defaultCFGs, file), "r", encoding="UTF-8") as org,\
+                         open(os.path.join(data["path"], file), "w", encoding="UTF-8") as new:
                         new.write(org.read())
 
             # save the cfg setting
-            with open(configPath, "a+") as f:
+            with open(configPath, "a+", encoding="UTF-8") as f:
                 f.seek(0)
-                config = json.load(f)
+                try: config = json.load(f)
+                except: config = {}
                 config.update(data)
                 f.truncate(0)
                 json.dump(config, f, indent=4, ensure_ascii=False)

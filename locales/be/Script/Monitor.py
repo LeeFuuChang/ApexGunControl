@@ -85,7 +85,7 @@ class GameMonitor:
                     cls.weaponConfig = {}
                     weaponConfigPath = sys.modules["StorageManager"].LocalStorage.path("cfg", "weapons", f"{cls.weapon[0]}.json")
                     if(os.path.exists(weaponConfigPath)):
-                        with open(weaponConfigPath, "r") as f:
+                        with open(weaponConfigPath, "r", encoding="UTF-8") as f:
                             cls.weaponConfig = json.load(f)
                 if(result[0] != cls.weapon[0] and result[1] < (float(_AGC.config.get("confidence", "80"))/100)): # != / <
                     logging.info(f"[{cls.__name__}] Weapon 'maybe' changed ({cls.weapon} -> {result}) [{round(result[1]*100)}%]")

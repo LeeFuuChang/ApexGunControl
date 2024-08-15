@@ -15,7 +15,7 @@ def App_Version():
     versionPath = sys.modules["StorageManager"].LocalStorage.path("storage.version")
     if(not versionPath or not os.path.exists(versionPath)): return Response(status=404)
 
-    with open(versionPath, "r") as f: currentVersion = f.read()
+    with open(versionPath, "r", encoding="UTF-8") as f: currentVersion = f.read()
 
     latest = rq.get(f"{os.environ['SERVER_URL']}/Version").json()
 
@@ -53,7 +53,7 @@ def App_Config(**kwargs):
         return send_file(configPath)
 
     if(request.method == "POST"):
-        with open(configPath, "a+") as f:
+        with open(configPath, "a+", encoding="UTF-8") as f:
             f.seek(0)
             try: config = json.load(f)
             except: config = {}

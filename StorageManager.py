@@ -133,8 +133,8 @@ class LocalStorage:
         if(not os.path.exists(cls.directory)): os.mkdir(cls.directory)
 
         versionFile = cls.join(cls.directory, "storage.version")
-        if(not os.path.exists(versionFile)): open(versionFile, "w").close()
-        with open(versionFile, "r") as f: cls.version = int(f"0{f.read()}", 16)
+        if(not os.path.exists(versionFile)): open(versionFile, "w", encoding="UTF-8").close()
+        with open(versionFile, "r", encoding="UTF-8") as f: cls.version = int(f"0{f.read()}", 16)
 
         cls.latest = max(int(f"0{cls.structure.attrib['version']}", 16), cls.version)
 
@@ -142,7 +142,7 @@ class LocalStorage:
         cls.walkTotal = len(cls.structure.findall(".//file")) + len(cls.structure.findall(".//folder")) + 1
         cls.walkUpdate(cls.structure, cls.structure, executableLOC, progressCallback=progressCallback)
 
-        with open(versionFile, "w") as f: f.write(hex(cls.latest)[2:].upper())
+        with open(versionFile, "w", encoding="UTF-8") as f: f.write(hex(cls.latest)[2:].upper())
 
         if(cls.latest > cls.version): logging.info(f"[{cls.__name__}] Updated: {cls.version} -> {cls.latest}")
 

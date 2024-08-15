@@ -116,7 +116,7 @@ class ApexGunControl(QWidget):
     def setFocusing(self, boolean):
         if(not boolean): return
         configPath = sys.modules["StorageManager"].LocalStorage.path("cfg", "settings.json")
-        with open(configPath, "r") as f: 
+        with open(configPath, "r", encoding="UTF-8") as f: 
             try: self.config = json.load(f)
             except: self.config = {}
         self.state_T_Color = QColor(self.config.get("floating-color-1", "#E7C975"))

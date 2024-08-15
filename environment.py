@@ -52,7 +52,7 @@ else:
 Logging Configuration
 """
 os.environ["SYSTEM_INFO_PATH"] = os.path.join(os.environ["EXECUTABLE_ROOT"], "system.json")
-with open(os.environ["SYSTEM_INFO_PATH"], "w") as f: 
+with open(os.environ["SYSTEM_INFO_PATH"], "w", encoding="UTF-8") as f: 
     json.dump(platform.uname()._asdict(), f, indent=4, ensure_ascii=False)
 
 logger = logging.getLogger()
