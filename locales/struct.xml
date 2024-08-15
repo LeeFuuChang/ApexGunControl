@@ -1,19 +1,19 @@
 <?xml version="1.0" ?>
-<folder name="ApexGunControl-LS" version="3A4">
+<folder name="ApexGunControl-LS" version="3A5">
 	<folder name="be">
-		<file updated="3A2" name="app" type="pyc" path="be"/>
+		<file updated="3A5" name="app" type="pyc" path="be"/>
 		<folder name="Script">
-			<file updated="3A2" name="AGC" type="pyc" path="be\Script"/>
+			<file updated="3A5" name="AGC" type="pyc" path="be\Script"/>
 			<file updated="3A2" name="Controller" type="pyc" path="be\Script"/>
-			<file updated="3A4" name="Detector" type="pyc" path="be\Script"/>
-			<file updated="3A2" name="Monitor" type="pyc" path="be\Script"/>
+			<file updated="3A5" name="Detector" type="pyc" path="be\Script"/>
+			<file updated="3A5" name="Monitor" type="pyc" path="be\Script"/>
 			<file updated="3A2" name="Selector" type="pyc" path="be\Script"/>
 		</folder>
 		<folder name="Server">
-			<file updated="3A2" name="Flask" type="pyc" path="be\Server"/>
+			<file updated="3A5" name="Flask" type="pyc" path="be\Server"/>
 			<folder name="blueprints">
-				<file updated="3A2" name="Apex" type="pyc" path="be\Server\blueprints"/>
-				<file updated="3A2" name="App" type="pyc" path="be\Server\blueprints"/>
+				<file updated="3A5" name="Apex" type="pyc" path="be\Server\blueprints"/>
+				<file updated="3A5" name="App" type="pyc" path="be\Server\blueprints"/>
 				<file updated="3A2" name="Auth" type="pyc" path="be\Server\blueprints"/>
 				<file updated="3A2" name="Ui" type="pyc" path="be\Server\blueprints"/>
 			</folder>
