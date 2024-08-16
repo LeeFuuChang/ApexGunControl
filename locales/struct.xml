@@ -1,171 +1,171 @@
 <?xml version="1.0" ?>
-<folder name="ApexGunControl-LS" version="3A5">
+<folder name="ApexGunControl-LS" version="3A6">
 	<folder name="be">
-		<file updated="3A5" name="app" type="pyc" path="be"/>
+		<file updated="3A5" name="app" type="pyc"/>
 		<folder name="Script">
-			<file updated="3A5" name="AGC" type="pyc" path="be\Script"/>
-			<file updated="3A2" name="Controller" type="pyc" path="be\Script"/>
-			<file updated="3A5" name="Detector" type="pyc" path="be\Script"/>
-			<file updated="3A5" name="Monitor" type="pyc" path="be\Script"/>
-			<file updated="3A2" name="Selector" type="pyc" path="be\Script"/>
+			<file updated="3A5" name="AGC" type="pyc"/>
+			<file updated="3A2" name="Controller" type="pyc"/>
+			<file updated="3A5" name="Detector" type="pyc"/>
+			<file updated="3A5" name="Monitor" type="pyc"/>
+			<file updated="3A2" name="Selector" type="pyc"/>
 		</folder>
 		<folder name="Server">
-			<file updated="3A5" name="Flask" type="pyc" path="be\Server"/>
+			<file updated="3A5" name="Flask" type="pyc"/>
 			<folder name="blueprints">
-				<file updated="3A5" name="Apex" type="pyc" path="be\Server\blueprints"/>
-				<file updated="3A5" name="App" type="pyc" path="be\Server\blueprints"/>
-				<file updated="3A2" name="Auth" type="pyc" path="be\Server\blueprints"/>
-				<file updated="3A2" name="Ui" type="pyc" path="be\Server\blueprints"/>
+				<file updated="3A5" name="Apex" type="pyc"/>
+				<file updated="3A5" name="App" type="pyc"/>
+				<file updated="3A2" name="Auth" type="pyc"/>
+				<file updated="3A2" name="Ui" type="pyc"/>
 			</folder>
 		</folder>
 	</folder>
 	<folder name="cfg">
-		<file updated="393" name="app" type="json" path="cfg"/>
-		<file updated="391" name="cfg" type="json" path="cfg"/>
-		<file updated="398" name="settings" type="json" path="cfg"/>
-		<file updated="39A" name="user" type="json" path="cfg"/>
+		<file updated="393" name="app" type="json"/>
+		<file updated="391" name="cfg" type="json"/>
+		<file updated="398" name="settings" type="json"/>
+		<file updated="39A" name="user" type="json"/>
 		<folder name="weapons">
-			<file updated="391" name="30-30-Repeater" type="json" path="cfg\weapons"/>
-			<file updated="391" name="Alternator" type="json" path="cfg\weapons"/>
-			<file updated="3A0" name="Bocek" type="json" path="cfg\weapons"/>
-			<file updated="391" name="CAR" type="json" path="cfg\weapons"/>
-			<file updated="391" name="Charge-Rifle" type="json" path="cfg\weapons"/>
-			<file updated="391" name="Devotion" type="json" path="cfg\weapons"/>
-			<file updated="39F" name="EVA-8" type="json" path="cfg\weapons"/>
-			<file updated="391" name="Flatline" type="json" path="cfg\weapons"/>
-			<file updated="391" name="G7-Scout" type="json" path="cfg\weapons"/>
-			<file updated="391" name="HAVOC" type="json" path="cfg\weapons"/>
-			<file updated="391" name="Hemlok" type="json" path="cfg\weapons"/>
-			<file updated="391" name="Kraber" type="json" path="cfg\weapons"/>
-			<file updated="391" name="L-STAR" type="json" path="cfg\weapons"/>
-			<file updated="391" name="Longbow" type="json" path="cfg\weapons"/>
-			<file updated="391" name="Mastiff" type="json" path="cfg\weapons"/>
-			<file updated="39D" name="Mozambique_x_1" type="json" path="cfg\weapons"/>
-			<file updated="39D" name="Mozambique_x_2" type="json" path="cfg\weapons"/>
-			<file updated="391" name="Nemesis" type="json" path="cfg\weapons"/>
-			<file updated="39E" name="P2020_x_1" type="json" path="cfg\weapons"/>
-			<file updated="39E" name="P2020_x_2" type="json" path="cfg\weapons"/>
-			<file updated="391" name="Peacekeeper" type="json" path="cfg\weapons"/>
-			<file updated="391" name="Prowler" type="json" path="cfg\weapons"/>
-			<file updated="391" name="R-301" type="json" path="cfg\weapons"/>
-			<file updated="39F" name="R-99" type="json" path="cfg\weapons"/>
-			<file updated="391" name="Rampage" type="json" path="cfg\weapons"/>
-			<file updated="391" name="RE-45" type="json" path="cfg\weapons"/>
-			<file updated="391" name="Sentinel" type="json" path="cfg\weapons"/>
-			<file updated="391" name="Spitfire" type="json" path="cfg\weapons"/>
-			<file updated="391" name="Throwing-Knife" type="json" path="cfg\weapons"/>
-			<file updated="391" name="Triple-Take" type="json" path="cfg\weapons"/>
-			<file updated="391" name="Volt" type="json" path="cfg\weapons"/>
-			<file updated="391" name="Wingman" type="json" path="cfg\weapons"/>
+			<file updated="391" name="30-30-Repeater" type="json"/>
+			<file updated="391" name="Alternator" type="json"/>
+			<file updated="3A0" name="Bocek" type="json"/>
+			<file updated="391" name="CAR" type="json"/>
+			<file updated="391" name="Charge-Rifle" type="json"/>
+			<file updated="391" name="Devotion" type="json"/>
+			<file updated="39F" name="EVA-8" type="json"/>
+			<file updated="391" name="Flatline" type="json"/>
+			<file updated="391" name="G7-Scout" type="json"/>
+			<file updated="391" name="HAVOC" type="json"/>
+			<file updated="391" name="Hemlok" type="json"/>
+			<file updated="391" name="Kraber" type="json"/>
+			<file updated="391" name="L-STAR" type="json"/>
+			<file updated="391" name="Longbow" type="json"/>
+			<file updated="391" name="Mastiff" type="json"/>
+			<file updated="39D" name="Mozambique_x_1" type="json"/>
+			<file updated="39D" name="Mozambique_x_2" type="json"/>
+			<file updated="391" name="Nemesis" type="json"/>
+			<file updated="39E" name="P2020_x_1" type="json"/>
+			<file updated="39E" name="P2020_x_2" type="json"/>
+			<file updated="391" name="Peacekeeper" type="json"/>
+			<file updated="391" name="Prowler" type="json"/>
+			<file updated="391" name="R-301" type="json"/>
+			<file updated="39F" name="R-99" type="json"/>
+			<file updated="391" name="Rampage" type="json"/>
+			<file updated="391" name="RE-45" type="json"/>
+			<file updated="391" name="Sentinel" type="json"/>
+			<file updated="391" name="Spitfire" type="json"/>
+			<file updated="391" name="Throwing-Knife" type="json"/>
+			<file updated="391" name="Triple-Take" type="json"/>
+			<file updated="391" name="Volt" type="json"/>
+			<file updated="391" name="Wingman" type="json"/>
 		</folder>
 	</folder>
 	<folder name="fe">
-		<file updated="3A3" name="index" type="html" path="fe"/>
+		<file updated="3A3" name="index" type="html"/>
 		<folder name="assets">
-			<file updated="39C" name="auth" type="js" path="fe\assets"/>
-			<file updated="398" name="constant" type="js" path="fe\assets"/>
-			<file updated="3A3" name="index" type="js" path="fe\assets"/>
-			<file updated="398" name="language" type="js" path="fe\assets"/>
-			<file updated="3A3" name="style" type="css" path="fe\assets"/>
+			<file updated="39C" name="auth" type="js"/>
+			<file updated="398" name="constant" type="js"/>
+			<file updated="3A3" name="index" type="js"/>
+			<file updated="398" name="language" type="js"/>
+			<file updated="3A3" name="style" type="css"/>
 			<folder name="logo">
-				<file updated="391" name="filled" type="png" path="fe\assets\logo"/>
-				<file updated="391" name="firebase" type="png" path="fe\assets\logo"/>
-				<file updated="391" name="nofill" type="png" path="fe\assets\logo"/>
+				<file updated="391" name="filled" type="png"/>
+				<file updated="391" name="firebase" type="png"/>
+				<file updated="391" name="nofill" type="png"/>
 			</folder>
 			<folder name="media">
-				<file updated="391" name="Banner" type="png" path="fe\assets\media"/>
-				<file updated="391" name="Header" type="png" path="fe\assets\media"/>
-				<file updated="391" name="Purchase" type="png" path="fe\assets\media"/>
+				<file updated="391" name="Banner" type="png"/>
+				<file updated="391" name="Header" type="png"/>
+				<file updated="391" name="Purchase" type="png"/>
 				<folder name="controls">
-					<file updated="391" name="Close" type="svg" path="fe\assets\media\controls"/>
-					<file updated="391" name="Minimize" type="svg" path="fe\assets\media\controls"/>
-					<file updated="391" name="Settings" type="svg" path="fe\assets\media\controls"/>
+					<file updated="391" name="Close" type="svg"/>
+					<file updated="391" name="Minimize" type="svg"/>
+					<file updated="391" name="Settings" type="svg"/>
 				</folder>
 				<folder name="illustration">
-					<file updated="391" name="Addition" type="svg" path="fe\assets\media\illustration"/>
-					<file updated="391" name="Check" type="svg" path="fe\assets\media\illustration"/>
-					<file updated="391" name="Directory" type="svg" path="fe\assets\media\illustration"/>
-					<file updated="391" name="Down" type="svg" path="fe\assets\media\illustration"/>
-					<file updated="391" name="Download" type="svg" path="fe\assets\media\illustration"/>
-					<file updated="391" name="Minus" type="svg" path="fe\assets\media\illustration"/>
-					<file updated="391" name="Region" type="svg" path="fe\assets\media\illustration"/>
-					<file updated="391" name="Search" type="svg" path="fe\assets\media\illustration"/>
+					<file updated="391" name="Addition" type="svg"/>
+					<file updated="391" name="Check" type="svg"/>
+					<file updated="391" name="Directory" type="svg"/>
+					<file updated="391" name="Down" type="svg"/>
+					<file updated="391" name="Download" type="svg"/>
+					<file updated="391" name="Minus" type="svg"/>
+					<file updated="391" name="Region" type="svg"/>
+					<file updated="391" name="Search" type="svg"/>
 				</folder>
 				<folder name="installation">
-					<file updated="391" name="Step1" type="png" path="fe\assets\media\installation"/>
-					<file updated="391" name="Step2" type="png" path="fe\assets\media\installation"/>
-					<file updated="391" name="Step3" type="png" path="fe\assets\media\installation"/>
-					<file updated="391" name="Step4" type="png" path="fe\assets\media\installation"/>
-					<file updated="391" name="Step5" type="png" path="fe\assets\media\installation"/>
-					<file updated="391" name="Step6" type="png" path="fe\assets\media\installation"/>
+					<file updated="391" name="Step1" type="png"/>
+					<file updated="391" name="Step2" type="png"/>
+					<file updated="391" name="Step3" type="png"/>
+					<file updated="391" name="Step4" type="png"/>
+					<file updated="391" name="Step5" type="png"/>
+					<file updated="391" name="Step6" type="png"/>
 				</folder>
 				<folder name="navigations">
-					<file updated="391" name="Config" type="svg" path="fe\assets\media\navigations"/>
-					<file updated="391" name="Dashboard" type="svg" path="fe\assets\media\navigations"/>
-					<file updated="391" name="Guide" type="svg" path="fe\assets\media\navigations"/>
-					<file updated="391" name="Left" type="svg" path="fe\assets\media\navigations"/>
-					<file updated="391" name="Login" type="svg" path="fe\assets\media\navigations"/>
-					<file updated="391" name="Logout" type="svg" path="fe\assets\media\navigations"/>
-					<file updated="391" name="Right" type="svg" path="fe\assets\media\navigations"/>
-					<file updated="391" name="Settings" type="svg" path="fe\assets\media\navigations"/>
+					<file updated="391" name="Config" type="svg"/>
+					<file updated="391" name="Dashboard" type="svg"/>
+					<file updated="391" name="Guide" type="svg"/>
+					<file updated="391" name="Left" type="svg"/>
+					<file updated="391" name="Login" type="svg"/>
+					<file updated="391" name="Logout" type="svg"/>
+					<file updated="391" name="Right" type="svg"/>
+					<file updated="391" name="Settings" type="svg"/>
 				</folder>
 			</folder>
 			<folder name="overlay">
 				<folder name="info">
-					<file updated="391" name="overlay" type="html" path="fe\assets\overlay\info"/>
-					<file updated="391" name="script" type="js" path="fe\assets\overlay\info"/>
-					<file updated="395" name="style" type="css" path="fe\assets\overlay\info"/>
+					<file updated="391" name="overlay" type="html"/>
+					<file updated="391" name="script" type="js"/>
+					<file updated="395" name="style" type="css"/>
 				</folder>
 				<folder name="login">
-					<file updated="391" name="overlay" type="html" path="fe\assets\overlay\login"/>
-					<file updated="39A" name="script" type="js" path="fe\assets\overlay\login"/>
-					<file updated="391" name="style" type="css" path="fe\assets\overlay\login"/>
+					<file updated="391" name="overlay" type="html"/>
+					<file updated="39A" name="script" type="js"/>
+					<file updated="391" name="style" type="css"/>
 				</folder>
 			</folder>
 			<folder name="pages">
-				<file updated="3A3" name="style" type="css" path="fe\assets\pages"/>
+				<file updated="3A3" name="style" type="css"/>
 				<folder name="config">
-					<file updated="3A3" name="page" type="html" path="fe\assets\pages\config"/>
-					<file updated="391" name="script" type="js" path="fe\assets\pages\config"/>
-					<file updated="391" name="style" type="css" path="fe\assets\pages\config"/>
+					<file updated="3A3" name="page" type="html"/>
+					<file updated="391" name="script" type="js"/>
+					<file updated="391" name="style" type="css"/>
 				</folder>
 				<folder name="dashboard">
-					<file updated="3A3" name="page" type="html" path="fe\assets\pages\dashboard"/>
-					<file updated="391" name="script" type="js" path="fe\assets\pages\dashboard"/>
-					<file updated="391" name="style" type="css" path="fe\assets\pages\dashboard"/>
+					<file updated="3A3" name="page" type="html"/>
+					<file updated="391" name="script" type="js"/>
+					<file updated="391" name="style" type="css"/>
 				</folder>
 				<folder name="guide">
-					<file updated="3A3" name="page" type="html" path="fe\assets\pages\guide"/>
-					<file updated="391" name="script" type="js" path="fe\assets\pages\guide"/>
-					<file updated="391" name="style" type="css" path="fe\assets\pages\guide"/>
+					<file updated="3A3" name="page" type="html"/>
+					<file updated="391" name="script" type="js"/>
+					<file updated="391" name="style" type="css"/>
 				</folder>
 				<folder name="settings">
-					<file updated="3A3" name="page" type="html" path="fe\assets\pages\settings"/>
-					<file updated="39F" name="script" type="js" path="fe\assets\pages\settings"/>
-					<file updated="398" name="style" type="css" path="fe\assets\pages\settings"/>
+					<file updated="3A3" name="page" type="html"/>
+					<file updated="39F" name="script" type="js"/>
+					<file updated="398" name="style" type="css"/>
 				</folder>
 			</folder>
 			<folder name="widgets">
-				<file updated="3A3" name="style" type="css" path=""/>
+				<file updated="3A6" name="style" type="css"/>
 				<folder name="checkbox">
-					<file updated="3A3" name="dark" type="css" path=""/>
-					<file updated="3A3" name="light" type="css" path=""/>
-					<file updated="3A3" name="style" type="css" path=""/>
+					<file updated="3A6" name="dark" type="css"/>
+					<file updated="3A6" name="light" type="css"/>
+					<file updated="3A6" name="style" type="css"/>
 				</folder>
 				<folder name="scrollable">
-					<file updated="3A3" name="dark" type="css" path=""/>
-					<file updated="3A3" name="light" type="css" path=""/>
-					<file updated="3A3" name="style" type="css" path=""/>
+					<file updated="3A6" name="dark" type="css"/>
+					<file updated="3A6" name="light" type="css"/>
+					<file updated="3A6" name="style" type="css"/>
 				</folder>
 				<folder name="slider">
-					<file updated="3A3" name="dark" type="css" path=""/>
-					<file updated="3A3" name="light" type="css" path=""/>
-					<file updated="3A3" name="style" type="css" path=""/>
+					<file updated="3A6" name="dark" type="css"/>
+					<file updated="3A6" name="light" type="css"/>
+					<file updated="3A6" name="style" type="css"/>
 				</folder>
 				<folder name="switch">
-					<file updated="3A3" name="dark" type="css" path=""/>
-					<file updated="3A3" name="light" type="css" path=""/>
-					<file updated="3A3" name="style" type="css" path=""/>
+					<file updated="3A6" name="dark" type="css"/>
+					<file updated="3A6" name="light" type="css"/>
+					<file updated="3A6" name="style" type="css"/>
 				</folder>
 			</folder>
 		</folder>
@@ -174,112 +174,112 @@
 		<folder name="apex">
 			<folder name="assets">
 				<folder name="bullets">
-					<file updated="3A1" name="Energy" type="png" path=""/>
-					<file updated="3A1" name="Heavy" type="png" path=""/>
-					<file updated="3A1" name="Light" type="png" path=""/>
-					<file updated="3A1" name="Shotgun" type="png" path=""/>
-					<file updated="3A1" name="Sniper" type="png" path=""/>
-					<file updated="3A1" name="SupplyArrow" type="png" path=""/>
-					<file updated="3A1" name="SupplyEnergy" type="png" path=""/>
-					<file updated="3A1" name="SupplyHeavy" type="png" path=""/>
-					<file updated="3A1" name="SupplyKnife" type="png" path=""/>
-					<file updated="3A1" name="SupplyLight" type="png" path=""/>
-					<file updated="3A1" name="SupplyShotgun" type="png" path=""/>
-					<file updated="3A1" name="SupplySniper" type="png" path=""/>
+					<file updated="3A6" name="Energy" type="png"/>
+					<file updated="3A6" name="Heavy" type="png"/>
+					<file updated="3A6" name="Light" type="png"/>
+					<file updated="3A6" name="Shotgun" type="png"/>
+					<file updated="3A6" name="Sniper" type="png"/>
+					<file updated="3A6" name="SupplyArrow" type="png"/>
+					<file updated="3A6" name="SupplyEnergy" type="png"/>
+					<file updated="3A6" name="SupplyHeavy" type="png"/>
+					<file updated="3A6" name="SupplyKnife" type="png"/>
+					<file updated="3A6" name="SupplyLight" type="png"/>
+					<file updated="3A6" name="SupplyShotgun" type="png"/>
+					<file updated="3A6" name="SupplySniper" type="png"/>
 				</folder>
 				<folder name="weapons">
-					<file updated="3A1" name="30-30-Repeater" type="png" path=""/>
-					<file updated="3A1" name="Alternator" type="png" path=""/>
-					<file updated="3A1" name="Bocek" type="png" path=""/>
-					<file updated="3A1" name="CAR" type="png" path=""/>
-					<file updated="3A1" name="Charge-Rifle" type="png" path=""/>
-					<file updated="3A1" name="Devotion" type="png" path=""/>
-					<file updated="3A1" name="EVA-8" type="png" path=""/>
-					<file updated="3A1" name="Flatline" type="png" path=""/>
-					<file updated="3A1" name="G7-Scout" type="png" path=""/>
-					<file updated="3A1" name="HAVOC" type="png" path=""/>
-					<file updated="3A1" name="Hemlok" type="png" path=""/>
-					<file updated="3A1" name="Kraber" type="png" path=""/>
-					<file updated="3A1" name="L-STAR" type="png" path=""/>
-					<file updated="3A1" name="Longbow" type="png" path=""/>
-					<file updated="3A1" name="Mastiff" type="png" path=""/>
-					<file updated="3A1" name="Mozambique_x_1" type="png" path=""/>
-					<file updated="3A1" name="Mozambique_x_2" type="png" path=""/>
-					<file updated="3A1" name="Nemesis" type="png" path=""/>
-					<file updated="3A1" name="P2020_x_1" type="png" path=""/>
-					<file updated="3A1" name="P2020_x_2" type="png" path=""/>
-					<file updated="3A1" name="Peacekeeper" type="png" path=""/>
-					<file updated="3A1" name="Prowler" type="png" path=""/>
-					<file updated="3A1" name="R-301" type="png" path=""/>
-					<file updated="3A1" name="R-99" type="png" path=""/>
-					<file updated="3A1" name="Rampage" type="png" path=""/>
-					<file updated="3A1" name="RE-45" type="png" path=""/>
-					<file updated="3A1" name="Sentinel" type="png" path=""/>
-					<file updated="3A1" name="Spitfire" type="png" path=""/>
-					<file updated="3A1" name="Throwing-Knife" type="png" path=""/>
-					<file updated="3A1" name="Triple-Take" type="png" path=""/>
-					<file updated="3A1" name="Volt" type="png" path=""/>
-					<file updated="3A1" name="Wingman" type="png" path=""/>
+					<file updated="3A6" name="30-30-Repeater" type="png"/>
+					<file updated="3A6" name="Alternator" type="png"/>
+					<file updated="3A6" name="Bocek" type="png"/>
+					<file updated="3A6" name="CAR" type="png"/>
+					<file updated="3A6" name="Charge-Rifle" type="png"/>
+					<file updated="3A6" name="Devotion" type="png"/>
+					<file updated="3A6" name="EVA-8" type="png"/>
+					<file updated="3A6" name="Flatline" type="png"/>
+					<file updated="3A6" name="G7-Scout" type="png"/>
+					<file updated="3A6" name="HAVOC" type="png"/>
+					<file updated="3A6" name="Hemlok" type="png"/>
+					<file updated="3A6" name="Kraber" type="png"/>
+					<file updated="3A6" name="L-STAR" type="png"/>
+					<file updated="3A6" name="Longbow" type="png"/>
+					<file updated="3A6" name="Mastiff" type="png"/>
+					<file updated="3A6" name="Mozambique_x_1" type="png"/>
+					<file updated="3A6" name="Mozambique_x_2" type="png"/>
+					<file updated="3A6" name="Nemesis" type="png"/>
+					<file updated="3A6" name="P2020_x_1" type="png"/>
+					<file updated="3A6" name="P2020_x_2" type="png"/>
+					<file updated="3A6" name="Peacekeeper" type="png"/>
+					<file updated="3A6" name="Prowler" type="png"/>
+					<file updated="3A6" name="R-301" type="png"/>
+					<file updated="3A6" name="R-99" type="png"/>
+					<file updated="3A6" name="Rampage" type="png"/>
+					<file updated="3A6" name="RE-45" type="png"/>
+					<file updated="3A6" name="Sentinel" type="png"/>
+					<file updated="3A6" name="Spitfire" type="png"/>
+					<file updated="3A6" name="Throwing-Knife" type="png"/>
+					<file updated="3A6" name="Triple-Take" type="png"/>
+					<file updated="3A6" name="Volt" type="png"/>
+					<file updated="3A6" name="Wingman" type="png"/>
 				</folder>
 			</folder>
 			<folder name="cfg">
-				<file updated="3A1" name="config_default_pc" type="cfg" path=""/>
-				<file updated="3A1" name="video_settings_changed_quit" type="cfg" path=""/>
+				<file updated="3A6" name="config_default_pc" type="cfg"/>
+				<file updated="3A6" name="video_settings_changed_quit" type="cfg"/>
 			</folder>
 			<folder name="silhouettes">
 				<folder name="ingame">
-					<file updated="3A1" name="grenade" type="jpg" path=""/>
-					<file updated="3A1" name="health" type="jpg" path=""/>
-					<file updated="3A1" name="hint" type="jpg" path=""/>
-					<file updated="3A1" name="speaker" type="jpg" path=""/>
+					<file updated="3A6" name="grenade" type="jpg"/>
+					<file updated="3A6" name="health" type="jpg"/>
+					<file updated="3A6" name="hint" type="jpg"/>
+					<file updated="3A6" name="speaker" type="jpg"/>
 				</folder>
 				<folder name="weapons">
-					<file updated="3A1" name="30-30-Repeater" type="jpg" path=""/>
-					<file updated="3A1" name="Alternator" type="jpg" path=""/>
-					<file updated="3A1" name="Bocek" type="jpg" path=""/>
-					<file updated="3A1" name="CAR" type="jpg" path=""/>
-					<file updated="3A1" name="Charge-Rifle" type="jpg" path=""/>
-					<file updated="3A1" name="Devotion" type="jpg" path=""/>
-					<file updated="3A1" name="EVA-8" type="jpg" path=""/>
-					<file updated="3A1" name="Flatline" type="jpg" path=""/>
-					<file updated="3A1" name="G7-Scout" type="jpg" path=""/>
-					<file updated="3A1" name="HAVOC" type="jpg" path=""/>
-					<file updated="3A1" name="Hemlok" type="jpg" path=""/>
-					<file updated="3A1" name="Kraber" type="jpg" path=""/>
-					<file updated="3A1" name="L-STAR" type="jpg" path=""/>
-					<file updated="3A1" name="Longbow" type="jpg" path=""/>
-					<file updated="3A1" name="Mastiff" type="jpg" path=""/>
-					<file updated="3A1" name="Mozambique_x_1" type="jpg" path=""/>
-					<file updated="3A1" name="Mozambique_x_2" type="jpg" path=""/>
-					<file updated="3A1" name="Nemesis" type="jpg" path=""/>
-					<file updated="3A1" name="P2020_x_1" type="jpg" path=""/>
-					<file updated="3A1" name="P2020_x_2" type="jpg" path=""/>
-					<file updated="3A1" name="Peacekeeper" type="jpg" path=""/>
-					<file updated="3A1" name="Prowler" type="jpg" path=""/>
-					<file updated="3A1" name="R-301" type="jpg" path=""/>
-					<file updated="3A1" name="R-99" type="jpg" path=""/>
-					<file updated="3A1" name="Rampage" type="jpg" path=""/>
-					<file updated="3A1" name="RE-45" type="jpg" path=""/>
-					<file updated="3A1" name="Sentinel" type="jpg" path=""/>
-					<file updated="3A1" name="Spitfire" type="jpg" path=""/>
-					<file updated="3A1" name="Throwing-Knife" type="jpg" path=""/>
-					<file updated="3A1" name="Triple-Take" type="jpg" path=""/>
-					<file updated="3A1" name="Volt" type="jpg" path=""/>
-					<file updated="3A1" name="Wingman" type="jpg" path=""/>
+					<file updated="3A6" name="30-30-Repeater" type="jpg"/>
+					<file updated="3A6" name="Alternator" type="jpg"/>
+					<file updated="3A6" name="Bocek" type="jpg"/>
+					<file updated="3A6" name="CAR" type="jpg"/>
+					<file updated="3A6" name="Charge-Rifle" type="jpg"/>
+					<file updated="3A6" name="Devotion" type="jpg"/>
+					<file updated="3A6" name="EVA-8" type="jpg"/>
+					<file updated="3A6" name="Flatline" type="jpg"/>
+					<file updated="3A6" name="G7-Scout" type="jpg"/>
+					<file updated="3A6" name="HAVOC" type="jpg"/>
+					<file updated="3A6" name="Hemlok" type="jpg"/>
+					<file updated="3A6" name="Kraber" type="jpg"/>
+					<file updated="3A6" name="L-STAR" type="jpg"/>
+					<file updated="3A6" name="Longbow" type="jpg"/>
+					<file updated="3A6" name="Mastiff" type="jpg"/>
+					<file updated="3A6" name="Mozambique_x_1" type="jpg"/>
+					<file updated="3A6" name="Mozambique_x_2" type="jpg"/>
+					<file updated="3A6" name="Nemesis" type="jpg"/>
+					<file updated="3A6" name="P2020_x_1" type="jpg"/>
+					<file updated="3A6" name="P2020_x_2" type="jpg"/>
+					<file updated="3A6" name="Peacekeeper" type="jpg"/>
+					<file updated="3A6" name="Prowler" type="jpg"/>
+					<file updated="3A6" name="R-301" type="jpg"/>
+					<file updated="3A6" name="R-99" type="jpg"/>
+					<file updated="3A6" name="Rampage" type="jpg"/>
+					<file updated="3A6" name="RE-45" type="jpg"/>
+					<file updated="3A6" name="Sentinel" type="jpg"/>
+					<file updated="3A6" name="Spitfire" type="jpg"/>
+					<file updated="3A6" name="Throwing-Knife" type="jpg"/>
+					<file updated="3A6" name="Triple-Take" type="jpg"/>
+					<file updated="3A6" name="Volt" type="jpg"/>
+					<file updated="3A6" name="Wingman" type="jpg"/>
 				</folder>
 			</folder>
 		</folder>
 		<folder name="status">
-			<file updated="3A1" name="Aiming-F" type="png" path=""/>
-			<file updated="3A1" name="Aiming-T" type="png" path=""/>
-			<file updated="3A1" name="Firing-F" type="png" path=""/>
-			<file updated="3A1" name="Firing-T" type="png" path=""/>
-			<file updated="3A1" name="InGame-F" type="png" path=""/>
-			<file updated="3A1" name="InGame-T" type="png" path=""/>
-			<file updated="3A1" name="Moving-F" type="png" path=""/>
-			<file updated="3A1" name="Moving-T" type="png" path=""/>
-			<file updated="3A1" name="Nading-F" type="png" path=""/>
-			<file updated="3A1" name="Nading-T" type="png" path=""/>
+			<file updated="3A6" name="Aiming-F" type="png"/>
+			<file updated="3A6" name="Aiming-T" type="png"/>
+			<file updated="3A6" name="Firing-F" type="png"/>
+			<file updated="3A6" name="Firing-T" type="png"/>
+			<file updated="3A6" name="InGame-F" type="png"/>
+			<file updated="3A6" name="InGame-T" type="png"/>
+			<file updated="3A6" name="Moving-F" type="png"/>
+			<file updated="3A6" name="Moving-T" type="png"/>
+			<file updated="3A6" name="Nading-F" type="png"/>
+			<file updated="3A6" name="Nading-T" type="png"/>
 		</folder>
 	</folder>
 </folder>

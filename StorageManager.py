@@ -44,50 +44,63 @@ class LocalStorage:
         return (filepath if(os.path.exists(filepath))else "")
 
     @singletonmethod
-    def updateFile(cls, _path:str, _name:str, _type:str) -> None:
-        relpath = cls.join(_path, f"{_name}.{_type}")
-        fulpath = cls.join(cls.directory, relpath)
-        urlpath = "/".join([cls.remoteURL, relpath.replace("\\", "/")])
-        logging.info(f"[{cls.__name__}] updating: {relpath}")
+    def updateRel(cls, relpath:str) -> None:
+        subpath = os.path.relpath(relpath, os.path.split(cls.directory)[1])
+        fulpath = cls.join(cls.directory, subpath)
+        urlpath = "/".join([cls.remoteURL, subpath.replace("\\", "/")])
+        logging.info(f"[{cls.__name__}] updateFile: '{urlpath}' -> '{fulpath}'")
+        if("--debug" in sys.argv):
+            logging.info(f"[{cls.__name__}] updateFile canceled duo to debug mode")
+            return
         try:
             response = rq.get(urlpath, verify=False)
             if(response.status_code//100 == 2):
                 os.makedirs(os.path.split(fulpath)[0], exist_ok=True)
                 with open(fulpath, "wb") as f: f.write(response.content)
             else:
-                raise rq.RequestException(f"Failed {response.status_code}")
+                raise rq.RequestException(f"{response.status_code}")
         except Exception as e:
-            logging.error(f"[{cls.__name__}] update failed: {relpath} {e}")
+            logging.error(f"[{cls.__name__}] updateFile failed: {fulpath} {e}")
             if(os.path.exists(fulpath)): os.remove(fulpath)
 
     @singletonmethod
-    def walkUpdate(cls, root:ET.Element, node:ET.Element, dirpath:str, *, progressCallback=lambda text="",progress=0:0) -> str:
-        if("--debug" in sys.argv): return node.attrib["name"]
+    def removeRel(cls, relpath:str) -> None:
+        subpath = os.path.relpath(relpath, os.path.split(cls.directory)[1])
+        fulpath = cls.join(cls.directory, subpath)
+        logging.info(f"[{cls.__name__}] removeRel: '{fulpath}'")
+        if("--debug" in sys.argv):
+            logging.info(f"[{cls.__name__}] removeRel canceled duo to debug mode")
+            return
+        if(os.path.isfile(fulpath)): os.remove(fulpath)
+        if(os.path.isdir(fulpath)): shutil.rmtree(fulpath, ignore_errors=True)
+
+    @singletonmethod
+    def walkUpdate(cls, root:ET.Element, node:ET.Element, exepath:str, relpath:str, *, progressCallback=lambda text="",progress=0:0) -> str:
 
         cls.walkCount += 1
 
         if(node.tag == "folder"):
-            dirpath = cls.join(dirpath, node.attrib["name"])
+            relpath = cls.join(relpath, node.attrib["name"])
+            fulpath = cls.join(exepath, relpath)
 
-            if(not os.path.exists(dirpath)): os.mkdir(dirpath)
+            if(not os.path.exists(fulpath)): os.mkdir(fulpath)
 
             children = {"folder":set(), "file":set(["storage"])}
-            for child in node: children[child.tag].add(cls.walkUpdate(root, child, dirpath, progressCallback=progressCallback))
+            for child in node: children[child.tag].add(cls.walkUpdate(root, child, exepath, relpath, progressCallback=progressCallback))
 
-            for child in os.listdir(dirpath):
-                childPath = cls.join(dirpath, child)
+            for child in os.listdir(fulpath):
                 childName = os.path.splitext(child)[0]
                 if(childName in children["file"] or childName in children["folder"]): continue
-                if(os.path.isfile(childPath)): os.remove(childPath)
-                if(os.path.isdir(childPath)): shutil.rmtree(childPath, ignore_errors=True)
+                cls.removeRel(relpath=cls.join(relpath, child))
 
         if(node.tag == "file"):
-            filepath = cls.join(dirpath, f"{node.attrib['name']}.{node.attrib['type']}")
+            relpath = cls.join(relpath, f"{node.attrib['name']}.{node.attrib['type']}")
+            fulpath = cls.join(exepath, relpath)
 
-            alreadyExist = os.path.exists(filepath)
+            alreadyExist = os.path.exists(fulpath)
 
             if(alreadyExist):
-                with open(filepath, "rb") as f:
+                with open(fulpath, "rb") as f:
                     fileContent = f.read()
             else: fileContent = b""
 
@@ -100,13 +113,10 @@ class LocalStorage:
             if(not (updateCuzStorage or updateCuzMissing or updateCuzContent)): return node.attrib["name"]
 
             reason = f"[CuzStorage({updateCuzStorage}) | CuzMissing({updateCuzMissing}) | CuzContent({updateCuzContent})]"
-            logging.info(f"[{cls.__name__}] Updating: {reason} {filepath}")
+            logging.info(f"[{cls.__name__}] Updating: {reason} '{fulpath}'")
 
-            cls.updateFile(_path=node.attrib["path"],
-                           _name=node.attrib["name"],
-                           _type=node.attrib["type"])
+            cls.updateRel(relpath=relpath)
 
-            relpath = cls.join(node.attrib["path"], f"{node.attrib['name']}.{node.attrib['type']}")
             progressCallback(relpath, round(100*cls.walkCount/cls.walkTotal))
 
         return node.attrib["name"]
@@ -140,7 +150,7 @@ class LocalStorage:
 
         cls.walkCount = 0
         cls.walkTotal = len(cls.structure.findall(".//file")) + len(cls.structure.findall(".//folder")) + 1
-        cls.walkUpdate(cls.structure, cls.structure, executableLOC, progressCallback=progressCallback)
+        cls.walkUpdate(cls.structure, cls.structure, executableLOC, "", progressCallback=progressCallback)
 
         with open(versionFile, "w", encoding="UTF-8") as f: f.write(hex(cls.latest)[2:].upper())
 
