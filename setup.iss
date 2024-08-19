@@ -2,17 +2,15 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "ApexGunControl"
-#define MyAppVersion "1.0.0"
 #define MyAppPublisher "LeeFuuChang"
 #define MyAppURL "https://www.leefuuchang.in/"
-#define MyAppExeName "ApexGunControl.exe"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{552B8FE0-BFE0-4F73-93D9-EEAAE1982DC4}
 AppName={#MyAppName}
-AppVersion={#MyAppVersion}
+AppVerName={#MyAppName}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
@@ -21,7 +19,7 @@ DefaultDirName={autopf}\{#MyAppName}
 DisableProgramGroupPage=yes
 PrivilegesRequired=admin
 OutputDir=.\dist
-OutputBaseFilename=ApexGunControl-Setup
+OutputBaseFilename={#MyAppName}-Setup
 SetupIconFile=.\filled.ico
 UninstallDisplayIcon=.\filled.ico
 Compression=lzma
@@ -35,17 +33,17 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}";
 
 [Files]
-Source: ".\dist\ApexGunControl\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: ".\dist\ApexGunControl\plugins\filled.ico"; DestDir: "{app}"; Flags: ignoreversion
-Source: ".\dist\ApexGunControl\plugins\*"; DestDir: "{app}\plugins"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: ".\dist\{#MyAppName}\{#MyAppName}.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: ".\dist\{#MyAppName}\plugins\filled.ico"; DestDir: "{app}"; Flags: ignoreversion
+Source: ".\dist\{#MyAppName}\plugins\*"; DestDir: "{app}\plugins"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
-Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
+Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppName}.exe"
+Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppName}.exe"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: runascurrentuser nowait postinstall skipifsilent
+Filename: "{app}\{#MyAppName}.exe"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: runascurrentuser nowait postinstall skipifsilent
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{app}"

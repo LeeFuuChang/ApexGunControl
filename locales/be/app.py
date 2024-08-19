@@ -94,6 +94,11 @@ class WebRenderer(QWebEngineView):
         return super().moveEvent(event)
 
 
+    def closeEvent(self, event):
+        super().closeEvent(event)
+        return sys.exit(0)
+
+
     def centralize(self):
         wg = self.geometry()
         sg = QDesktopWidget().screenGeometry()

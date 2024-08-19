@@ -30,8 +30,8 @@ class WebServer(Flask):
     def __new__(cls):
         if(hasattr(cls, "instance")): return cls.instance
 
-        self = super(cls.__class__, cls).__new__(cls)
-        super(Flask, self).__init__(__name__)
+        self = super(cls, cls).__new__(cls)
+        super(self.__class__, self).__init__(__name__)
 
         self.config["TRAP_HTTP_EXCEPTIONS"] = True
 

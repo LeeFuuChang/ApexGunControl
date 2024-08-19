@@ -67,7 +67,7 @@ cout_handler.setFormatter(formatter)
 logger.addHandler(cout_handler)
 
 os.environ["LOG_HANDLER_PATH"] = os.path.join(os.environ["EXECUTABLE_ROOT"], "logs.log")
-log_handler = logging.FileHandler(os.environ["LOG_HANDLER_PATH"], "w")
+log_handler = logging.FileHandler(os.environ["LOG_HANDLER_PATH"], "w", encoding="UTF-8")
 log_handler.setLevel(logging.DEBUG)
 log_handler.setFormatter(formatter)
 logger.addHandler(log_handler)
